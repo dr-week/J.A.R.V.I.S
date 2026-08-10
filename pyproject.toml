@@ -1,0 +1,72 @@
+[tool.setuptools]
+packages = ["backend"]
+
+[project]
+name = "jarvis"
+version = "0.1.0"
+description = "Jarvis AI Assistant"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "google-genai>=1.0.0",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "aiosqlite>=0.20.0",
+    "httpx>=0.27.0",
+    "watchdog>=4.0.0",
+    "langgraph>=1.2.10",
+    "mcp>=2.0.0",
+    "qdrant-client>=1.19.0",
+    "psycopg2-binary>=2.9.12",
+    "firecrawl-py>=4.34.0",
+    "pyautogui>=0.9.54",
+    "opencv-python>=5.0.0.93",
+    "pytesseract>=0.3.13",
+    "faster-whisper>=1.2.1",
+    "playwright>=1.62.0",
+    "pydantic-settings>=2.15.0",
+    "loguru>=0.7.3",
+    "alembic>=1.19.1",
+    "typer>=0.27.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.1.0",
+    "pre-commit>=3.5.0",
+    "mypy>=1.6.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (let black/ruff formatter handle it)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

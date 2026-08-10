@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "agents": [
+    {
+      "id": "cursor",
+      "display_name": "Cursor",
+      "tier": "standard",
+      "platform": "cursor",
+      "registered_at": "2026-08-08T00:00:00Z",
+      "note": "Primary IDE agent",
+      "active": true
+    },
+    {
+      "id": "antigravity",
+      "display_name": "Google Antigravity",
+      "tier": "standard",
+      "platform": "antigravity",
+      "registered_at": "2026-08-08T00:00:00Z",
+      "note": "",
+      "active": true
+    },
+    {
+      "id": "minimax",
+      "display_name": "Main MiniMax",
+      "tier": "standard",
+      "platform": "blackbox",
+      "registered_at": "2026-08-08T00:00:00Z",
+      "note": "Vertical slices",
+      "active": true
+    },
+    {
+      "id": "minimax2",
+      "display_name": "MiniMax Coder 2",
+      "tier": "mini",
+      "platform": "blackbox",
+      "registered_at": "2026-08-08T00:00:00Z",
+      "note": "Low-scope parallel tasks",
+      "active": true
+    },
+    {
+      "id": "coder-003",
+      "display_name": "Codex",
+      "tier": "standard",
+      "platform": "blackbox",
+      "registered_at": "2026-08-08T11:43:43Z",
+      "note": "",
+      "active": true
+    }
+  ]
+}

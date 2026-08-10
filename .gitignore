@@ -1,0 +1,13 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+*.log
+.DS_Store
+Thumbs.db
+clients/android/**/build/
+.idea/
+.vscode/

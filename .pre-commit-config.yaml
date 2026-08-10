@@ -1,0 +1,20 @@
+# Jarvis local hooks — ISSUE-108
+# Install: pip install pre-commit && pre-commit install
+repos:
+  - repo: local
+    hooks:
+      - id: jarvis-doc-links
+        name: verify doc links
+        entry: python scripts/verify_doc_links.py
+        language: system
+        pass_filenames: false
+      - id: jarvis-dev-env
+        name: check dev environment
+        entry: python scripts/check_dev_env.py
+        language: system
+        pass_filenames: false
+      - id: jarvis-ruff-brain
+        name: ruff (backend/app + tests)
+        entry: ruff check backend/app backend/tests
+        language: system
+        pass_filenames: false

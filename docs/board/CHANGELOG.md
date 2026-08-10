@@ -1,0 +1,70 @@
+# Changelog (project build)
+
+## 2026-08-09
+- 2026-08-09: DONE ISSUE-104 — Backend — WS confirm_request when tool gate blocks
+- 2026-08-09: DONE ISSUE-105 — Web UI verification — 098/099 acceptance and DESIGN header
+- 2026-08-09: DONE ISSUE-102 — Web — session list and resume (FR-P3)
+- 2026-08-09: DONE ISSUE-100 — None
+- 2026-08-09: DONE ISSUE-071 — Example third-party connector using SDK
+- 2026-08-09: DONE ISSUE-099 — None
+- 2026-08-09: DONE ISSUE-098 — None
+- 2026-08-09: DONE docs/board/issues\ISSUE-097 — None
+- 2026-08-09: DONE docs/board/issues\ISSUE-096 — None
+- 2026-08-09: DONE docs/board/issues\ISSUE-095 — None
+- 2026-08-09: DONE ISSUE-071 — Example third-party connector using SDK (weather/Open-Meteo)
+- 2026-08-09: DONE ISSUE-094 — Flutter device bridge WebSocket status
+- 2026-08-09: DONE ISSUE-052 — Optional wake word
+- 2026-08-09: DONE ISSUE-083 — tasks plugin scaffold and tasks_ping stub tool
+- 2026-08-09: DONE ISSUE-080 — GET action_log recent entries read-only API
+- 2026-08-08: DONE ISSUE-093 — Flutter brain pair health and SSE chat
+- 2026-08-08: DONE ISSUE-092 — Flutter portrait-first responsive presence scaffold
+- 2026-08-08: DONE ISSUE-091 — Flet footer hint when LLM key missing
+- 2026-08-08: DONE ISSUE-090 — Flet New chat button resets session
+- 2026-08-08: DONE ISSUE-089 — Flet footer shows Bridge connected after WS register
+- 2026-08-08: DONE ISSUE-079 — Architecture docs Flet Windows presence
+- 2026-08-08: DONE ISSUE-078 — Android README device bridge section docs only
+- 2026-08-08: DONE ISSUE-077 — ADR Windows client uses Flet not Textual
+- Windows client: single-instance mutex, `kill_stale.ps1` kills orphaned `flet.exe`, tray Quit hard-exits; import-only UI smoke test
+- MiniMax UI wave: `docs/dev/MINIMAX_UI.md`; ISSUE-082 done; starter issues 089–091
+- Flutter L1–L4 wired (ISSUE-093): pair, health, SSE chat in `clients/flutter/`; stratified in `docs/dev/FLUTTER_LAYERS.md`
+
+## 2026-08-07
+- 2026-08-08: DONE ISSUE-088 — Modernise Windows Flet client UI aesthetics
+- 2026-08-08: DONE ISSUE-062 — Room presence and continue conversation
+- 2026-08-08: DONE ISSUE-087 — Implement security and robustness fixes from MiniMax review
+- 2026-08-08: DONE ISSUE-085 — Repo Navigator helper CLI over code index
+- 2026-08-08: DONE ISSUE-086 — Board Copilot suggests next issue and lane
+- 2026-08-08: DONE ISSUE-084 — Lightweight repo code index and map
+- 2026-08-08: DONE ISSUE-081 — Flet status bar shows device id and bridge alive
+- 2026-08-08: DONE ISSUE-051 — Tray or quick-tile presence
+- 2026-08-08: DONE ISSUE-040 — Plugin tasks subtasks changelog example domain
+- 2026-08-08: DONE ISSUE-042 — First non-Google connector plugin slot
+- 2026-08-08: DONE ISSUE-041 — Plugin reminders and plan-today sample
+- 2026-08-08: DONE ISSUE-072 — Verify repo links and PARALLEL docs consistency
+- 2026-08-08: DONE ISSUE-061 — Home Assistant or equivalent tool bridge
+- 2026-08-08: DONE ISSUE-060 — Home hub hardening always-on brain host
+- 2026-08-08: DONE ISSUE-060 — Home hub hardening always-on brain host
+- 2026-08-08: DONE ISSUE-070 — Tool SDK docs and plugin template
+- 2026-08-08: DONE ISSUE-022 — Cross-device profile and memory sync
+- 2026-08-08: DONE ISSUE-050 — STT and TTS on one client
+- 2026-08-08: DONE ISSUE-013 — Device pairing and auth stub
+- 2026-08-08: DONE ISSUE-076 — verify_doc_links script for README and AGENTS
+- 2026-08-08: DONE ISSUE-075 — Warn when default pairing secret in use
+- 2026-08-08: DONE ISSUE-033 — Android device bridge intent and deep-link
+- 2026-08-08: DONE ISSUE-032 — Windows device bridge open app URL file
+- 2026-08-08: DONE ISSUE-031 — Confirmation gate and action_log
+- 2026-08-07: DONE ISSUE-030 — Tool protocol and registry
+- 2026-08-07: DONE ISSUE-021 — Memory CRUD and injection
+- 2026-08-07: DONE ISSUE-020 — Persona config load into system prompt
+- 2026-08-07: DONE ISSUE-012 — Android client stub chat against brain
+- 2026-08-07: DONE ISSUE-074 — Live feedback loop dashboard script
+- 2026-08-07: DONE ISSUE-011 — Windows client stub chat against brain
+- 2026-08-07: DONE ISSUE-073 — Sync manager and device broadcast
+- 2026-08-06: DONE ISSUE-010 — Backend FastAPI health and monorepo layout
+
+- Parallel-work support: max 2 NOW workers; owners `cursor` / `antigravity` / `claude`; [docs/dev/PARALLEL.md](../dev/PARALLEL.md)
+- OSS leverage defaults locked in [docs/OSS.md](../OSS.md) (Whisper, Piper, Home Assistant, sqlite-vec, …)
+- 2026-08-06: DONE ISSUE-003 — Agent compatibility pass for MiniMax/Blackbox
+- 2026-08-06: DONE ISSUE-002 — Implement and verify scripts/devloop.py
+- 2026-08-06: DONE ISSUE-001 — Complete docs OS pack and phase strategy
+- Seeded docs OS, AGENTS.md, board issues, skills, `scripts/devloop.py`

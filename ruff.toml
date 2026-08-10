@@ -1,0 +1,11 @@
+# Ruff — backend + scripts (ISSUE-110)
+target-version = "py311"
+line-length = 100
+src = ["backend", "scripts"]
+
+[lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+[lint.per-file-ignores]
+"scripts/devloop.py" = ["E402"]

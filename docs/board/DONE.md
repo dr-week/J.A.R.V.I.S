@@ -1,0 +1,71 @@
+# DONE
+
+Completed issues (newest first).
+
+- [ISSUE-121](issues/ISSUE-121.md) — Integrate pydantic-settings (duplicate)
+- [ISSUE-119](issues/ISSUE-119.md) — Pytest dev dependencies only (micro-slice)
+- [ISSUE-114](issues/ISSUE-114.md) — Flutter Open full assistant — url_launcher
+- [ISSUE-113](issues/ISSUE-113.md) — Wire JarvisApp to FieldController and FieldHome
+- [ISSUE-112](issues/ISSUE-112.md) — Flutter Field home screen UI (no chat thread)
+- [ISSUE-111](issues/ISSUE-111.md) — devloop verify — issue lane paths exist
+- [ISSUE-110](issues/ISSUE-110.md) — Ruff config and backend lint habit
+- [ISSUE-109](issues/ISSUE-109.md) — smoke_web.py — brain health and sessions smoke
+- [ISSUE-108](issues/ISSUE-108.md) — pre-commit hooks — doc links and dev env check
+- [ISSUE-105](issues/ISSUE-105.md) — Web UI verification — 098/099 acceptance and DESIGN header
+- [ISSUE-104](issues/ISSUE-104.md) — Backend — WS confirm_request when tool gate blocks
+- [ISSUE-102](issues/ISSUE-102.md) — Web — session list and resume (FR-P3)
+- [ISSUE-100](issues/ISSUE-100.md) — None
+- [ISSUE-099](issues/ISSUE-099.md) — None
+- [ISSUE-098](issues/ISSUE-098.md) — None
+- [ISSUE-097](issues/ISSUE-097.md) — None
+- [ISSUE-096](issues/ISSUE-096.md) — None
+- [ISSUE-095](issues/ISSUE-095.md) — None
+- [ISSUE-094](issues/ISSUE-094.md) — Flutter device bridge WebSocket status
+- [ISSUE-093](issues/ISSUE-093.md) — Flutter brain pair health and SSE chat
+- [ISSUE-092](issues/ISSUE-092.md) — Flutter portrait-first responsive presence scaffold
+- [ISSUE-091](issues/ISSUE-091.md) — Flet footer hint when LLM key missing
+- [ISSUE-090](issues/ISSUE-090.md) — Flet New chat button resets session
+- [ISSUE-089](issues/ISSUE-089.md) — Flet footer shows Bridge connected after WS register
+- [ISSUE-088](issues/ISSUE-088.md) — Modernise Windows Flet client UI aesthetics
+- [ISSUE-087](issues/ISSUE-087.md) — Implement security and robustness fixes from MiniMax review
+- [ISSUE-086](issues/ISSUE-086.md) — Board Copilot suggests next issue and lane
+- [ISSUE-085](issues/ISSUE-085.md) — Repo Navigator helper CLI over code index
+- [ISSUE-084](issues/ISSUE-084.md) — Lightweight repo code index and map
+- [ISSUE-083](issues/ISSUE-083.md) — tasks plugin scaffold and tasks_ping stub tool
+- [ISSUE-082](issues/ISSUE-082.md) — Flet reconnect brain button on health failure
+- [ISSUE-081](issues/ISSUE-081.md) — Flet status bar shows device id and bridge alive
+- [ISSUE-080](issues/ISSUE-080.md) — GET action_log recent entries read-only API
+- [ISSUE-079](issues/ISSUE-079.md) — Architecture docs Flet Windows presence
+- [ISSUE-078](issues/ISSUE-078.md) — Android README device bridge section docs only
+- [ISSUE-077](issues/ISSUE-077.md) — ADR Windows client uses Flet not Textual
+- [ISSUE-076](issues/ISSUE-076.md) — verify_doc_links script for README and AGENTS
+- [ISSUE-075](issues/ISSUE-075.md) — Warn when default pairing secret in use
+- [ISSUE-074](issues/ISSUE-074.md) — Live feedback loop dashboard script
+- [ISSUE-073](issues/ISSUE-073.md) — Sync manager and device broadcast
+- [ISSUE-072](issues/ISSUE-072.md) — Verify repo links and PARALLEL docs consistency
+- [ISSUE-071](issues/ISSUE-071.md) — Example third-party connector using SDK
+- [ISSUE-070](issues/ISSUE-070.md) — Tool SDK docs and plugin template
+- [ISSUE-062](issues/ISSUE-062.md) — Room presence and continue conversation
+- [ISSUE-061](issues/ISSUE-061.md) — Home Assistant or equivalent tool bridge
+- [ISSUE-060](issues/ISSUE-060.md) — Home hub hardening always-on brain host
+- [ISSUE-052](issues/ISSUE-052.md) — Optional wake word
+- [ISSUE-051](issues/ISSUE-051.md) — Tray or quick-tile presence
+- [ISSUE-050](issues/ISSUE-050.md) — STT and TTS on one client
+- [ISSUE-042](issues/ISSUE-042.md) — First non-Google connector plugin slot
+- [ISSUE-041](issues/ISSUE-041.md) — Plugin reminders and plan-today sample
+- [ISSUE-040](issues/ISSUE-040.md) — Plugin tasks subtasks changelog example domain
+- [ISSUE-033](issues/ISSUE-033.md) — Android device bridge intent and deep-link
+- [ISSUE-032](issues/ISSUE-032.md) — Windows device bridge open app URL file
+- [ISSUE-031](issues/ISSUE-031.md) — Confirmation gate and action_log
+- [ISSUE-030](issues/ISSUE-030.md) — Tool protocol and registry
+- [ISSUE-022](issues/ISSUE-022.md) — Cross-device profile and memory sync
+- [ISSUE-021](issues/ISSUE-021.md) — Memory CRUD and injection
+- [ISSUE-020](issues/ISSUE-020.md) — Persona config load into system prompt
+- [ISSUE-013](issues/ISSUE-013.md) — Device pairing and auth stub
+- [ISSUE-012](issues/ISSUE-012.md) — Android client stub chat against brain
+- [ISSUE-011](issues/ISSUE-011.md) — Windows client stub chat against brain
+- [ISSUE-010](issues/ISSUE-010.md) — Backend FastAPI health and monorepo layout
+- [ISSUE-003](issues/ISSUE-003.md) — Agent compatibility pass for MiniMax/Blackbox
+- [ISSUE-002](issues/ISSUE-002.md) — Implement and verify scripts/devloop.py
+- [ISSUE-001](issues/ISSUE-001.md) — Complete docs OS pack and phase strategy
+
