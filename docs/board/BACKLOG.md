@@ -5,6 +5,7 @@ Open work ranked by status then priority. Source: issue frontmatter.
 | ID | Title | Phase | Priority | Status | Owner |
 |----|-------|-------|----------|--------|-------|
 | ISSUE-101 | Flutter Field Body — desktop bridge shell and tool_execute | 2 | P1 | now | minimax |
+| ISSUE-144 | PWA Manifest for Mobile Web UI | 0 | P1 | now | antigravity |
 | ISSUE-115 | Pytest Integration | 0 | P1 | backlog | — |
 | ISSUE-116 | Mypy strict typing — API layer | 0 | P1 | backlog | — |
 | ISSUE-130 | Establish Velocity Plugin Submodule | 3 | P1 | backlog | — |
@@ -14,6 +15,7 @@ Open work ranked by status then priority. Source: issue frontmatter.
 | ISSUE-138 | The Auditory Cortex (Wake word & STT) | 7 | P1 | backlog | — |
 | ISSUE-139 | The Motor Cortex (PyAutoGUI) | 7 | P1 | backlog | — |
 | ISSUE-140 | The Visual Cortex (OpenCV + Tesseract) | 7 | P1 | backlog | — |
+| ISSUE-143 | Test guardrails | 0 | P1 | backlog | — |
 | ISSUE-103 | Flutter — strip legacy chat UI; Field home only | 2 | P2 | todo | — |
 | ISSUE-117 | Devloop Refactor - Core Extraction | 0 | P2 | backlog | — |
 | ISSUE-118 | Devloop Refactor - Command Extraction | 0 | P2 | backlog | — |

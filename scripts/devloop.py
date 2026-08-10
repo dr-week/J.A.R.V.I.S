@@ -997,13 +997,19 @@ def cmd_onboard(args: argparse.Namespace) -> None:
 
 
 def cmd_verify(args: argparse.Namespace) -> None:
-    raw = args.id.strip()
-    issue_id = raw if raw.upper().startswith("ISSUE-") else f"ISSUE-{raw}"
-    fails, lines = verify_issue(issue_id)
-    for line in lines:
-        print(line)
-    if fails:
-        raise SystemExit(1)
+    # Route to the new modular Typer app
+    from commands.verify_cmd import verify
+    diff_val = getattr(args, "diff", False)
+    
+    try:
+        verify(issue_id=args.id, diff=diff_val)
+    except SystemExit as e:
+        raise e
+    except Exception as e:
+        # Catch typer.Exit safely
+        if e.__class__.__name__ == "Exit":
+            raise SystemExit(e.exit_code)
+        raise e
 
 
 def cmd_bootstrap(_: argparse.Namespace) -> None:
@@ -1128,6 +1134,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     vf = sub.add_parser("verify", help="Check issue ## Lane paths exist on disk")
     vf.add_argument("id", help="ISSUE-XXX or XXX")
+    vf.add_argument("--diff", action="store_true", help="Fail if git diff contains files outside the Lane")
     vf.set_defaults(func=cmd_verify)
 
     return p

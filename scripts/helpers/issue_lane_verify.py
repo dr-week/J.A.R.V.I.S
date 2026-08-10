@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -51,7 +52,7 @@ def verify_lane_path(pattern: str) -> tuple[bool, str]:
     return False, f"missing: {clean}"
 
 
-def verify_issue(issue_id: str) -> tuple[int, list[str]]:
+def verify_issue(issue_id: str, check_diff: bool = False) -> tuple[int, list[str]]:
     path = ISSUES / f"{issue_id}.md"
     if not path.exists():
         return 1, [f"issue file not found: {path}"]
@@ -66,4 +67,45 @@ def verify_issue(issue_id: str) -> tuple[int, list[str]]:
         lines.append(("OK " if ok else "FAIL ") + msg)
         if not ok:
             fails += 1
+            
+    if check_diff and fails == 0:
+        diff_fails = 0
+        try:
+            # Check staged and unstaged changes
+            result = subprocess.run(
+                ["git", "diff", "HEAD", "--name-only"],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False
+            )
+            changed_files = [f.strip() for f in result.stdout.splitlines() if f.strip()]
+            
+            for changed_file in changed_files:
+                matched = False
+                for pattern in lanes:
+                    clean = pattern.replace("\\", "/").lstrip("/")
+                    if "**" in clean:
+                        prefix = clean.split("**", 1)[0].rstrip("/")
+                        if changed_file.startswith(prefix):
+                            matched = True
+                            break
+                    else:
+                        if changed_file == clean:
+                            matched = True
+                            break
+                if not matched:
+                    lines.append(f"FAIL diff out of lane: {changed_file}")
+                    diff_fails += 1
+                    
+            if diff_fails > 0:
+                fails += diff_fails
+                lines.append(f"Blocked: {diff_fails} changed files fall outside the defined Lane.")
+            else:
+                lines.append(f"OK diff matches lane bounds ({len(changed_files)} files).")
+                
+        except Exception as e:
+            lines.append(f"FAIL git diff check failed: {e}")
+            fails += 1
+            
     return fails, lines

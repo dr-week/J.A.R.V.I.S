@@ -109,3 +109,4 @@
 {"ts": "2026-08-09T17:51:14Z", "from": "antigravity", "to": "cursor", "kind": "done", "issue": "ISSUE-105", "body": "Done ISSUE-105: Web UI verification — 098/099 acceptance and DESIGN header. Slot free. Suggested next tip: ISSUE-101. Run: python scripts/devloop.py loop"}
 {"ts": "2026-08-09T18:43:43Z", "from": "antigravity", "to": "cursor", "kind": "claim", "issue": "ISSUE-104", "body": "Claimed ISSUE-104: Backend — WS confirm_request when tool gate blocks. Please avoid overlapping paths."}
 {"ts": "2026-08-09T18:44:11Z", "from": "antigravity", "to": "cursor", "kind": "done", "issue": "ISSUE-104", "body": "Done ISSUE-104: Backend — WS confirm_request when tool gate blocks. Slot free. Suggested next tip: ISSUE-101. Run: python scripts/devloop.py loop"}
+{"ts": "2026-08-10T18:44:22Z", "from": "antigravity", "to": "cursor", "kind": "claim", "issue": "ISSUE-144", "body": "Claimed ISSUE-144: PWA Manifest for Mobile Web UI. Please avoid overlapping paths."}
