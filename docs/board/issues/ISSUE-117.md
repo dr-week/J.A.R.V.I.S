@@ -37,3 +37,7 @@ The scripts/devloop.py file is ~1000 lines long, which makes it hard for small-c
 
 
 Created by devloop
+
+- `plugins/velocity_builder`
+- `docs/board/issues/ISSUE-117.md`
+
