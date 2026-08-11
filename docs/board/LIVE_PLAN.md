@@ -1,6 +1,6 @@
 # LIVE PLAN (generated — do not edit)
 
-_Generated: 2026-08-10T18:44:22Z UTC · fingerprint `e08024e7bf92`_
+_Generated: 2026-08-11T04:23:54Z UTC · fingerprint `b3e9859a530a`_
 
 Regenerate: `python scripts/devloop.py sync` · Who: `devloop who`
 
@@ -9,22 +9,22 @@ Regenerate: `python scripts/devloop.py sync` · Who: `devloop who`
 | Owner | Issue | Phase | Priority | Title |
 |-------|-------|-------|----------|-------|
 | **minimax** | ISSUE-101 | 2 | P1 | Flutter Field Body — desktop bridge shell and tool_execute |
-| **antigravity** | ISSUE-144 | 0 | P1 | PWA Manifest for Mobile Web UI |
+| **antigravity** | ISSUE-117 | 0 | P2 | Devloop Refactor - Core Extraction |
 
 ## Board state
 
 - NOW slots: **2/2**
-- Open (unblocked): **23**
-- Done total: **66**
+- Open (unblocked): **22**
+- Done total: **67**
 - Focus phase: **2** — Hands — tools, device bridges, audit
 
 ### In progress (detail)
 - **minimax** -> [ISSUE-101](issues/ISSUE-101.md) (P1, phase 2) — Flutter Field Body — desktop bridge shell and tool_execute
-- **antigravity** -> [ISSUE-144](issues/ISSUE-144.md) (P1, phase 0) — PWA Manifest for Mobile Web UI
+- **antigravity** -> [ISSUE-117](issues/ISSUE-117.md) (P2, phase 0) — Devloop Refactor - Core Extraction
 
 ### Next actionable
 1. **ISSUE-101** (phase 2, P1) — Flutter Field Body — desktop bridge shell and tool_execute
-2. **ISSUE-144** (phase 0, P1) — PWA Manifest for Mobile Web UI
+2. **ISSUE-117** (phase 0, P2) — Devloop Refactor - Core Extraction
 3. **ISSUE-115** (phase 0, P1) — Pytest Integration
 4. **ISSUE-116** (phase 0, P1) — Mypy strict typing — API layer
 5. **ISSUE-130** (phase 3, P1) — Establish Velocity Plugin Submodule
@@ -33,7 +33,7 @@ Regenerate: `python scripts/devloop.py sync` · Who: `devloop who`
 ## Per-agent next issue
 
 - **cursor**: ISSUE-115 — Pytest Integration
-- **antigravity**: ISSUE-144 — PWA Manifest for Mobile Web UI **[IN NOW]**
+- **antigravity**: ISSUE-117 — Devloop Refactor - Core Extraction **[IN NOW]**
 - **claude**: ISSUE-115 — Pytest Integration
 - **minimax**: ISSUE-101 — Flutter Field Body — desktop bridge shell and tool_execute **[IN NOW]**
 - **minimax2**: ISSUE-115 — Pytest Integration
@@ -45,7 +45,7 @@ Regenerate: `python scripts/devloop.py sync` · Who: `devloop who`
 
 | Phase | Done | Open+NOW |
 |-------|------|----------|
-| 0 | 16 | 9 |
+| 0 | 17 | 8 |
 | 1 | 4 | 0 |
 | 2 | 15 | 5 |
 | 3 | 4 | 5 |

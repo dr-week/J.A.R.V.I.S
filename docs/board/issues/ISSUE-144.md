@@ -1,7 +1,7 @@
 ---
 id: ISSUE-144
 title: PWA Manifest for Mobile Web UI
-status: now
+status: done
 priority: P1
 phase: 0
 labels: [web, mobile]
@@ -22,6 +22,9 @@ PWA Manifest for Mobile Web UI
 
 ## Notes
 
+- [2026-08-10T18:45:35Z] Marked done
+
+
 - Claimed by antigravity at 2026-08-10T18:44:22Z
 
 
@@ -30,4 +33,10 @@ Created by devloop at 2026-08-10T18:44:03Z
 ## Lane
 - `clients/web/public/**`
 - `clients/web/index.html`
+
+
+- `plugins/velocity_builder`
+
+
+- `docs/board/issues/**`
 

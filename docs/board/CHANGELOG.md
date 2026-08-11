@@ -1,6 +1,7 @@
 # Changelog (project build)
 
 ## 2026-08-09
+- 2026-08-10: DONE ISSUE-144 — PWA Manifest for Mobile Web UI
 - 2026-08-09: DONE ISSUE-104 — Backend — WS confirm_request when tool gate blocks
 - 2026-08-09: DONE ISSUE-105 — Web UI verification — 098/099 acceptance and DESIGN header
 - 2026-08-09: DONE ISSUE-102 — Web — session list and resume (FR-P3)

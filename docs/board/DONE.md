@@ -2,6 +2,7 @@
 
 Completed issues (newest first).
 
+- [ISSUE-144](issues/ISSUE-144.md) — PWA Manifest for Mobile Web UI
 - [ISSUE-121](issues/ISSUE-121.md) — Integrate pydantic-settings (duplicate)
 - [ISSUE-119](issues/ISSUE-119.md) — Pytest dev dependencies only (micro-slice)
 - [ISSUE-114](issues/ISSUE-114.md) — Flutter Open full assistant — url_launcher
