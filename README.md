@@ -53,7 +53,7 @@ Parallel rules: [docs/dev/PARALLEL.md](docs/dev/PARALLEL.md) · Onboard new AI: 
 |-------|------|------|
 | **D0** | Docs OS | Specs, board, agent contracts |
 | **D1** | Devloop | Feedback-loop CLI for issues / next / done |
-| **0** | Skeleton | Monorepo brain + Android + Windows clients |
+| **0** | Skeleton | Monorepo brain + Android + Web + Windows clients |
 | **1** | Soul | Persona, memory, synced identity |
 | **2** | Hands | Tool runtime, device bridges, audit |
 | **3** | Life tools | First domain plugins (examples, not the ceiling) |
@@ -62,6 +62,10 @@ Parallel rules: [docs/dev/PARALLEL.md](docs/dev/PARALLEL.md) · Onboard new AI: 
 | **6** | Expand | Tool SDK for endless integrations |
 
 Full detail: [docs/ROADMAP.md](docs/ROADMAP.md) · Strategy: [docs/STRATEGY.md](docs/STRATEGY.md) · Future / levels: [docs/FUTURE.md](docs/FUTURE.md) · OSS: [docs/OSS.md](docs/OSS.md)
+
+### Web vs Desktop App
+- **Daily Driver Chat**: The web client (`clients/web`) is the primary UI for chat and sessions. Install it as a PWA or desktop shortcut (Edge/Chrome: "Install as app" / "Create Shortcut... > Open as window").
+- **Desktop Agent**: The Windows client (`clients/windows`) is **not** a chat UI. It runs as a tray icon for wake-word voice interactions and background tool execution (e.g. bridging PC commands).
 
 ## Plugins (Phase 3+)
 

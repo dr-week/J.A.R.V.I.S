@@ -35,17 +35,18 @@ Strategy: **docs and build OS first**, then Soul → Hands → Presence → Hous
 
 **Exit:** Send a message from phone or PC and get a streamed reply from the brain (no tools yet).
 
-**Presence note (2026-08):** Canonical **chat** UI is `clients/web/`. Phase 0 stubs on Android/Windows prove **bridge + pairing**; do not add parallel chat products. See [dev/PRESENCE_STACKS.md](dev/PRESENCE_STACKS.md).
+**Presence note (2026-08):** Canonical **chat** UI is `clients/web/`. Kotlin Android (`clients/android`) and Flutter Field prove **pair + bridge + confirm**; Windows Flet is tray/voice. Do not add parallel chat products. See [dev/PRESENCE_STACKS.md](dev/PRESENCE_STACKS.md) · [dev/MAJOR_WORK_PLAN.md](dev/MAJOR_WORK_PLAN.md) **M-Android**.
 
-## Phase 1 — Soul
+## Phase 1 — Soul (done)
 
 **Goal:** Feels like *your* assistant.
 
 - Persona config
 - Memory CRUD + injection
 - Synced profile across devices
+- Proactive habits surfaced
 
-**Exit:** Fact stored on one device recalled on another.
+**Exit:** Fact stored on one device recalled on another, and habits proactively surface in the prompt. (Done)
 
 ## Phase 2 — Hands
 
@@ -56,7 +57,9 @@ Strategy: **docs and build OS first**, then Soul → Hands → Presence → Hous
 - Windows device bridge ✅ (032 — MiniMax: WS `tool_execute` / `tool_result`, see [SYNC_PROTOCOL.md](SYNC_PROTOCOL.md))
 - Android device bridge ✅ (033)
 
-**Exit:** Agent completes a multi-step device action with an audit entry. *(Windows path met; Android still needed for full exit.)*
+**Exit:** Agent completes a multi-step device action with an audit entry.  
+**Proof (Windows):** `python scripts/proof_phase2_windows.py` — two `windows_open` steps + `action_log` (ISSUE-147).  
+**Android:** bridge/Presence UI (033/150); multi-step live-device demo is follow-up, not blocking this exit.
 
 ## Phase 3 — Life tools
 
@@ -65,7 +68,8 @@ Strategy: **docs and build OS first**, then Soul → Hands → Presence → Hous
 - Starter plugins: admin samples (tasks/reminders/plan), calendar/files/web as chosen
 - Non-Google connector slot #1
 
-**Exit:** At least 3 domain tools pass acceptance samples from REQUIREMENTS examples.
+**Exit:** At least 3 domain tools pass acceptance samples from REQUIREMENTS examples. *(Done — HA, Reminders, and Tasks plugins tested and proven)*  
+**Proof:** `pytest backend/tests/test_phase3_life_tools.py` — `reminder_set`/`reminder_list`, `weather_current`, `home_scene` (ISSUE-149).
 
 ## Phase 4 — Voice + presence
 
@@ -76,7 +80,7 @@ Strategy: **docs and build OS first**, then Soul → Hands → Presence → Hous
 - Optional wake word
 - Push sync polish
 
-**Exit:** Hands-free turn on one client; state mirrors elsewhere.
+**Exit:** Hands-free turn on one client; state mirrors elsewhere. *(Done — Windows Flet UI supports `wake_word` and TTS hands-free loops while running in tray)*
 
 ## Phase 5 — House body
 

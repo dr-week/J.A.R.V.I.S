@@ -7,7 +7,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from . import config
-from .api import chat, hands, health, pair, sessions, soul, sync, tools
+from .api import chat, hands, health, pair, sessions, soul, sync, tools, webhooks
+from .logger import logger
 from .soul.memory import init_db
 from .soul.persona import get_assistant_name
 
@@ -30,13 +31,11 @@ def _warn_default_secrets() -> None:
             defaults_in_use.append(env_key)
     if not defaults_in_use:
         return
-    print("! " * 24)
-    print("  SECURITY WARNING: default secret(s) still in use:")
+    logger.warning("SECURITY WARNING: default secret(s) still in use:")
     for env_key in defaults_in_use:
-        print(f"    - {env_key} is set to the insecure default 'change-me'")
-    print("  Set a strong, unique value in your .env file before going to")
-    print("  production. See docs/SECURITY.md for details.")
-    print("! " * 24)
+        logger.warning(f"  - {env_key} is set to the insecure default 'change-me'")
+    logger.warning("Set a strong, unique value in your .env file before going to production.")
+    logger.warning("See docs/SECURITY.md for details.")
 
 
 @asynccontextmanager
@@ -47,16 +46,14 @@ async def lifespan(app: FastAPI):
     discover_plugins()
     
     name = get_assistant_name()
-    print(f"\n{'='*50}")
-    print(f"  {name} Brain starting up")
-    print(f"  LLM: {config.LLM_PROVIDER} / {config.LLM_MODEL}")
-    print(f"  LLM ready: {config.llm_ready()}")
-    print(f"  Learning: {'enabled' if config.LEARNING_ENABLED else 'disabled'}")
-    print(f"  DB: {config.DB_PATH}")
-    print(f"{'='*50}\n")
+    logger.info(f"{name} Brain starting up")
+    logger.info(f"LLM: {config.LLM_PROVIDER} / {config.LLM_MODEL}")
+    logger.info(f"LLM ready: {config.llm_ready()}")
+    logger.info(f"Learning: {'enabled' if config.LEARNING_ENABLED else 'disabled'}")
+    logger.info(f"DB: {config.DB_PATH}")
     _warn_default_secrets()
     yield
-    print(f"\n{name} Brain shutting down. Goodbye.\n")
+    logger.info(f"{name} Brain shutting down. Goodbye.")
 
 
 app = FastAPI(
@@ -66,7 +63,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-cors_origins = [origin.strip() for origin in config._get("JARVIS_CORS_ORIGINS", "*").split(",") if origin.strip()]
+cors_origins = [origin.strip() for origin in config.settings.JARVIS_CORS_ORIGINS.split(",") if origin.strip()]
 
 app.add_middleware(
     CORSMiddleware,
@@ -84,6 +81,7 @@ app.include_router(sync.router)
 app.include_router(pair.router)
 app.include_router(tools.router)
 app.include_router(hands.router)
+app.include_router(webhooks.router)
 
 
 @app.get("/")

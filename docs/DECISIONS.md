@@ -2,6 +2,21 @@
 
 Append-only. Newest at top.
 
+## ADR-0026 — Background queue (APScheduler vs Celery)
+
+- **Date:** 2026-08-11
+- **Decision:** Use **APScheduler** (in-process) for background tasks and cron jobs. Reject **Celery + Redis** for the current architecture.
+- **Why:** The "Stark doctrine" (defined in `LAB_STACK.md`) prioritizes a single, self-contained run model ("One arc reactor") for the home hub. Celery + Redis introduces unnecessary infrastructure complexity, external dependencies, and deployment overhead for a single-user personal AI. An in-process scheduler (APScheduler) is sufficient for background cron tasks, polling, and reminders without requiring external message brokers.
+- **Follow-up:** Implement APScheduler for Phase 3 background tasks. Re-evaluate Celery only in Phase 6+ if the single-process `Mind` severely bottlenecks. Close ISSUE-127.
+
+## ADR-0025 — Polyglot tool executor interface (subprocess-first)
+
+- **Date:** 2026-08-11
+- **Decision:** Implement polyglot tools starting with a subprocess runner. Tools can be written in Go, R, Rust, or any binary, communicating via stdin/stdout JSON. The `runtime` schema field dictates execution (`python`, `lua`, or `subprocess`). Embedded Lua is next (ISSUE-129), while gRPC, MATLAB, and rpy2 are deferred.
+- **Why:** Keeps the core brain (Python) stable while allowing tools in other languages. Subprocess provides strong isolation and a clear boundary for non-Python tools.
+- **Doc:** [dev/POLYGLOT_TOOLS.md](dev/POLYGLOT_TOOLS.md), [TOOL_SCHEMA.md](TOOL_SCHEMA.md)
+- **Follow-up:** Implement Lua embedded execution in ISSUE-129.
+
 ## ADR-0024 — Mutator vs evaluator (controlled self-improvement)
 
 - **Date:** 2026-08-10
@@ -216,3 +231,10 @@ Append-only. Newest at top.
 - **Decision:** Use Vite + React + TypeScript + Vanilla CSS for the new web client.
 - **Why:** The Flutter Windows desktop build was unreliable/hidden and lacked the granular CSS control needed for a rich glassmorphism UI. Web client gives maximum styling control.
 - **Follow-up:** Replaces the Flutter UI as the primary modern interface.
+
+## ADR-0012 � Physical CAD Generation via CadQuery
+
+- **Date:** 2026-08-11
+- **Decision:** Use Python-based cadquery library as the primary engine for LLM-driven hardware invention/CAD design.
+- **Why:** CadQuery allows building parametric 3D models using a fluent Python API, which LLMs are very adept at writing. Unlike OpenSCAD which requires shelling out to a C++ binary and learning its DSL, CadQuery can directly export STLs in-process and integrates natively with Python ecosystem.
+- **Follow-up:** Implemented prototype in scripts/research_cad.py.
