@@ -1,8 +1,31 @@
 # Jarvis
 
-Personal AI that lives **in your house and everywhere else** — Iron Man operator energy, Rick-and-Morty ambient house presence. One synced brain. It **executes**, it does not only chat.
+Jarvis is a personal AI that lives in your house, your pocket, and your browser.
+One synced brain. Many bodies. It does not just answer questions; it executes
+work, keeps continuity, and grows through real integrations.
 
-This repo is **docs-first** and **agent-buildable** (Cursor, Google Antigravity, Claude Sonnet, Blackbox MiniMax). Product code follows the board, not vibes.
+Think:
+
+- an operator-grade assistant with memory and tools
+- a clean web chat as the primary interface
+- phone, desktop, and home surfaces that extend the same mind
+
+This repo is docs-first, agent-buildable, and board-driven. Code follows the
+plan, not vibes.
+
+## What Makes It Feel Modern
+
+Jarvis is being built with current product patterns instead of a retro CLI-first
+AI stack:
+
+- server-owned keys and tool execution
+- a primary web client with PWA-style daily use
+- field/bridge clients for mobile, desktop, and house presence
+- modular OSS integrations instead of custom reinvention
+- docs, board, and implementation flow kept in sync so the product stays legible
+
+The long-term goal is an assistant that feels ambient, fast, and trustworthy
+without turning into a bloated app zoo.
 
 ## Demo in 5 minutes (presentation)
 
@@ -18,11 +41,13 @@ This repo is **docs-first** and **agent-buildable** (Cursor, Google Antigravity,
 chmod +x scripts/demo_up.sh && ./scripts/demo_up.sh
 ```
 
-Set `GEMINI_API_KEY` in `.env` (copy from `.env.example`) before you need real chat. Architecture-only demos work with **LLM off** — UI still pairs to the brain.
+Set `GEMINI_API_KEY` in `.env` (copy from `.env.example`) before you need real
+chat. Architecture-only demos work with **LLM off** — the UI still pairs to the
+brain and the product skeleton still shows up.
 
 **Doc index (keep markdown aligned):** [docs/DOCS_MAP.md](docs/DOCS_MAP.md)
 
-## Quick start for humans
+## Quick Start for Humans
 
 1. Read [docs/VISION.md](docs/VISION.md), [docs/SCOPE.md](docs/SCOPE.md), [docs/STRATEGY.md](docs/STRATEGY.md), [docs/FUTURE.md](docs/FUTURE.md)
 2. Check current work: [docs/board/NOW.md](docs/board/NOW.md)
@@ -40,14 +65,14 @@ python scripts/devloop.py brief --owner cursor        # dynamic instructions (no
 
 Parallel rules: [docs/dev/PARALLEL.md](docs/dev/PARALLEL.md) · Onboard new AI: [docs/dev/AGENT_ONBOARDING.md](docs/dev/AGENT_ONBOARDING.md) · Feedback: [docs/dev/FEEDBACK_LOOP.md](docs/dev/FEEDBACK_LOOP.md)
 
-## Quick start for AI agents (Cursor / Antigravity / Claude / MiniMax)
+## Quick Start for AI Agents
 
 1. Read [AGENTS.md](AGENTS.md) — MiniMax also: [.blackbox/RULES.md](.blackbox/RULES.md) + [docs/dev/MINIMAX.md](docs/dev/MINIMAX.md)
 2. Read [docs/board/NOW.md](docs/board/NOW.md) and [docs/SCOPE.md](docs/SCOPE.md)
 3. Run `python scripts/devloop.py prompt` and execute that brief
 4. When finished: `python scripts/devloop.py done ISSUE-XXX`
 
-## Phase map
+## Phase Map
 
 | Phase | Name | Goal |
 |-------|------|------|
@@ -63,9 +88,16 @@ Parallel rules: [docs/dev/PARALLEL.md](docs/dev/PARALLEL.md) · Onboard new AI: 
 
 Full detail: [docs/ROADMAP.md](docs/ROADMAP.md) · Strategy: [docs/STRATEGY.md](docs/STRATEGY.md) · Future / levels: [docs/FUTURE.md](docs/FUTURE.md) · OSS: [docs/OSS.md](docs/OSS.md)
 
-### Web vs Desktop App
-- **Daily Driver Chat**: The web client (`clients/web`) is the primary UI for chat and sessions. Install it as a PWA or desktop shortcut (Edge/Chrome: "Install as app" / "Create Shortcut... > Open as window").
-- **Desktop Agent**: The Windows client (`clients/windows`) is **not** a chat UI. It runs as a tray icon for wake-word voice interactions and background tool execution (e.g. bridging PC commands).
+### Surface Roles
+
+- **Daily Driver Chat**: the web client (`clients/web`) is the primary UI for
+  chat and sessions. Install it as a PWA or desktop shortcut for a cleaner
+  app-like feel.
+- **Desktop Agent**: the Windows client (`clients/windows`) is not a second
+  chat product. It is a tray agent for voice, device bridging, and background
+  execution.
+- **Field Body**: Flutter is the mobile/handheld control surface for bridge
+  actions, confirmations, and lightweight presence.
 
 ## Plugins (Phase 3+)
 
@@ -93,4 +125,5 @@ jarvis/
 
 ## Status
 
-D0/D1 done. Phase 0–1 largely shipped; **Phase 2 Hands** in progress (Windows bridge done, Android **033** next). Board: [docs/board/NOW.md](docs/board/NOW.md).
+D0/D1 done. Phase 0–1 largely shipped; **Phase 2 Hands** is in progress
+(Windows bridge done, Android **033** next). Board: [docs/board/NOW.md](docs/board/NOW.md).
