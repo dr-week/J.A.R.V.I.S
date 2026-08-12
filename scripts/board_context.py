@@ -155,7 +155,7 @@ def build_snapshot(
 ) -> dict[str, Any]:
     done = [m for m, _ in issues if m.get("status") == "done"]
     phases = phase_summary(issues)
-    active_phases = sorted(
+    sorted(
         [p for p, c in phases.items() if c.get("now") or (c.get("open") and p in ("1", "2", "3"))],
         key=lambda x: (x == "D0", x == "D1", x),
     )

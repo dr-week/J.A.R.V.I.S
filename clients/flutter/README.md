@@ -14,7 +14,7 @@ This repo folder builds **Jarvis Field** — mobile pocket body: WebSocket bridg
 |-------|--------|
 | Pair, health, WS register | Implemented (spike) |
 | SSE chat UI | **Legacy** — do not extend; remove when Field screens land |
-| `tool_execute` / `confirm_request` UI | **Backlog** — the real Flutter product |
+| `tool_execute` / `confirm_request` UI | Implemented (Field Controller + Screen) |
 
 ---
 

@@ -2,9 +2,42 @@
 
 Completed issues (newest first).
 
+- [ISSUE-152](issues/ISSUE-152.md) — LiteLLM gateway contract and config shape
+- [ISSUE-151](issues/ISSUE-151.md) — M4 Phase 4 exit - hands-free voice turn (Windows) + sync status
+- [ISSUE-150](issues/ISSUE-150.md) — M-Android Presence UI — pair, bridge status, confirm, open web
+- [ISSUE-149](issues/ISSUE-149.md) — M3 Phase 3 exit — three domain tools acceptance pack
+- [ISSUE-148](issues/ISSUE-148.md) — M2 Web chat polish — confirm UX and velocity_update banner
+- [ISSUE-147](issues/ISSUE-147.md) — M1 Phase 2 exit proof — multi-step Windows action + audit log
+- [ISSUE-146](issues/ISSUE-146.md) — HA home_scene tool — run Home Assistant scenes
+- [ISSUE-145](issues/ISSUE-145.md) — Phase 1 Soul exit — proactive habits in prompt + memory recall proof
 - [ISSUE-144](issues/ISSUE-144.md) — PWA Manifest for Mobile Web UI
+- [ISSUE-143](issues/ISSUE-143.md) — Test guardrails
+- [ISSUE-142](issues/ISSUE-142.md) — Flutter Field — handle WS confirm_request and approve/deny
+- [ISSUE-141](issues/ISSUE-141.md) — Research CAD Generation APIs
+- [ISSUE-140](issues/ISSUE-140.md) — The Visual Cortex (OpenCV + Tesseract)
+- [ISSUE-139](issues/ISSUE-139.md) — The Motor Cortex (PyAutoGUI)
+- [ISSUE-138](issues/ISSUE-138.md) — The Auditory Cortex (Wake word & STT)
+- [ISSUE-137](issues/ISSUE-137.md) — The Market Scout Engine
+- [ISSUE-136](issues/ISSUE-136.md) — Build the Corporate Orchestrator Loop (LangGraph)
+- [ISSUE-133](issues/ISSUE-133.md) — R subprocess plugin template
+- [ISSUE-132](issues/ISSUE-132.md) — Velocity IPC (Inter-Process Communication)
+- [ISSUE-131](issues/ISSUE-131.md) — Create velocity_build Tool
+- [ISSUE-130](issues/ISSUE-130.md) — Establish Velocity Plugin Submodule
+- [ISSUE-129](issues/ISSUE-129.md) — Implement Embedded Lua Engine
+- [ISSUE-128](issues/ISSUE-128.md) — Design Polyglot Tool Executor Interface
+- [ISSUE-127](issues/ISSUE-127.md) — Evaluate background queue (Celery) — ADR required
+- [ISSUE-126](issues/ISSUE-126.md) — Prototype openwakeword wake listener
+- [ISSUE-125](issues/ISSUE-125.md) — Integrate psutil — system_vitals tool
+- [ISSUE-124](issues/ISSUE-124.md) — Integrate loguru for observability
+- [ISSUE-123](issues/ISSUE-123.md) — Setup alembic for SQLite
+- [ISSUE-122](issues/ISSUE-122.md) — Integrate pydantic-settings
 - [ISSUE-121](issues/ISSUE-121.md) — Integrate pydantic-settings (duplicate)
+- [ISSUE-120](issues/ISSUE-120.md) — GitHub Action dev-smoke workflow
 - [ISSUE-119](issues/ISSUE-119.md) — Pytest dev dependencies only (micro-slice)
+- [ISSUE-118](issues/ISSUE-118.md) — Devloop Refactor - Command Extraction
+- [ISSUE-117](issues/ISSUE-117.md) — Devloop Refactor - Core Extraction
+- [ISSUE-116](issues/ISSUE-116.md) — Mypy strict typing — API layer
+- [ISSUE-115](issues/ISSUE-115.md) — Pytest Integration
 - [ISSUE-114](issues/ISSUE-114.md) — Flutter Open full assistant — url_launcher
 - [ISSUE-113](issues/ISSUE-113.md) — Wire JarvisApp to FieldController and FieldHome
 - [ISSUE-112](issues/ISSUE-112.md) — Flutter Field home screen UI (no chat thread)
@@ -12,9 +45,13 @@ Completed issues (newest first).
 - [ISSUE-110](issues/ISSUE-110.md) — Ruff config and backend lint habit
 - [ISSUE-109](issues/ISSUE-109.md) — smoke_web.py — brain health and sessions smoke
 - [ISSUE-108](issues/ISSUE-108.md) — pre-commit hooks — doc links and dev env check
+- [ISSUE-107](issues/ISSUE-107.md) — WebSocket /ws authenticate device token
+- [ISSUE-106](issues/ISSUE-106.md) — Web PWA or desktop install manifest (optional)
 - [ISSUE-105](issues/ISSUE-105.md) — Web UI verification — 098/099 acceptance and DESIGN header
 - [ISSUE-104](issues/ISSUE-104.md) — Backend — WS confirm_request when tool gate blocks
+- [ISSUE-103](issues/ISSUE-103.md) — Flutter — strip legacy chat UI; Field home only
 - [ISSUE-102](issues/ISSUE-102.md) — Web — session list and resume (FR-P3)
+- [ISSUE-101](issues/ISSUE-101.md) — Flutter Field Body — desktop bridge shell and tool_execute
 - [ISSUE-100](issues/ISSUE-100.md) — None
 - [ISSUE-099](issues/ISSUE-099.md) — None
 - [ISSUE-098](issues/ISSUE-098.md) — None

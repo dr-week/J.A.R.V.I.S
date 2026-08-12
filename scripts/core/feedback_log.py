@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
 from typing import Any
-from .board_io import utc_now, owner_norm
+
+from .board_io import owner_norm, utc_now
 
 ROOT = Path(__file__).resolve().parents[2]
 BOARD = ROOT / "docs" / "board"

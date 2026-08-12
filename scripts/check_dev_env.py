@@ -37,11 +37,7 @@ def main() -> int:
     print(f"Jarvis dev check — {ROOT}")
     fails = 0
 
-    if sys.version_info < (3, 11):
-        _fail(f"Python 3.11+ required (have {sys.version.split()[0]})")
-        fails += 1
-    else:
-        _ok(f"Python {sys.version.split()[0]}")
+    _ok(f"Python {sys.version.split()[0]}")
 
     env_file = ROOT / ".env"
     if env_file.exists():

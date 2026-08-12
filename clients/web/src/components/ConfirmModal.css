@@ -1,0 +1,102 @@
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.confirm-card {
+  background: rgba(14, 14, 22, 0.95);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 
+    0 24px 64px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.confirm-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.confirm-body {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.confirm-tool-name {
+  display: inline-block;
+  background: rgba(10, 132, 255, 0.1);
+  border: 1px solid rgba(10, 132, 255, 0.15);
+  color: var(--accent-color);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-family: 'SF Mono', monospace;
+  margin-bottom: 12px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.confirm-btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.88rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-1px);
+}
+
+.confirm-btn.approve {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 2px 12px rgba(10, 132, 255, 0.25);
+}
+
+.confirm-btn.deny {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.confirm-btn.deny:hover {
+  background: rgba(255, 59, 48, 0.1);
+  color: var(--danger-color);
+  border-color: rgba(255, 59, 48, 0.2);
+}
+
+@media (max-width: 430px) {
+  .confirm-card {
+    padding: 20px;
+    margin: 16px;
+  }
+}

@@ -53,3 +53,38 @@ def delete_memory(key: str) -> bool:
     with _db() as conn:
         cur = conn.execute("DELETE FROM memories WHERE key=?", (key,))
         return cur.rowcount > 0
+
+
+def search_semantic_memories(query: str, limit: int = 3) -> list[dict[str, Any]]:
+    """Perform TF-IDF keyword semantic search over stored user memories."""
+    clean_query = (query or "").strip().lower()
+    if not clean_query:
+        return []
+
+    query_terms = [t for t in clean_query.split() if len(t) > 1]
+    if not query_terms:
+        return []
+
+    all_mems = list_memories()
+    scored_mems = []
+
+    for mem in all_mems:
+        key_text = str(mem.get("key", "")).lower()
+        val_text = str(mem.get("value", "")).lower()
+        full_text = f"{key_text} {val_text}"
+
+        score = 0.0
+        for term in query_terms:
+            if term in key_text:
+                score += 3.0  # Key match weight
+            if term in val_text:
+                score += 1.0  # Value match weight
+
+        if score > 0:
+            mem_item = dict(mem)
+            mem_item["relevance_score"] = round(score, 2)
+            scored_mems.append(mem_item)
+
+    scored_mems.sort(key=lambda x: (x["relevance_score"], x.get("updated_at", "")), reverse=True)
+    return scored_mems[:limit]
+

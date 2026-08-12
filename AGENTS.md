@@ -17,6 +17,8 @@ We co-build with the human for a shared better future — roles and economic rea
 
 **Blackbox MiniMax:** follow [docs/dev/MINIMAX.md](docs/dev/MINIMAX.md); owner id `minimax`.
 
+**Ministral (mini coder):** follow [docs/dev/MINISTRAL.md](docs/dev/MINISTRAL.md); owner id `ministral` + `--tier mini`.
+
 **Doc sync hub:** [docs/DOCS_MAP.md](docs/DOCS_MAP.md) — update mirrored files together (skills, MINIMAX, `.blackbox/RULES.md`).
 
 ## Before you write code
@@ -34,9 +36,9 @@ python scripts/devloop.py prompt --owner YOUR_ID
 ```
 
 6. Follow acceptance criteria in the issue + [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md)
-7. **UI / Presence:** [PRESENCE_STACKS.md](docs/dev/PRESENCE_STACKS.md) · [DEV_ENV.md](docs/dev/DEV_ENV.md) · mini tasks [MINIMAX_QUEUE.md](docs/dev/MINIMAX_QUEUE.md)
+7. **UI / Presence:** [PRESENCE_STACKS.md](docs/dev/PRESENCE_STACKS.md) · [DEV_ENV.md](docs/dev/DEV_ENV.md) · mini tasks [MINIMAX_QUEUE.md](docs/dev/MINIMAX_QUEUE.md) · Ministral [MINISTRAL_QUEUE.md](docs/dev/MINISTRAL_QUEUE.md)
 
-**Cross-agent bus (Cursor ↔ Antigravity ↔ MiniMax ↔ Claude):**
+**Cross-agent bus (Cursor ↔ Antigravity ↔ MiniMax ↔ Ministral ↔ Claude):**
 
 ```bash
 python scripts/devloop.py loop

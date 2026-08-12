@@ -6,7 +6,8 @@ description: How to develop the Jarvis repo using the board and devloop. Use for
 # Jarvis development skill
 
 **Doc map:** [docs/DOCS_MAP.md](../docs/DOCS_MAP.md)  
-**Blackbox / MiniMax:** [docs/dev/MINIMAX.md](../docs/dev/MINIMAX.md) · mirror [.blackbox/skills/jarvis-dev/SKILL.md](../.blackbox/skills/jarvis-dev/SKILL.md)
+**Blackbox / MiniMax:** [docs/dev/MINIMAX.md](../docs/dev/MINIMAX.md) · mirror [.blackbox/skills/jarvis-dev/SKILL.md](../.blackbox/skills/jarvis-dev/SKILL.md)  
+**Ministral mini coder:** [docs/dev/MINISTRAL.md](../docs/dev/MINISTRAL.md) · [MINISTRAL_QUEUE.md](../docs/dev/MINISTRAL_QUEUE.md)
 
 ## Required reading order
 

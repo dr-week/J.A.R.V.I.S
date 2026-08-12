@@ -8,11 +8,8 @@ import android.os.IBinder
 import android.util.Log
 
 /**
- * Android device bridge service (ISSUE-033).
- *
- * Hosts a [DeviceBridge] WebSocket loop so the brain can dispatch
- * `android_open` intent/deep-link requests to this phone independent of
- * whether the chat UI is open. Started from [MainActivity].
+ * Hosts [DeviceBridge] so the brain can dispatch android_open / confirm_request
+ * while the Presence UI is backgrounded.
  */
 class BridgeService : Service() {
 
@@ -21,11 +18,8 @@ class BridgeService : Service() {
         const val DEFAULT_BRAIN = "http://10.0.2.2:8787"
         const val KEY_BRAIN = "brain_url"
         const val KEY_DEVICE = "device_id"
-
-        /** Simple in-memory status text this process exposes to the UI. */
-        @Volatile
-        var lastStatus: String = "bridge: idle"
-            private set
+        const val KEY_TOKEN = "auth_token"
+        const val ACTION_RESTART = "ai.jarvis.android.RESTART_BRIDGE"
     }
 
     private val binder = LocalBinder()
@@ -38,8 +32,19 @@ class BridgeService : Service() {
     override fun onBind(intent: Intent?): IBinder = binder
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        ensureStarted()
+        if (intent?.action == ACTION_RESTART) {
+            restartBridge()
+        } else {
+            ensureStarted()
+        }
         return START_STICKY
+    }
+
+    @Synchronized
+    private fun restartBridge() {
+        bridge?.stop()
+        bridge = null
+        ensureStarted()
     }
 
     @Synchronized
@@ -53,23 +58,16 @@ class BridgeService : Service() {
             prefs.edit().putString(KEY_DEVICE, id).apply()
             id
         })
-        Log.i(TAG, "starting bridge for device=$deviceId brain=$brain")
+        val token = prefs.getString(KEY_TOKEN, "") ?: ""
+        Log.i(TAG, "starting bridge device=$deviceId brain=$brain token=${token.isNotBlank()}")
 
-        bridge = DeviceBridge(applicationContext, brain, deviceId).also { b ->
-            b.listener = object : DeviceBridge.Listener {
-                override fun onBridgeStatus(text: String) {
-                    lastStatus = text
-                    Log.i(TAG, text)
-                }
-            }
-            b.start()
-        }
+        bridge = DeviceBridge(applicationContext, brain, deviceId, token).also { it.start() }
     }
 
     override fun onDestroy() {
         bridge?.stop()
         bridge = null
-        lastStatus = "bridge: stopped"
+        BridgeHub.setStatus("bridge: stopped")
         super.onDestroy()
     }
 }

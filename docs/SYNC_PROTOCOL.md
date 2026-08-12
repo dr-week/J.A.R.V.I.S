@@ -39,13 +39,15 @@ Client ◄──WS push── Brain
 
 ## WebSocket — /ws
 
+Connections must be authenticated using the `device_token`. This can be provided as a query parameter (`?token=...`) or included in the first JSON payload sent to the socket (`{"token": "..."}`). Unauthenticated connections are rejected in production.
+
 Messages are JSON with `type` field:
 
 ```json
 // Client → Brain
 {"type": "message", "session_id": "...", "text": "...", "device_id": "..."}
 {"type": "ping"}
-{"type": "register", "device_id": "..."}                     // bind connection to a device
+{"type": "register", "device_id": "...", "token": "..."}     // bind connection and optionally authenticate
 {"type": "tool_result", "request_id": "...", "status": "ok", "result": {...}}  // bridge response
 
 // Brain → Client  

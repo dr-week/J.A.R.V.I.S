@@ -4,12 +4,14 @@ Builds the system prompt from:
   1. Persona defaults (aligned with docs/PERSONA.md) + runtime name
   2. Injected memories (all key/value pairs)
   3. Active habits (top-10 by confidence)
+  4. Proactive habit suggestions (time/day match, confidence ≥ 0.6)
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
 
 from .. import config
+from .learner import get_proactive_context
 from .memory import get_config, list_habits, list_memories
 
 
@@ -51,10 +53,12 @@ Trust levels: {trust_summary}
 
 {memory_block}
 {habits_block}
+{proactive_block}
 """
 
 _MEMORY_HEADER = "## What you know about the user"
 _HABITS_HEADER = "## Learned patterns (habits)"
+_PROACTIVE_HEADER = "## Proactive suggestions (act if relevant — do not force)"
 
 
 def get_persona_profile() -> PersonaProfile:
@@ -89,6 +93,13 @@ def build_system_prompt() -> str:
     else:
         habits_block = ""
 
+    proactive = get_proactive_context()
+    if proactive:
+        pro_lines = "\n".join(f"- {s}" for s in proactive)
+        proactive_block = f"{_PROACTIVE_HEADER}\n{pro_lines}"
+    else:
+        proactive_block = ""
+
     rules_block = "\n".join(f"- {r}" for r in profile.rules)
 
     return _SYSTEM_TEMPLATE.format(
@@ -99,4 +110,5 @@ def build_system_prompt() -> str:
         trust_summary=profile.trust_summary,
         memory_block=memory_block,
         habits_block=habits_block,
+        proactive_block=proactive_block,
     ).strip()

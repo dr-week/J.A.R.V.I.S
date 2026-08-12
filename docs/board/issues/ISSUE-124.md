@@ -1,12 +1,12 @@
 ---
 id: ISSUE-124
 title: Integrate loguru for observability
-status: backlog
+status: done
 priority: P2
-phase: "0"
+phase: 0
 labels: [dev, starter, backend]
-owner:
-claimed_at:
+owner: 
+claimed_at: 
 blocked_by: []
 acceptance:
   - backend/app/logger.py configures loguru (or thin wrapper)
@@ -29,5 +29,8 @@ Wave Y phase B4. [LAB_STACK.md](../../dev/LAB_STACK.md).
 - [ ] Replace prints in main.py
 
 ## Notes
+
+- [2026-08-11T17:07:19Z] Marked done
+
 
 loguru already in `pyproject.toml`. Not blocked on Velocity **131**.

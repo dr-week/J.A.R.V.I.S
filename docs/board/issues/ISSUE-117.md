@@ -1,7 +1,7 @@
 ---
 id: ISSUE-117
 title: Devloop Refactor - Core Extraction
-status: now
+status: done
 priority: P2
 phase: 0
 labels: [dev, scripts]
@@ -32,6 +32,9 @@ The scripts/devloop.py file is ~1000 lines long, which makes it hard for small-c
 - `docs/dev/MODULARITY_PLAN.md` (if tree changes)
 
 ## Notes
+
+- [2026-08-11T04:25:14Z] Marked done
+
 
 - Claimed by antigravity at 2026-08-11T04:19:49Z
 

@@ -1,12 +1,12 @@
 ---
 id: ISSUE-120
 title: GitHub Action dev-smoke workflow
-status: backlog
+status: done
 priority: P3
 phase: D1
 labels: [dev, starter, scripts]
-owner:
-claimed_at:
+owner: subagent
+claimed_at: 2026-08-11T17:53:42Z
 blocked_by: []
 acceptance:
   - .github/workflows/dev-smoke.yml runs on push/PR
@@ -28,3 +28,10 @@ Wave Z in [OSS_DEV_PLAN.md](../../dev/OSS_DEV_PLAN.md). No brain in CI — do no
 - [x] Workflow file with Python setup + doc links + env check
 - [x] Ruff + pytest (health smoke, no live brain)
 - [x] Note in DEV_ENV that full smoke_web is local only
+
+## Notes
+
+- [2026-08-11T17:57:33Z] Marked done
+
+
+- Claimed by subagent at 2026-08-11T17:53:42Z

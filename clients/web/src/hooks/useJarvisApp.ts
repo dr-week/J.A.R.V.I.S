@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { brainApi } from '../api/brainApi';
 import type { SessionInfo } from '../api/brainApi';
 import { SyncSocket } from '../api/syncSocket';
-import type { ChatMessage } from '../types/chat';
+import type { ChatMessage, VelocityUpdate, ConfirmRequest } from '../types/chat';
 
 function connectionHint(message: string): string {
   if (message === 'Failed to fetch' || message.includes('NetworkError')) {
@@ -22,6 +22,8 @@ export function useJarvisApp() {
   const [activeTab, setActiveTab] = useState<'chat' | 'settings'>('chat');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sessions, setSessions] = useState<SessionInfo[]>([]);
+  const [velocityUpdate, setVelocityUpdate] = useState<VelocityUpdate | null>(null);
+  const [confirmRequest, setConfirmRequest] = useState<ConfirmRequest | null>(null);
 
   const [deviceId] = useState(() => {
     let id = localStorage.getItem('jarvis_device_id');
@@ -67,6 +69,21 @@ export function useJarvisApp() {
         const socket = new SyncSocket(brainApi.getBaseUrl(), token, deviceId);
         socket.onStatusChange = (status) => {
           if (!cancelled) setBridgeStatus(status);
+        };
+        socket.onMessage = (msg) => {
+          if (cancelled) return;
+          if (msg.type === 'velocity_update') {
+            setVelocityUpdate(msg.data);
+            if (msg.data?.status === 'complete' || msg.data?.status === 'error') {
+              setTimeout(() => setVelocityUpdate(null), 5000);
+            }
+          } else if (msg.type === 'confirm_request') {
+            setConfirmRequest({
+              request_id: msg.request_id,
+              tool: msg.tool,
+              params: msg.params,
+            });
+          }
         };
         socket.connect();
         syncSocketRef.current = socket;
@@ -139,22 +156,32 @@ export function useJarvisApp() {
     try {
       setStatusLine('Loading session...');
       const data = await brainApi.getSession(id);
-      setSessionId(data.session.id);
-      setMessages(
-        data.messages.map((m) => ({
+      if (data.ok) {
+        setSessionId(data.session.id);
+        const loadedMsgs: ChatMessage[] = data.messages.map((m: any) => ({
           id: uuidv4(),
           role: m.role as ChatMessage['role'],
           text: m.content,
-        })),
-      );
-      setActiveTab('chat');
-      setSidebarOpen(false);
-      setStatusLine('Ready');
+        }));
+        setMessages(loadedMsgs);
+        setStatusLine('Ready');
+        setActiveTab('chat');
+        setSidebarOpen(false);
+      }
     } catch (e) {
-      console.error(e);
+      console.error('Failed to load session:', e);
       setStatusLine('Failed to load session');
     }
   }, []);
+
+  const handleConfirmResult = useCallback((approved: boolean) => {
+    if (confirmRequest && syncSocketRef.current) {
+      syncSocketRef.current.sendToolResult(confirmRequest.request_id, {
+        approved,
+      });
+      setConfirmRequest(null);
+    }
+  }, [confirmRequest]);
 
   const isConnected = statusLine.includes('paired') || statusLine.includes('Ready');
 
@@ -172,10 +199,14 @@ export function useJarvisApp() {
     setSidebarOpen,
     sessions,
     sessionId,
+    velocityUpdate,
+    confirmRequest,
+    setConfirmRequest,
     chatEndRef,
     handleSend,
     handleClearChat,
     handleLoadSession,
+    handleConfirmResult,
     isConnected,
   };
 }

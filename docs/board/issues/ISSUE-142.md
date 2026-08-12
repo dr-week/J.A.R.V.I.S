@@ -1,12 +1,12 @@
 ---
 id: ISSUE-142
 title: Flutter Field — handle WS confirm_request and approve/deny
-status: backlog
+status: done
 priority: P2
 phase: 2
 labels: [flutter, bridge, hands]
-owner:
-claimed_at:
+owner: 
+claimed_at: 
 blocked_by: [ISSUE-101]
 acceptance:
   - bridge_client handles confirm_request messages and surfaces pending tool in FieldController
@@ -31,5 +31,14 @@ acceptance:
 - [ ] Wire approve to brain (chat confirm or dedicated WS message per protocol)
 
 ## Notes
+
+- [2026-08-11T17:56:29Z] Marked done
+
+
+- Released by unknown at 2026-08-11T17:53:41Z (was subagent)
+
+
+- Claimed by subagent at 2026-08-11T17:53:34Z
+
 
 Parent: FR-M3 off-desktop. Do not duplicate web chat thread.

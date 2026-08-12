@@ -2,6 +2,8 @@ import { Menu, Trash2 } from 'lucide-react';
 import { Settings } from './components/Settings';
 import { AppSidebar } from './components/AppSidebar';
 import { ChatView } from './components/ChatView';
+import { VelocityProgress } from './components/VelocityProgress';
+import { ConfirmModal } from './components/ConfirmModal';
 import { useJarvisApp } from './hooks/useJarvisApp';
 import './App.css';
 
@@ -62,6 +64,8 @@ function App() {
           )}
         </header>
 
+        {app.velocityUpdate && <VelocityProgress update={app.velocityUpdate} />}
+
         {app.activeTab === 'settings' ? (
           <Settings />
         ) : (
@@ -76,6 +80,13 @@ function App() {
           />
         )}
       </div>
+
+      {app.confirmRequest && (
+        <ConfirmModal 
+          request={app.confirmRequest} 
+          onResolve={app.handleConfirmResult} 
+        />
+      )}
     </div>
   );
 }

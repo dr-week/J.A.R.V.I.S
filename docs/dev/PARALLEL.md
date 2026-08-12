@@ -26,8 +26,10 @@ Pick a stable owner id and reuse it every session:
 | Human A / B | `alice` / `bob` | People |
 | Blackbox / MiniMax (optional) | `minimax` | Main Blackbox seat — large vertical slices / cross-file integration — see [MINIMAX.md](MINIMAX.md) |
 | Blackbox MiniMax **second seat** | `minimax2` or `minimax-mini` | Parallel mini coder — helpers, docs, one-file UI slices — **unique** `--owner`, never reuse `minimax` |
+| **Ministral** (small local/cloud) | `ministral` | Mini tier only — docs + micro patches — [MINISTRAL.md](MINISTRAL.md) · [MINISTRAL_QUEUE.md](MINISTRAL_QUEUE.md) |
 
-**MiniMax rules:** [docs/dev/MINIMAX.md](MINIMAX.md) · Blackbox entry: [.blackbox/RULES.md](../../.blackbox/RULES.md)
+**MiniMax rules:** [docs/dev/MINIMAX.md](MINIMAX.md) · Blackbox entry: [.blackbox/RULES.md](../../.blackbox/RULES.md)  
+**Ministral rules:** [docs/dev/MINISTRAL.md](MINISTRAL.md) — always `next --owner ministral --tier mini`
 
 ## Commands (per worker)
 

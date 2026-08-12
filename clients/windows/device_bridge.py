@@ -97,9 +97,40 @@ def _launch_app(name: str) -> dict[str, Any]:
         return {"ok": False, "kind": "app", "target": name, "error": str(exc)}
 
 
+def _system_control(command: str) -> dict[str, Any]:
+    """Execute simple OS-level commands (volume, lock)."""
+    if not _WINDOWS:
+        return {"ok": False, "error": "system control only supported on Windows"}
+    
+    cmd_lower = command.lower()
+    try:
+        if cmd_lower in ["mute", "unmute"]:
+            # Toggle mute (VK_VOLUME_MUTE = 173)
+            subprocess.Popen(["powershell", "-c", "$obj = new-object -com wscript.shell; $obj.SendKeys([char]173)"], shell=True)
+            return {"ok": True, "kind": "system", "command": cmd_lower, "result": "toggled mute"}
+        elif cmd_lower == "volume_up":
+            # VK_VOLUME_UP = 175
+            subprocess.Popen(["powershell", "-c", "$obj = new-object -com wscript.shell; $obj.SendKeys([char]175)"], shell=True)
+            return {"ok": True, "kind": "system", "command": cmd_lower, "result": "volume increased"}
+        elif cmd_lower == "volume_down":
+            # VK_VOLUME_DOWN = 174
+            subprocess.Popen(["powershell", "-c", "$obj = new-object -com wscript.shell; $obj.SendKeys([char]174)"], shell=True)
+            return {"ok": True, "kind": "system", "command": cmd_lower, "result": "volume decreased"}
+        elif cmd_lower == "lock_screen":
+            subprocess.Popen(["rundll32.exe", "user32.dll,LockWorkStation"], shell=True)
+            return {"ok": True, "kind": "system", "command": cmd_lower, "result": "screen locked"}
+        else:
+            return {"ok": False, "error": f"unknown system command: {command}"}
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "error": str(exc)}
+
+
 def execute_tool(tool_name: str, params: dict[str, Any]) -> dict[str, Any]:
     """Dispatch a tool request to the local bridge. Returns a result dict."""
     if tool_name == "windows_open":
         target = (params or {}).get("target", "")
         return open_with_default(target)
+    elif tool_name == "windows_system_control":
+        command = (params or {}).get("command", "")
+        return _system_control(command)
     return {"ok": False, "error": f"unsupported device tool: {tool_name}"}

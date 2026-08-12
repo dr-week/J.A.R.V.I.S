@@ -83,7 +83,9 @@ Use these if you want predictable replies (depends on persona + API):
 - “What can you actually do for me today versus later on the roadmap?”
 - “Remember that my favorite drink is coffee.” then “What did I just tell you?” (session/memory smoke)
 
-Avoid live tool demos unless you rehearsed them (confirm flows, Windows bridge, etc.).
+Avoid live tool demos unless you rehearsed them (confirm flows, Windows bridge, Android Presence, etc.).
+
+**Optional phone slice:** run Kotlin app in `clients/android` → Health → Pair → Open full assistant (web). Bridge proves `android_open`; chat stays in web.
 
 ---
 

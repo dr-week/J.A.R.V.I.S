@@ -20,7 +20,7 @@ Canonical stack roles: [PRESENCE_STACKS.md](PRESENCE_STACKS.md).
 |-----|-------------|
 | **Stay bridged** | Background-friendly WS `register` + reconnect; brain routes `tool_execute` to this `device_id` ([SYNC_PROTOCOL.md](../SYNC_PROTOCOL.md)). |
 | **Execute client tools** | Desktop/window tools routed to Flutter **only where it is the registered bridge** — **not** `android_open` (Kotlin owns Android per ISSUE-033) |
-| **Approve / deny** | After ISSUE-104: WS `confirm_request`; until then web chat text confirm ([hands/gate.py](../../backend/app/hands/gate.py)) |
+| **Approve / deny** | Handled via WS `confirm_request` and sending WS `message` (confirm/deny) |
 | **Glance status** | “Brain online · 2 pending · last action …” — not a message thread. |
 | **Open full chat** | Deep link / browser custom tab to **web** URL — one tap, no second composer. |
 

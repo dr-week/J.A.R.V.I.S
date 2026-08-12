@@ -5,14 +5,14 @@ import uuid
 from datetime import datetime
 from typing import Any, Callable
 
-BG = "#0a0a0f"
-SURFACE = "#12121a"
-SURFACE_ELEVATED = "#1a1a26"
-BORDER = "#2a2a3a"
-ACCENT = "#8b5cf6"
-TEXT = "#f3f4f6"
-TEXT_MUTED = "#9ca3af"
-USER_BUBBLE = "#5b21b6"
+BG = "#0f0f13"
+SURFACE = "#19191e"
+SURFACE_ELEVATED = "#232328"
+BORDER = "#333333"
+ACCENT = "#0a84ff"
+TEXT = "#f0f0f2"
+TEXT_MUTED = "#8e8e93"
+USER_BUBBLE = "#0a84ff"
 ASSIST_BUBBLE = "#1e1e2e"
 ERROR = "#f87171"
 SUCCESS = "#34d399"
@@ -71,6 +71,7 @@ def mount_jarvis_desktop(
     status_dot = ft.Container(width=8, height=8, border_radius=4, bgcolor=TEXT_MUTED)
     status_text = ft.Text("Starting…", size=12, color=TEXT_MUTED, weight=ft.FontWeight.W_500)
     bridge_text = ft.Text("", size=11, color=TEXT_MUTED)
+    wake_text = ft.Text("Mic off", size=11, color=TEXT_MUTED)
     llm_hint = ft.Text("", size=10, color=TEXT_MUTED)
     header_title = ft.Text("Jarvis", size=18, weight=ft.FontWeight.W_700, color=TEXT)
     chat_list = ft.ListView(expand=True, spacing=12, auto_scroll=True, padding=16)
@@ -119,8 +120,8 @@ def mount_jarvis_desktop(
             body: ft.Control = ft.Markdown(
                 text or "…",
                 selectable=True,
-                extension_set="gitHubWeb",
-                code_theme="atom-one-dark",
+                extension_set=ft.MarkdownExtensionSet.GITHUB_WEB,
+                code_theme=ft.MarkdownCodeTheme.ATOM_ONE_DARK,
             )
         else:
             body = ft.Text(text, selectable=True, color=TEXT, size=14)
@@ -171,7 +172,7 @@ def mount_jarvis_desktop(
     reconnect_btn = ft.TextButton("Reconnect", icon=ft.Icons.REFRESH)
     new_chat_btn = ft.TextButton("New chat", icon=ft.Icons.ADD_COMMENT)
 
-    def on_new_chat(_e: ft.ControlEvent) -> None:
+    def on_new_chat(_e: ft.ControlEvent | None) -> None:
         session_holder["session_id"] = str(uuid.uuid4())
         chat_list.controls.clear()
         add_bubble("system", "New chat started.", markdown=False)
@@ -241,8 +242,8 @@ def mount_jarvis_desktop(
         reconnect_btn.disabled = False
         page.update()
 
-    async def send_click(_e: ft.ControlEvent | None = None) -> None:
-        text = (user_input.value or "").strip()
+    async def send_click(_e: ft.ControlEvent | None = None, override_text: str | None = None) -> None:
+        text = (override_text or user_input.value or "").strip()
         if not text or not state["brain_ok"]:
             return
 
@@ -283,6 +284,15 @@ def mount_jarvis_desktop(
                         if isinstance(body_control, ft.Markdown):
                             body_control.value = "".join(full_reply)
                         page.update()
+            
+            final_reply = "".join(full_reply).strip()
+            if getattr(args, "voice", False) and final_reply:
+                try:
+                    from voice import speak
+                    if speak:
+                        speak(final_reply, on_status=_set_wake_status)
+                except ImportError:
+                    pass
         except Exception as exc:
             system_line(f"Send failed: {exc}", error=True)
 
@@ -296,7 +306,7 @@ def mount_jarvis_desktop(
     user_input.on_submit = send_click
     send_btn.on_click = send_click
 
-    def on_reconnect(_e: ft.ControlEvent) -> None:
+    def on_reconnect(_e: ft.ControlEvent | None) -> None:
         state["announced_offline"] = False
         state.pop("_announced_online", None)
         refresh_connection(try_pair=bool(args.pair), announce=True)
@@ -336,7 +346,7 @@ def mount_jarvis_desktop(
                     content=ft.Column(
                         [
                             ft.Row(
-                                [status_dot, status_text, ft.Container(expand=True), bridge_text],
+                                [status_dot, status_text, ft.Container(expand=True), wake_text, ft.Text(" · ", size=11, color=TEXT_MUTED), bridge_text],
                                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
                             ),
                             ft.Text(f"Device · {device_id}", size=10, color=TEXT_MUTED),
@@ -361,15 +371,49 @@ def mount_jarvis_desktop(
     elif bridge_slot.get("tray"):
         bridge_text.value = "Tray: minimize to hide"
 
+    def _set_bridge_status(msg: str) -> None:
+        setattr(bridge_text, "value", msg)
+        page.update()
+
+    def _set_wake_status(msg: str) -> None:
+        setattr(wake_text, "value", msg)
+        setattr(wake_text, "color", ACCENT if "Listening" in msg or "Wake" in msg else TEXT_MUTED)
+        page.update()
+
     bridge_slot["bridge_text"] = bridge_text
-    bridge_slot["set_bridge_status"] = lambda msg: (
-        setattr(bridge_text, "value", msg),
-        page.update(),
-    )
+    bridge_slot["set_bridge_status"] = _set_bridge_status
+    bridge_slot["set_wake_status"] = _set_wake_status
 
     install_tray = bridge_slot.get("install_tray")
     if install_tray:
         install_tray(page)
+
+    def _wake_word_loop() -> None:
+        try:
+            from voice import listen, listen_for_wake_word
+        except ImportError:
+            _set_wake_status("Mic missing")
+            return
+            
+        ww = getattr(args, "wake_word", "").strip() or "jarvis"
+        while True:
+            heard = listen_for_wake_word(ww, on_status=_set_wake_status)
+            if not heard:
+                break
+            _set_wake_status("Listening...")
+            spoken = listen(on_status=_set_wake_status)
+            if spoken:
+                _set_wake_status("Heard you!")
+                # trigger send_click asynchronously in the Flet event loop
+                page.run_task(send_click, override_text=spoken)
+            else:
+                _set_wake_status("Listening for wake...")
+                
+    if getattr(args, "wake_word", None):
+        import threading
+        threading.Thread(target=_wake_word_loop, daemon=True).start()
+    else:
+        _set_wake_status("Mic off")
 
     refresh_connection(try_pair=bool(args.pair), announce=True)
 

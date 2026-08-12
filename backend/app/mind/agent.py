@@ -1,6 +1,6 @@
 """Mind — LLM agent loop (orchestration only).
 
-Provider-specific streaming lives in mind.gemini_loop.
+Provider-specific streaming: gemini_loop, openai_loop (LM Studio / Ollama / OpenAI).
 """
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ from ..soul.memory import append_message, get_or_create_session, get_session_mes
 from ..soul.persona import build_system_prompt
 from ..sync.manager import manager
 from .gemini_loop import gemini_stream
+from .openai_loop import openai_stream
 
 
 async def stream_chat(
@@ -58,8 +59,11 @@ async def stream_chat(
     history = get_session_messages(session_id, limit=30)
     system_prompt = build_system_prompt()
 
-    if config.LLM_PROVIDER == "gemini" and config.GEMINI_API_KEY:
+    provider = (config.LLM_PROVIDER or "").lower()
+    if provider == "gemini" and config.GEMINI_API_KEY:
         gen = gemini_stream(system_prompt, history, user_text, session_id, device_id)
+    elif provider in ("openai", "ollama") and config.llm_ready():
+        gen = openai_stream(system_prompt, history, user_text, session_id, device_id)
     else:
         gen = _fallback_stream(user_text)
 
@@ -78,6 +82,9 @@ async def _fallback_stream(user_text: str) -> AsyncGenerator[str, None]:
     yield (
         f"[{name} — no LLM configured]\n\n"
         f"I received your message: \"{user_text}\"\n\n"
-        f"To activate the AI, add GEMINI_API_KEY to your .env file.\n"
-        f"Get a free key at: https://aistudio.google.com/app/apikey"
+        f"Set GEMINI_API_KEY, or for LM Studio:\n"
+        f"  JARVIS_LLM_PROVIDER=openai\n"
+        f"  JARVIS_LLM_BASE_URL=http://127.0.0.1:1234/v1\n"
+        f"  JARVIS_LLM_MODEL=<your-loaded-model>\n"
+        f"See docs/dev/LOCAL_LLM.md"
     )

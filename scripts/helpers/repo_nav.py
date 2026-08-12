@@ -141,7 +141,7 @@ def main() -> None:
     p_doc = sub.add_parser("doc", help="Find the most relevant docs for a topic")
     p_doc.add_argument("term")
 
-    p_rebuild = sub.add_parser("rebuild", help="Refresh the repo index and code map")
+    sub.add_parser("rebuild", help="Refresh the repo index and code map")
 
     args = parser.parse_args()
 

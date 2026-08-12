@@ -1,12 +1,12 @@
 ---
 id: ISSUE-125
 title: Integrate psutil — system_vitals tool
-status: backlog
+status: done
 priority: P2
 phase: 2
 labels: [dev, starter, backend]
-owner:
-claimed_at:
+owner: subagent
+claimed_at: 2026-08-11T22:39:15+05:30
 blocked_by: []
 acceptance:
   - psutil in pyproject.toml
@@ -25,8 +25,8 @@ acceptance:
 
 ## Work
 
-- [ ] Add psutil
-- [ ] One tool module + registry discover
+- [x] Add psutil
+- [x] One tool module + registry discover
 
 ## Notes
 

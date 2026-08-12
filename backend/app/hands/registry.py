@@ -41,15 +41,26 @@ def register(tool_def: dict[str, Any], executor: Callable[..., Any] | None = Non
 
 async def _execute_raw(name: str, params: dict[str, Any]) -> dict[str, Any]:
     """Execute a registered tool by name with params (no gate)."""
-    if name not in _EXECUTORS:
-        return {"error": f"Tool '{name}' has no executor registered on this brain."}
-    try:
-        result = _EXECUTORS[name](**params)
-        if hasattr(result, "__await__"):
-            result = await result
-        return {"result": result}
-    except Exception as exc:
-        return {"error": str(exc)}
+    tool_def = REGISTRY.get(name)
+    if not tool_def:
+        return {"error": f"Unknown tool '{name}'"}
+
+    runtime = tool_def.get("runtime", "python")
+    
+    if runtime == "python":
+        if name not in _EXECUTORS:
+            return {"error": f"Tool '{name}' has no executor registered on this brain."}
+        try:
+            result = _EXECUTORS[name](**params)
+            if hasattr(result, "__await__"):
+                result = await result
+            return {"result": result}
+        except Exception as exc:
+            return {"error": str(exc)}
+    else:
+        from .external_executor import ExternalExecutor
+        executor = ExternalExecutor(REGISTRY)
+        return await executor.execute(tool_def, params)
 
 
 async def run_tool(

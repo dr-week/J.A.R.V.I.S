@@ -10,20 +10,34 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+
+val colorBg = Color(0xFF0F0F13)
+val colorSurface = Color(0xFF19191E)
+val colorSurfaceElevated = Color(0xFF232328)
+val colorBorder = Color(0xFF333333)
+val colorAccent = Color(0xFF0A84FF)
+val colorText = Color(0xFFF0F0F2)
+val colorTextMuted = Color(0xFF8E8E93)
+val colorUserBubble = Color(0xFF0A84FF)
+val colorAssistBubble = Color(0xFF1E1E2E)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,8 +52,12 @@ fun ChatScreen(vm: ChatViewModel) {
     }
 
     Scaffold(
+        containerColor = colorBg,
         topBar = {
-            TopAppBar(title = { Text("Jarvis") })
+            TopAppBar(
+                title = { Text("Jarvis", color = colorText) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = colorSurface)
+            )
         },
     ) { padding ->
         Column(
@@ -62,12 +80,12 @@ fun ChatScreen(vm: ChatViewModel) {
             Text(
                 text = state.status,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = colorTextMuted,
             )
             Text(
                 text = BridgeService.lastStatus,
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (BridgeService.lastStatus.contains("connected")) colorAccent else colorTextMuted,
             )
             LazyColumn(
                 state = listState,
@@ -78,13 +96,36 @@ fun ChatScreen(vm: ChatViewModel) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 items(state.messages, key = { it.id }) { msg ->
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            text = if (msg.role == "user") "You" else "Jarvis",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                        )
-                        Text(text = msg.text.ifBlank { "…" })
+                    val isUser = msg.role == "user"
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth(0.85f)
+                        ) {
+                            Text(
+                                text = if (isUser) "You" else "Jarvis",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = if (isUser) colorAccent else colorTextMuted,
+                                modifier = Modifier.align(if (isUser) Alignment.End else Alignment.Start)
+                            )
+                            androidx.compose.foundation.layout.Box(
+                                modifier = Modifier
+                                    .padding(top = 4.dp)
+                                    .androidx.compose.foundation.background(
+                                        color = if (isUser) colorUserBubble else colorAssistBubble,
+                                        shape = RoundedCornerShape(12.dp)
+                                    )
+                                    .padding(12.dp)
+                            ) {
+                                Text(
+                                    text = msg.text.ifBlank { "…" },
+                                    color = colorText
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -101,7 +142,11 @@ fun ChatScreen(vm: ChatViewModel) {
                     enabled = !state.busy,
                     label = { Text("Message") },
                 )
-                Button(onClick = vm::send, enabled = !state.busy && state.draft.isNotBlank()) {
+                Button(
+                    onClick = vm::send, 
+                    enabled = !state.busy && state.draft.isNotBlank(),
+                    colors = ButtonDefaults.buttonColors(containerColor = colorAccent, contentColor = colorText)
+                ) {
                     Text("Send")
                 }
             }

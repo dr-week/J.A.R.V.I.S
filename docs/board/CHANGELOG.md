@@ -1,6 +1,46 @@
 # Changelog (project build)
 
 ## 2026-08-09
+- 2026-08-12: DONE ISSUE-152 — LiteLLM gateway contract and config shape
+- 2026-08-12: DONE ISSUE-151 — M4 Phase 4 exit - hands-free voice turn (Windows) + sync status
+- 2026-08-12: DONE ISSUE-149 — M3 Phase 3 exit — three domain tools acceptance pack
+- 2026-08-12: DONE ISSUE-149 — M3 Phase 3 exit — three domain tools acceptance pack
+- 2026-08-12: DONE ISSUE-148 — M2 Web chat polish — confirm UX and velocity_update banner
+- 2026-08-12: DONE ISSUE-147 — M1 Phase 2 exit proof — multi-step Windows action + audit log
+- 2026-08-11: DONE ISSUE-150 — M-Android Presence UI — pair, bridge status, confirm, open web
+- 2026-08-11: DONE ISSUE-146 — HA home_scene tool — run Home Assistant scenes
+- 2026-08-11: DONE ISSUE-145 — Phase 1 Soul exit — proactive habits in prompt + memory recall proof
+- 2026-08-11: DONE ISSUE-145 — Phase 1 Soul exit — proactive habits in prompt + memory recall proof
+- 2026-08-11: DONE ISSUE-132 — Velocity IPC (Inter-Process Communication)
+- 2026-08-11: DONE ISSUE-131 — Create velocity_build Tool
+- 2026-08-11: DONE ISSUE-131 — Create velocity_build Tool
+- 2026-08-11: DONE ISSUE-120 — GitHub Action dev-smoke workflow
+- 2026-08-11: DONE ISSUE-142 — Flutter Field — handle WS confirm_request and approve/deny
+- 2026-08-11: DONE ISSUE-107 — WebSocket /ws authenticate device token
+- 2026-08-11: DONE ISSUE-103 — Flutter — strip legacy chat UI; Field home only
+- 2026-08-11: DONE ISSUE-133 — R subprocess plugin template
+- 2026-08-11: DONE ISSUE-129 — Implement Embedded Lua Engine
+- 2026-08-11: DONE ISSUE-126 — Prototype openwakeword wake listener
+- 2026-08-11: DONE ISSUE-106 — Web PWA or desktop install manifest (optional)
+- 2026-08-11: DONE ISSUE-141 — Research CAD Generation APIs
+- 2026-08-11: DONE ISSUE-131 — Create velocity_build Tool
+- 2026-08-11: DONE ISSUE-127 — Evaluate background queue (Celery) — ADR required
+- 2026-08-11: DONE ISSUE-118 — Devloop Refactor - Command Extraction
+- 2026-08-11: DONE ISSUE-116 — Mypy strict typing — API layer
+- 2026-08-11: DONE ISSUE-143 — Test guardrails
+- 2026-08-11: DONE ISSUE-123 — Setup alembic for SQLite
+- 2026-08-11: DONE ISSUE-122 — Integrate pydantic-settings
+- 2026-08-11: DONE ISSUE-115 — Pytest Integration
+- 2026-08-11: DONE ISSUE-128 — Design Polyglot Tool Executor Interface
+- 2026-08-11: DONE ISSUE-124 — Integrate loguru for observability
+- 2026-08-11: DONE ISSUE-140 — The Visual Cortex (OpenCV + Tesseract)
+- 2026-08-11: DONE ISSUE-130 — Establish Velocity Plugin Submodule
+- 2026-08-11: DONE ISSUE-101 — Flutter Field Body — desktop bridge shell and tool_execute
+- 2026-08-11: DONE ISSUE-139 — The Motor Cortex (PyAutoGUI)
+- 2026-08-11: DONE ISSUE-137 — The Market Scout Engine
+- 2026-08-11: DONE ISSUE-138 — The Auditory Cortex (Wake word & STT)
+- 2026-08-11: DONE ISSUE-136 — Build the Corporate Orchestrator Loop (LangGraph)
+- 2026-08-11: DONE ISSUE-117 — Devloop Refactor - Core Extraction
 - 2026-08-10: DONE ISSUE-144 — PWA Manifest for Mobile Web UI
 - 2026-08-09: DONE ISSUE-104 — Backend — WS confirm_request when tool gate blocks
 - 2026-08-09: DONE ISSUE-105 — Web UI verification — 098/099 acceptance and DESIGN header

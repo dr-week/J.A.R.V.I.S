@@ -12,6 +12,11 @@ Every tool in the registry MUST conform to this schema:
   "phase": int,                   # minimum phase this tool is available
   "risk_level": str,              # "auto" | "confirm_once" | "confirm_always"
   "executor": str,                # "brain" | "client" | "house"
+  "runtime": str,                 # optional: "python" (default) | "lua" | "subprocess"
+  "entry": str,                   # optional: script path or binary
+  "argv_template": [str],         # optional: arguments template for subprocess
+  "timeout_seconds": int,         # optional: execution timeout
+  "sandbox": str,                 # optional: "strict" etc.
   "parameters": {                 # JSON Schema object
     "type": "object",
     "properties": { ... },

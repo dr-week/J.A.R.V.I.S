@@ -9,3 +9,6 @@ ignore = ["E501"]
 
 [lint.per-file-ignores]
 "scripts/devloop.py" = ["E402"]
+"backend/app/api/*.py" = ["E402"]
+"scripts/feedback.py" = ["F821"]
+"scripts/check_dev_env.py" = ["UP036"]

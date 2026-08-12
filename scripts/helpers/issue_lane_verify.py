@@ -52,6 +52,20 @@ def verify_lane_path(pattern: str) -> tuple[bool, str]:
     return False, f"missing: {clean}"
 
 
+def is_file_in_lane(changed_file: str, lanes: list[str]) -> bool:
+    """Return True if changed_file matches any pattern in lanes."""
+    for pattern in lanes:
+        clean = pattern.replace("\\", "/").lstrip("/")
+        if "**" in clean:
+            prefix = clean.split("**", 1)[0].rstrip("/")
+            if prefix == "" or changed_file == prefix or changed_file.startswith(prefix + "/"):
+                return True
+        else:
+            if changed_file == clean:
+                return True
+    return False
+
+
 def verify_issue(issue_id: str, check_diff: bool = False) -> tuple[int, list[str]]:
     path = ISSUES / f"{issue_id}.md"
     if not path.exists():
@@ -82,19 +96,7 @@ def verify_issue(issue_id: str, check_diff: bool = False) -> tuple[int, list[str
             changed_files = [f.strip() for f in result.stdout.splitlines() if f.strip()]
             
             for changed_file in changed_files:
-                matched = False
-                for pattern in lanes:
-                    clean = pattern.replace("\\", "/").lstrip("/")
-                    if "**" in clean:
-                        prefix = clean.split("**", 1)[0].rstrip("/")
-                        if changed_file.startswith(prefix):
-                            matched = True
-                            break
-                    else:
-                        if changed_file == clean:
-                            matched = True
-                            break
-                if not matched:
+                if not is_file_in_lane(changed_file, lanes):
                     lines.append(f"FAIL diff out of lane: {changed_file}")
                     diff_fails += 1
                     
@@ -109,3 +111,31 @@ def verify_issue(issue_id: str, check_diff: bool = False) -> tuple[int, list[str
             fails += 1
             
     return fails, lines
+
+
+# --- Tests ---
+
+def test_parse_lane_paths():
+    text = """
+Some text
+## Lane
+- `scripts/helpers/issue_lane_verify.py`
+- `tests/**`
+- `http://example.com`
+"""
+    assert parse_lane_paths(text) == ["scripts/helpers/issue_lane_verify.py", "tests/**"]
+    assert parse_lane_paths("No lane here") == []
+
+def test_is_file_in_lane():
+    lanes = ["scripts/helpers/issue_lane_verify.py", "tests/**"]
+    
+    assert is_file_in_lane("scripts/helpers/issue_lane_verify.py", lanes) is True
+    assert is_file_in_lane("scripts/helpers/other.py", lanes) is False
+    
+    assert is_file_in_lane("tests/foo.py", lanes) is True
+    assert is_file_in_lane("tests/nested/bar.py", lanes) is True
+    assert is_file_in_lane("tests2/foo.py", lanes) is False
+    
+    lanes_all = ["**"]
+    assert is_file_in_lane("anything.py", lanes_all) is True
+    assert is_file_in_lane("foo/bar.py", lanes_all) is True

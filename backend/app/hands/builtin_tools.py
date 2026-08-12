@@ -134,3 +134,35 @@ def register_builtin_tools() -> None:
             "tags": ["hands", "windows"],
         },
     )
+
+    register(
+        {
+            "name": "windows_system_control",
+            "description": (
+                "Execute an OS-level system command on the requesting Windows client. "
+                "Valid commands are: 'mute', 'unmute', 'volume_up', 'volume_down', 'lock_screen'."
+            ),
+            "version": "1.0.0",
+            "phase": 2,
+            "risk_level": "auto",
+            "executor": "client",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "command": {
+                        "type": "string",
+                        "description": "The command to execute (e.g., mute, lock_screen).",
+                    }
+                },
+                "required": ["command"],
+            },
+            "returns": {"type": "object", "properties": {"result": {"type": "object"}}},
+            "scopes": ["windows:system"],
+            "tags": ["hands", "windows", "system"],
+        },
+    )
+
+    from .tools.velocity_build import register_velocity_build
+
+    register_velocity_build()
+

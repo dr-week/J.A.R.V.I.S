@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+import java.io.IOException
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -57,6 +58,39 @@ class ChatViewModel(
     fun onBrainUrlChange(url: String) {
         _state.update { it.copy(brainUrl = url) }
         prefs.edit().putString(KEY_BRAIN, url.trim()).apply()
+        // Try pairing if URL changes and no token exists
+        viewModelScope.launch { ensurePaired(url.trim()) }
+    }
+
+    init {
+        viewModelScope.launch { ensurePaired(_state.value.brainUrl) }
+    }
+
+    private suspend fun ensurePaired(brain: String) {
+        var token = prefs.getString(KEY_TOKEN, null)
+        if (token != null) return
+        
+        try {
+            val reply = withContext(Dispatchers.IO) {
+                val req = Request.Builder()
+                    .url("$brain/pair?device_id=$deviceId")
+                    .post("".toRequestBody())
+                    .build()
+                client.newCall(req).execute().use { response ->
+                    if (!response.isSuccessful) return@withContext null
+                    response.body?.string()
+                }
+            }
+            if (reply != null) {
+                val json = JSONObject(reply)
+                token = json.optString("token")
+                if (!token.isNullOrEmpty()) {
+                    prefs.edit().putString(KEY_TOKEN, token).apply()
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun onDraftChange(text: String) {
@@ -120,11 +154,16 @@ class ChatViewModel(
             .put("client_msg_id", UUID.randomUUID().toString())
             .toString()
 
-        val request = Request.Builder()
+        val requestBuilder = Request.Builder()
             .url("$brain/chat")
             .post(bodyJson.toRequestBody(JSON))
             .header("Accept", "text/event-stream")
-            .build()
+        
+        prefs.getString(KEY_TOKEN, null)?.let {
+            requestBuilder.header("Authorization", "Bearer $it")
+        }
+
+        val request = requestBuilder.build()
 
         client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) {
@@ -150,6 +189,7 @@ class ChatViewModel(
     companion object {
         private const val KEY_BRAIN = "brain_url"
         private const val KEY_DEVICE = "device_id"
+        private const val KEY_TOKEN = "auth_token"
         private const val DEFAULT_BRAIN = "http://10.0.2.2:8787"
         private val JSON = "application/json; charset=utf-8".toMediaType()
 

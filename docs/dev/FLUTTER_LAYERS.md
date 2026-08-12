@@ -4,23 +4,23 @@ Build bottom-up. Each layer only depends on layers below.
 
 ```text
 ┌─────────────────────────────────────────┐
-│  L4 UI — chat_screen, responsive_shell  │
+│  L4 UI — field_screen                   │
 ├─────────────────────────────────────────┤
-│  L3 State — ChatController (ChangeNotifier)│
+│  L3 State — FieldController (ChangeNotifier) │
 ├─────────────────────────────────────────┤
-│  L2 Data — BrainApi (pair, health, SSE) │
+│  L2 Data — BrainApi (pair, health), BridgeClient │
 ├─────────────────────────────────────────┤
 │  L1 Core — BrainConfig, TokenStore      │
 └─────────────────────────────────────────┘
-         │ HTTP/SSE → FastAPI brain
+         │ HTTP/WS → FastAPI brain
 ```
 
 | Layer | Path | Responsibility |
 |-------|------|----------------|
 | **L1** | `lib/core/` | URLs, device id, persisted token + brain URL |
-| **L2** | `lib/data/brain_api.dart`, `lib/data/bridge_client.dart` | `/pair`, `/health`, `/chat` SSE; `/ws` bridge |
-| **L3** | `lib/state/chat_controller.dart` | Messages, session id, connect/pair/send |
-| **L4** | `lib/ui/` | Portrait-first shell; no HTTP in widgets |
+| **L2** | `lib/data/brain_api.dart`, `lib/data/bridge_client.dart` | `/pair`, `/health`; `/ws` bridge |
+| **L3** | `lib/state/field_controller.dart` | Bridge state, pending actions, connect/pair |
+| **L4** | `lib/ui/` | Field screen; no HTTP in widgets |
 
 **Phase gates**
 

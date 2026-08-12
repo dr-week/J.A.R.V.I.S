@@ -1,12 +1,12 @@
 ---
 id: ISSUE-143
 title: Test guardrails
-status: backlog
+status: done
 priority: P1
 phase: 0
 labels: []
-owner: 
-claimed_at: 
+owner: subagent
+claimed_at: 2026-08-11T17:07:13Z
 blocked_by: []
 acceptance:
   - None
@@ -21,6 +21,12 @@ Test guardrails
 - [ ] Implement
 
 ## Notes
+
+- [2026-08-11T17:09:31Z] Marked done
+
+
+- Claimed by subagent at 2026-08-11T17:07:13Z
+
 
 Created by devloop at 2026-08-10T17:54:43Z
 

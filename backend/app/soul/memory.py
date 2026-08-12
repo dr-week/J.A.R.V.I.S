@@ -10,7 +10,7 @@ from .stores.audit import list_action_log, log_action
 from .stores.config_kv import get_config, set_config
 from .stores.devices import delete_expired_tokens, get_device_by_token, save_device_token
 from .stores.learning_store import archive_habit, list_habits, log_interaction, upsert_habit
-from .stores.memories import delete_memory, get_memory, list_memories, upsert_memory
+from .stores.memories import delete_memory, get_memory, list_memories, search_semantic_memories, upsert_memory
 from .stores.sessions import (
     append_message,
     get_or_create_session,
@@ -28,6 +28,7 @@ __all__ = [
     "upsert_memory",
     "get_memory",
     "list_memories",
+    "search_semantic_memories",
     "delete_memory",
     "log_interaction",
     "upsert_habit",

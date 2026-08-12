@@ -69,6 +69,11 @@ CREATE TABLE habits (
 - **Context trigger**: device event (app open, location) matches pattern
 - **User-dismissable**: one dismiss drops confidence −0.2; two dismisses archives habit
 
+**Implemented (Phase 1 exit):** `learner.get_proactive_context()` injects matching habits
+(confidence ≥ 0.6) into the Mind system prompt via `persona.build_system_prompt()` under
+“Proactive suggestions”. Memories upserted via `/soul/memories` are always injected
+(cross-session / cross-device = same brain SQLite — ISSUE-022 LWW sync).
+
 ## Privacy
 
 - All learning data stays on the brain (never sent to LLM provider raw)
@@ -84,3 +89,6 @@ CREATE TABLE habits (
 | 3 | Calendar + location-backed habits |
 | 4 | Voice tone + sentiment signals |
 | 5 | Cross-room presence patterns |
+
+
+**Note**: Phase 1 (Interaction log + basic time/topic pattern detector) is fully complete and wired into the system prompt.

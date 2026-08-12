@@ -10,6 +10,7 @@ Config (env, see .env.example):
 Tools registered:
   - home_entity_list  (risk: auto)          list available HA entities
   - home_entity_set   (risk: confirm_once)   turn a light on/off / set brightness
+  - home_scene        (risk: confirm_once)   activate a HA scene
 
 The bridge talks to Home Assistant over its REST API. If HA is not configured
 (JARVIS_HA_URL empty), tools fail visibly with a clear error — never silently.
@@ -122,6 +123,29 @@ def _home_entity_set(
     }
 
 
+def _home_scene(scene_id: str = "") -> dict[str, Any]:
+    """Activate a Home Assistant scene by entity_id (e.g. scene.movie_night)."""
+    if not _ha_configured():
+        raise RuntimeError(
+            "Home Assistant not configured. Set JARVIS_HA_URL and JARVIS_HA_TOKEN."
+        )
+    target = (scene_id or "").strip()
+    if not target:
+        raise ValueError("scene_id is required (e.g. 'scene.movie_night').")
+    if not target.startswith("scene."):
+        target = f"scene.{target}"
+
+    url = _ha_url() + _HOME_ASSISTANT + "/services/scene/turn_on"
+    resp = httpx.post(
+        url,
+        headers=_headers(),
+        json={"entity_id": target},
+        timeout=10.0,
+    )
+    resp.raise_for_status()
+    return {"scene_id": target, "activated": True}
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Registration (self-register on import via discover_plugins)
 # ─────────────────────────────────────────────────────────────────────────────
@@ -194,5 +218,39 @@ registry.register(
         "tags": ["house", "iot", "homeassistant"],
     },
     _home_entity_set,
+)
+
+registry.register(
+    {
+        "name": "home_scene",
+        "description": (
+            "Activate a Home Assistant scene (e.g. movie night, good night). "
+            "Pass scene_id as 'scene.movie_night' or short name 'movie_night'."
+        ),
+        "version": "1.0.0",
+        "phase": 5,
+        "risk_level": "confirm_once",
+        "executor": "house",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "scene_id": {
+                    "type": "string",
+                    "description": "HA scene entity_id or short name without 'scene.'.",
+                },
+            },
+            "required": ["scene_id"],
+        },
+        "returns": {
+            "type": "object",
+            "properties": {
+                "scene_id": {"type": "string"},
+                "activated": {"type": "boolean"},
+            },
+        },
+        "scopes": ["house:write"],
+        "tags": ["house", "iot", "homeassistant", "scene"],
+    },
+    _home_scene,
 )
 

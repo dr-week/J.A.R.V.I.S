@@ -1,45 +1,49 @@
-# Jarvis repo gates — no brain process required (ISSUE-120).
-# Full API smoke: scripts/smoke_web.py locally with run_brain.py on :8787.
-
 name: dev-smoke
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
+      - master
   pull_request:
-
-concurrency:
-  group: dev-smoke-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    branches:
+      - main
+      - master
 
 jobs:
-  python-gates:
-    name: Docs, env, lint, tests
+  smoke-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-
+    
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: pyproject.toml
-
-      - name: Install project + dev tools
-        run: pip install -e ".[dev]"
-
+          python-version: "3.11"
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+          
+      - name: Run Ruff check
+        run: |
+          ruff check backend/app backend/tests scripts
+          
+      - name: Run Pytest
+        run: |
+          pytest backend/tests
+          
+      - name: Check dev environment
+        run: |
+          python scripts/check_dev_env.py
+          
       - name: Verify doc links
-        run: python scripts/verify_doc_links.py
-
-      - name: Check dev environment (import + Python version)
-        run: python scripts/check_dev_env.py
-
-      - name: Ruff (brain package + tests)
-        run: ruff check backend/app backend/tests
-
-      - name: Pytest
-        run: pytest backend/tests -q
+        run: |
+          python scripts/verify_doc_links.py
+          
+      - name: Note on smoke_web.py
+        run: |
+          echo "smoke_web.py is local only and requires the brain running on port 8787. Skipping in CI."

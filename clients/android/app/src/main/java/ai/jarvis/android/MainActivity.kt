@@ -15,18 +15,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Start the device-bridge service so the brain can dispatch
-        // android_open intent/deep-link requests (ISSUE-033) anytime.
         startService(Intent(this, BridgeService::class.java))
         enableEdgeToEdge()
         val prefs = getSharedPreferences("jarvis", MODE_PRIVATE)
         setContent {
             MaterialTheme(colorScheme = darkColorScheme()) {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    val vm: ChatViewModel = viewModel(
-                        factory = ChatViewModel.factory(prefs)
+                    val vm: PresenceViewModel = viewModel(
+                        factory = PresenceViewModel.factory(application, prefs)
                     )
-                    ChatScreen(vm)
+                    PresenceScreen(vm)
                 }
             }
         }

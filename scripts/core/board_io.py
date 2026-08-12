@@ -9,7 +9,7 @@ ISSUES = BOARD / "issues"
 
 STATUS_ORDER = {"now": 0, "backlog": 1, "todo": 1, "blocked": 2, "done": 3}
 PRIORITY_ORDER = {"P0": 0, "P1": 1, "P2": 2}
-MAX_PARALLEL = 2  # designed for 2 people / 2 AIs at once
+MAX_PARALLEL = 10  # Increased for swarm development
 
 def utc_now() -> str:
     return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")

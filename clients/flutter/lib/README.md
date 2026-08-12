@@ -7,7 +7,6 @@ lib/
 ├── main.dart              # Entry
 ├── app/jarvis_app.dart    # App widget, default route → Field
 ├── ui/field/              # Field screen (ship here)
-├── ui/chat/               # Legacy chat — delete with ISSUE-103
 ├── state/field_controller.dart
 ├── data/bridge_client.dart, field_bridge_executor.dart, brain_api.dart
 └── core/                  # theme, brain URL, tokens

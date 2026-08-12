@@ -35,7 +35,7 @@ class FieldController extends ChangeNotifier {
   String? llmHint;
 
   /// Pending tool executions awaiting confirmation (from ISSUE-104 onward).
-  final List<ToolExecution> pending = [];
+  final List<ConfirmRequest> pending = [];
 
   /// Recent device actions for the "Recent device actions" glance.
   List<DeviceAction> actions = [];
@@ -125,9 +125,27 @@ class FieldController extends ChangeNotifier {
         bridgeLine = line;
         notifyListeners();
       }
-      ..onToolExecute = _handleToolExecute;
+      ..onToolExecute = _handleToolExecute
+      ..onConfirmRequest = _handleConfirmRequest;
 
     _bridge!.connect();
+  }
+
+  void _handleConfirmRequest(ConfirmRequest request) {
+    pending.add(request);
+    notifyListeners();
+  }
+
+  void approveTool(ConfirmRequest request) {
+    pending.remove(request);
+    _bridge?.sendText('confirm');
+    notifyListeners();
+  }
+
+  void denyTool(ConfirmRequest request) {
+    pending.remove(request);
+    _bridge?.sendText('deny');
+    notifyListeners();
   }
 
   Future<Map<String, dynamic>> _handleToolExecute(

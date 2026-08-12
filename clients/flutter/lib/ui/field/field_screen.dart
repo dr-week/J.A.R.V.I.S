@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -106,42 +107,65 @@ class _StatusHeader extends StatelessWidget {
 class _PendingCard extends StatelessWidget {
   const _PendingCard({required this.pending});
 
-  final List<ToolExecution> pending;
+  final List<ConfirmRequest> pending;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Pending confirmations',
-                style: Theme.of(context).textTheme.titleSmall),
-            const SizedBox(height: 8),
-            if (pending.isEmpty)
-              Text(
-                'None',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.grey),
-              )
-            else
-              for (final p in pending)
-                ListTile(
-                  title: Text(p.tool),
-                  subtitle: Text('${p.params}'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextButton(
-                          onPressed: () {}, child: const Text('Approve')),
-                      TextButton(onPressed: () {}, child: const Text('Deny')),
-                    ],
+    final c = context.read<FieldController>();
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0x19FFFFFF), // ~10% white
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0x1AFFFFFF)),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Pending confirmations',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      )),
+              const SizedBox(height: 12),
+              if (pending.isEmpty)
+                Text(
+                  'No pending tasks. Brain is active.',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                )
+              else
+                for (final p in pending)
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0x26000000),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      title: Text(p.tool, style: const TextStyle(fontWeight: FontWeight.w600)),
+                      subtitle: Text('${p.params}', style: const TextStyle(fontSize: 12)),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FilledButton.tonal(
+                            onPressed: () => c.denyTool(p),
+                            style: FilledButton.styleFrom(backgroundColor: const Color(0x33FF3B30), foregroundColor: const Color(0xFFFF3B30)),
+                            child: const Text('Deny')
+                          ),
+                          const SizedBox(width: 8),
+                          FilledButton(
+                            onPressed: () => c.approveTool(p),
+                            child: const Text('Approve')
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -155,41 +179,54 @@ class _RecentActionsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Recent device actions',
-                style: Theme.of(context).textTheme.titleSmall),
-            const SizedBox(height: 8),
-            if (actions.isEmpty)
-              Text(
-                'No actions yet',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(color: Colors.grey),
-              )
-            else
-              for (final a in actions.take(8))
-                ListTile(
-                  dense: true,
-                  leading: Icon(
-                    a.status == 'ok' ? Icons.check_circle : Icons.error,
-                    color: a.status == 'ok'
-                        ? const Color(0xFF34D399)
-                        : const Color(0xFFF87171),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0x19FFFFFF), // ~10% white
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0x1AFFFFFF)),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Recent device actions',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      )),
+              const SizedBox(height: 12),
+              if (actions.isEmpty)
+                Text(
+                  'No actions yet',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                )
+              else
+                for (final a in actions.take(8))
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0x26000000),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      dense: true,
+                      leading: Icon(
+                        a.status == 'ok' ? Icons.check_circle : Icons.error,
+                        color: a.status == 'ok' ? const Color(0xFF34D399) : const Color(0xFFF87171),
+                      ),
+                      title: Text(a.tool, style: const TextStyle(fontWeight: FontWeight.w600)),
+                      subtitle: Text(a.summary, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      trailing: Text(
+                        _timeAgo(a.at),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
                   ),
-                  title: Text(a.tool),
-                  subtitle: Text(a.summary),
-                  trailing: Text(
-                    _timeAgo(a.at),
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ),
-          ],
+            ],
+          ),
         ),
       ),
     );

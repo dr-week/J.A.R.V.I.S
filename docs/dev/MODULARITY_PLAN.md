@@ -229,4 +229,6 @@ Parallel (second slot): **142** or **107** — product, not factory.
 | 103 | Flutter strip chat |
 | 142 | Field confirm |
 
+Also: uncommitted work split → [PR_SPLIT.md](PR_SPLIT.md).
+
 Update this doc when **117/118** change the target tree.

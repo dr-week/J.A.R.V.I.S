@@ -10,8 +10,8 @@ from board_context import (
 
 from .board_io import (
     BOARD,
-    ROOT,
     MAX_PARALLEL,
+    ROOT,
     list_issues,
     open_issues,
     owner_norm,

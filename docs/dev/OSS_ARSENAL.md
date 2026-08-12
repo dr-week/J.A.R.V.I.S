@@ -1,4 +1,7 @@
-# OSS arsenal — 17-tool evaluation
+# OSS arsenal — 20-tool evaluation
+
+The canonical upstream repository list is [GITHUB_INTEGRATIONS.md](../GITHUB_INTEGRATIONS.md).
+This file evaluates tools; it does not replace that inventory.
 
 **Two lanes:**
 
@@ -32,6 +35,9 @@ Do not merge lanes without ADR in [DECISIONS.md](../DECISIONS.md). Product phase
 | 15 | **Home Assistant** | ✅ In use | 5 | Product | Plugin exists; locked house fabric. |
 | 16 | **Langfuse** | ✅ Integrate | 3–4 | Both | LLM/agent tracing when LangGraph + multi-step ventures go live. |
 | 17 | **Tauri** | ❌ Defer | 4+ ADR | Product | [OSS.md](../OSS.md): **Flet** Windows lane; no second desktop shell without ADR. Web PWA (**106**) before Tauri. |
+| 18 | **LiteLLM** | ✅ Next | 3–4 | Both | Model gateway, provider fallback, and token accounting; integrate before adding more model providers. |
+| 19 | **OpenTelemetry Collector** | ✅ Next | 3–4 | Both | Vendor-neutral traces, metrics, and logs for brain/tool/device reliability. |
+| 20 | **SearXNG** | ✅ Next | 3 | Product | Private search backend for web research; keep current search provider as fallback. |
 
 Legend: ✅ yes on roadmap · ⚠️ narrow use · 🔶 dev/meta only · ❌ conflicts with locked default until ADR
 
@@ -80,17 +86,19 @@ Legend: ✅ yes on roadmap · ⚠️ narrow use · 🔶 dev/meta only · ❌ con
 
 ## Suggested install order (Stark)
 
-1. **Langfuse** (when multi-step agents grow) — low risk observability  
-2. **Playwright** — tests + web automation tools  
-3. **MCP** — tool surface for scout/builder agents  
-4. **faster-whisper + Piper** — Phase 4 voice  
-5. **Ollama** — optional local mind  
-6. **LangGraph + Postgres + Qdrant** — only when `AI-COMPANY` venture lane is active (**136+**)  
-7. **openWakeWord** — after voice path stable  
-8. **n8n** — if cron/webhook volume warrants ADR  
-9. **OpenCV/YOLO** — house/vision epic only  
-10. **pywinauto** — only with explicit acceptance + confirm gate  
-11. **Tauri** — only after PWA + ADR rejects Flet path  
+1. **LiteLLM** — model routing and token accounting
+2. **OpenTelemetry Collector** — brain/tool/device traces and metrics
+3. **SearXNG** — private web-search backend
+4. **Playwright** — tests + web automation tools
+5. **MCP** — tool surface for scout/builder agents
+6. **faster-whisper + Piper** — Phase 4 voice
+7. **Ollama** — optional local mind
+8. **LangGraph + Postgres + Qdrant** — only when `AI-COMPANY` venture lane is active (**136+**)
+9. **openWakeWord** — after voice path stable
+10. **n8n** — if cron/webhook volume warrants ADR
+11. **OpenCV/YOLO** — house/vision epic only
+12. **pywinauto** — only with explicit acceptance + confirm gate
+13. **Tauri** — only after PWA + ADR rejects Flet path
 
 ---
 

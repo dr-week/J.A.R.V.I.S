@@ -34,19 +34,72 @@ def tts_available() -> bool:
     return _TTS
 
 
+def _speak_http(text: str, url: str, on_status: Callable[[str], None] | None = None) -> bool:
+    """Send text to a local neural TTS HTTP server (Piper, GPT-SoVITS, Kokoro) and play audio."""
+    import tempfile
+    import urllib.request
+    import sys
+
+    try:
+        if on_status:
+            on_status("[voice: neural TTS speaking…]")
+        
+        payload = json.dumps({"input": text, "text": text}).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+
+        with urllib.request.urlopen(req, timeout=5.0) as resp:
+            audio_bytes = resp.read()
+
+        if not audio_bytes:
+            return False
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_file:
+            temp_path = temp_file.name
+            temp_file.write(audio_bytes)
+
+        if sys.platform.startswith("win"):
+            import winsound
+            winsound.PlaySound(temp_path, winsound.SND_FILENAME)
+        
+        try:
+            os.remove(temp_path)
+        except Exception:
+            pass
+
+        return True
+    except Exception as exc:
+        if on_status:
+            on_status(f"[voice: neural TTS error {exc!r}, trying pyttsx3 fallback]")
+        return False
+
+
 def speak(
     text: str,
     *,
     rate: int = 180,
     on_status: Callable[[str], None] | None = None,
 ) -> bool:
-    """Speak `text` aloud using an offline TTS engine.
+    """Speak `text` aloud using neural HTTP TTS or offline pyttsx3 engine.
 
     Returns True if the text was actually spoken, False if TTS is unavailable.
     Falls back to printing the text if the engine cannot be started.
     """
     if not text.strip():
         return False
+
+    tts_engine = os.environ.get("JARVIS_TTS_ENGINE", "pyttsx3").lower()
+    tts_url = os.environ.get("JARVIS_TTS_URL", "").strip()
+
+    if (tts_engine in ("piper", "gpt_sovits", "http", "kokoro") or tts_url) and tts_url:
+        spoken = _speak_http(text, tts_url, on_status=on_status)
+        if spoken:
+            return True
+
     if not tts_available():
         if on_status:
             on_status("[voice: pyttsx3 not installed, text only]")

@@ -32,7 +32,7 @@ export class SyncSocket {
       this.ws.onopen = () => {
         this.onStatusChange('Connected');
         // Register device
-        this.ws?.send(JSON.stringify({ type: 'register', device_id: this.deviceId }));
+        this.ws?.send(JSON.stringify({ type: 'register', device_id: this.deviceId, token: this.token }));
         
         // Start ping loop
         this.pingTimer = window.setInterval(() => {
@@ -90,6 +90,18 @@ export class SyncSocket {
       this.ws.onerror = null;
       this.ws.close();
       this.ws = null;
+    }
+  }
+
+  sendToolResult(requestId: string, payload: any) {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.ws.send(
+        JSON.stringify({
+          type: 'tool_result',
+          request_id: requestId,
+          ...payload,
+        })
+      );
     }
   }
 }

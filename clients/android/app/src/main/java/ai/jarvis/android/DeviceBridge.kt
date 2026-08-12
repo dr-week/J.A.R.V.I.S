@@ -19,20 +19,14 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 /**
- * Device bridge for Jarvis (ISSUE-033).
- *
- * Connects to the brain's `/ws` endpoint, registers a `device_id`, and listens
- * for `tool_execute` requests. When the brain asks for `android_open`, it
- * builds an Android [Intent] (ACTION_VIEW) for a URL, a market link, or an app
- * package and launches it. The result is sent back as `tool_result`.
- *
- * Protocol: see docs/SYNC_PROTOCOL.md (register / registered / tool_execute /
- * tool_result).
+ * Device bridge — `/ws` register + tool_execute + confirm_request.
+ * Protocol: docs/SYNC_PROTOCOL.md
  */
 class DeviceBridge(
     private val context: Context,
     private val brainUrl: String,
     private val deviceId: String,
+    private val token: String = "",
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val client = OkHttpClient.Builder()
@@ -42,16 +36,10 @@ class DeviceBridge(
     private var ws: WebSocket? = null
     private var running = false
 
-    interface Listener {
-        fun onBridgeStatus(text: String)
-    }
-
-    var listener: Listener? = null
-
     fun start() {
         if (running) return
         running = true
-        launch()
+        connect()
     }
 
     fun stop() {
@@ -61,19 +49,26 @@ class DeviceBridge(
         scope.cancel()
     }
 
-    private fun launch() {
+    private fun connect() {
         if (!running) return
-        val wsUrl = brainUrl
+        var wsUrl = brainUrl
             .replace("http://", "ws://")
             .replace("https://", "wss://")
             .trimEnd('/') + "/ws"
+        if (token.isNotBlank()) {
+            wsUrl += "?token=" + java.net.URLEncoder.encode(token, "UTF-8")
+        }
         val req = Request.Builder().url(wsUrl).build()
+        BridgeHub.setStatus("bridge: connecting…")
         ws = client.newWebSocket(req, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 if (!running) return
                 val register = JSONObject()
                     .put("type", "register")
                     .put("device_id", deviceId)
+                if (token.isNotBlank()) {
+                    register.put("token", token)
+                }
                 webSocket.send(register.toString())
             }
 
@@ -83,13 +78,12 @@ class DeviceBridge(
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 Log.w(TAG, "bridge ws failure: ${t.message}")
-                listener?.onBridgeStatus("bridge: disconnected (${t.message})")
+                BridgeHub.setStatus("bridge: disconnected (${t.message})")
                 scheduleReconnect()
             }
 
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-                Log.i(TAG, "bridge ws closed: $code $reason")
-                listener?.onBridgeStatus("bridge: closed")
+                BridgeHub.setStatus("bridge: closed")
                 scheduleReconnect()
             }
         })
@@ -99,24 +93,30 @@ class DeviceBridge(
         if (!running) return
         scope.launch {
             kotlinx.coroutines.delay(RECONNECT_MS)
-            launch()
+            connect()
         }
     }
 
     private fun handleMessage(webSocket: WebSocket, text: String) {
         val msg = try {
             JSONObject(text)
-        } catch (e: Exception) {
-            Log.w(TAG, "bad json from brain: $text")
+        } catch (_: Exception) {
             return
         }
 
         when (msg.optString("type")) {
             "registered" -> {
-                listener?.onBridgeStatus("bridge: connected (${msg.optString("device_id")})")
+                BridgeHub.setStatus("bridge: connected (${msg.optString("device_id")})")
             }
             "ping" -> webSocket.send(JSONObject().put("type", "pong").toString())
             "tool_execute" -> handleToolExecute(webSocket, msg)
+            "confirm_request" -> {
+                BridgeHub.setPending(BridgeHub.pendingFromConfirmMessage(msg))
+                BridgeHub.setStatus("bridge: confirm needed — ${msg.optString("tool")}")
+            }
+            "push_memory", "push_habit", "velocity_update" -> {
+                // Glance-only; Field UI can ignore for now
+            }
         }
     }
 
@@ -144,55 +144,36 @@ class DeviceBridge(
                 .put("status", status)
                 .put("result", result)
             webSocket.send(reply.toString())
+            BridgeHub.setStatus("bridge: ran $tool ($status)")
         }
     }
 
-    /**
-     * Build and launch an [Intent] for the given target.
-     * - https:// / http:// → ACTION_VIEW Uri
-     * - market:// → ACTION_VIEW (Play Store)
-     * - otherwise treated as an app package name → packageManager launch intent
-     */
     private fun launchIntent(target: String): JSONObject {
         val t = target.trim()
         if (t.isEmpty()) {
             return JSONObject().put("ok", false).put("error", "empty target")
         }
-
         return try {
             if (t.startsWith("http://") || t.startsWith("https://") || t.startsWith("market://")) {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(t))
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
-                JSONObject()
-                    .put("ok", true)
-                    .put("kind", "url")
-                    .put("target", t)
+                JSONObject().put("ok", true).put("kind", "url").put("target", t)
                     .put("result", "opened: $t")
             } else {
-                // Treat as app package name.
                 val launch = context.packageManager.getLaunchIntentForPackage(t)
                 if (launch == null) {
-                    JSONObject()
-                        .put("ok", false)
-                        .put("kind", "app")
-                        .put("target", t)
+                    JSONObject().put("ok", false).put("kind", "app").put("target", t)
                         .put("error", "no launch intent for package: $t")
                 } else {
                     launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(launch)
-                    JSONObject()
-                        .put("ok", true)
-                        .put("kind", "app")
-                        .put("target", t)
+                    JSONObject().put("ok", true).put("kind", "app").put("target", t)
                         .put("result", "launched package: $t")
                 }
             }
         } catch (e: Exception) {
-            JSONObject()
-                .put("ok", false)
-                .put("kind", "intent")
-                .put("target", t)
+            JSONObject().put("ok", false).put("kind", "intent").put("target", t)
                 .put("error", e.message ?: "failed to launch")
         }
     }
