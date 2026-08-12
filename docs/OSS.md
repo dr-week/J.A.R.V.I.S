@@ -43,4 +43,13 @@
 
 Install manifest (what to pip/npm when): [dev/STARK_OSS_INSTALL.md](dev/STARK_OSS_INSTALL.md).
 
-Plan: [dev/OSS_DEV_PLAN.md](dev/OSS_DEV_PLAN.md) · [dev/OSS_ARSENAL.md](dev/OSS_ARSENAL.md) (17-tool map) · [dev/LAB_STACK.md](dev/LAB_STACK.md) · [dev/STARK_TIMELINE.md](dev/STARK_TIMELINE.md).
+Plan: [dev/OSS_DEV_PLAN.md](dev/OSS_DEV_PLAN.md) · [dev/OSS_ARSENAL.md](dev/OSS_ARSENAL.md) (20-tool map) · [dev/LAB_STACK.md](dev/LAB_STACK.md) · [dev/STARK_TIMELINE.md](dev/STARK_TIMELINE.md).
+
+Repository inventory: [GITHUB_INTEGRATIONS.md](GITHUB_INTEGRATIONS.md). Keep
+repository names, status, and phase boundaries synchronized there before
+changing this OSS policy.
+
+Proposed next integration wave: LiteLLM → OpenTelemetry Collector → SearXNG.
+Each one uses the same small-chunk flow: contract, wiring, acceptance proof.
+The implementation plan and acceptance gates are in
+[GITHUB_INTEGRATIONS.md](GITHUB_INTEGRATIONS.md).

@@ -2,6 +2,30 @@
 
 **Product OSS (runtime):** [OSS.md](../OSS.md) · **Horizons:** [STRATEGY_FORWARD.md](STRATEGY_FORWARD.md) · **Queue:** [MINIMAX_QUEUE.md](MINIMAX_QUEUE.md)
 
+**Upstream repository inventory:** [GITHUB_INTEGRATIONS.md](../GITHUB_INTEGRATIONS.md).
+Update the inventory and this plan together when an integration changes status.
+
+## Proposed next integration wave
+
+Implement one item at a time, in this order:
+
+| Order | Repository | Scope | Acceptance proof |
+|---|---|---|---|
+| 1 | [BerriAI/litellm](https://github.com/BerriAI/litellm) | Optional model gateway and token/cost metadata | Gemini plus one OpenAI-compatible/local endpoint; secrets stay brain-local |
+| 2 | [open-telemetry/opentelemetry-collector](https://github.com/open-telemetry/opentelemetry-collector) | Brain, agent loop, tools, confirmations, and bridge traces | End-to-end trace exists; telemetry outage does not break chat |
+| 3 | [searxng/searxng](https://github.com/searxng/searxng) | Optional private backend for web research | Local/mocked search passes with timeout, size, and secret-redaction checks |
+
+Every wave requires: a small issue, `.env.example` updates if configuration
+is added, focused tests, documentation links, and a rollback path. Do not
+mark a repository **In use** until the acceptance proof passes.
+
+Small-chunk rule: split each repository into three slices and keep them in the
+same order everywhere.
+
+1. Contract and config shape.
+2. Runtime wiring.
+3. Acceptance proof plus docs sync.
+
 One table for **what to integrate**, **which script/issue owns it**, and **how small to slice** for MiniMax.
 
 ---

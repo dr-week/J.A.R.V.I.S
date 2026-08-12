@@ -63,6 +63,13 @@ Parallel rules: [docs/dev/PARALLEL.md](docs/dev/PARALLEL.md) · Onboard new AI: 
 
 Full detail: [docs/ROADMAP.md](docs/ROADMAP.md) · Strategy: [docs/STRATEGY.md](docs/STRATEGY.md) · Future / levels: [docs/FUTURE.md](docs/FUTURE.md) · OSS: [docs/OSS.md](docs/OSS.md)
 
+## Plugins (Phase 3+)
+
+### Velocity App Builder
+To use the Velocity dev server through Jarvis, symlink your Velocity app directory via environment variable:
+1. Set `JARVIS_VELOCITY_ROOT` (e.g. `JARVIS_VELOCITY_ROOT=e:\CODES\velocity`) in your OS environment or `.env`.
+2. Run `.\scripts\boot_velocity.ps1` to link `plugins\velocity_builder`, install dependencies, and start the dev server.
+
 ## Layout
 
 ```

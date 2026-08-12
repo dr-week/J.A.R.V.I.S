@@ -24,15 +24,21 @@ Single index for **which doc is canonical**, **which files mirror each other**, 
 |-----------|---------|------------------------|
 | [AGENTS.md](../AGENTS.md) | Contract for all coding agents | MINIMAX rules pointer, skills list, PROCESS |
 | [dev/MINIMAX.md](dev/MINIMAX.md) | Blackbox MiniMax rules | `.blackbox/RULES.md`, `.blackbox/skills/jarvis-dev/SKILL.md` |
+| [dev/MINISTRAL.md](dev/MINISTRAL.md) | Ministral mini-coder boot card | MINISTRAL_QUEUE, PARALLEL |
+| [dev/LOCAL_LLM.md](dev/LOCAL_LLM.md) | LM Studio / Ollama + Velocity env | LLM.md, ISSUE-131 |
+| [dev/MINISTRAL_QUEUE.md](dev/MINISTRAL_QUEUE.md) | Safe issues for `ministral` | MINISTRAL.md, board issues |
 | [dev/MINIMAX_UI.md](dev/MINIMAX_UI.md) | Flet UI mini-issue queue | MINIMAX.md, SMALL_AI_PARTS.md, agent_registry queue |
+| [dev/MAJOR_WORK_PLAN.md](dev/MAJOR_WORK_PLAN.md) | Post-swarm major tracks M1–M5 + M-Android | ROADMAP, LIVE_PLAN, STRATEGY_FORWARD |
 | [dev/STRATEGY_FORWARD.md](dev/STRATEGY_FORWARD.md) | Horizons, script waves, mini routing | STRATEGY, FUTURE, MINIMAX_QUEUE, LIVE_PLAN |
 | [dev/STARK_TIMELINE.md](dev/STARK_TIMELINE.md) | Forward strategy + checkpoints | FUTURE, LAB_STACK, STRATEGY_FORWARD |
 | [dev/STARK_OSS_INSTALL.md](dev/STARK_OSS_INSTALL.md) | pip/npm manifest by phase | OSS.md, LAB_STACK |
 | [dev/LAB_STACK.md](dev/LAB_STACK.md) | Stark doctrine + OSS phases | STARK_OSS_INSTALL, MINIMAX_QUEUE |
-| [dev/OSS_ARSENAL.md](dev/OSS_ARSENAL.md) | 17-tool verdict table (product vs venture) | OSS.md, AI-COMPANY/STACK |
+| [dev/OSS_ARSENAL.md](dev/OSS_ARSENAL.md) | 20-tool verdict table (product vs venture) | OSS.md, AI-COMPANY/STACK |
 | [dev/OSS_DEV_PLAN.md](dev/OSS_DEV_PLAN.md) | OSS ↔ scripts ↔ issues table | LAB_STACK, DEV_ENV |
 | [dev/MINIMAX_QUEUE.md](dev/MINIMAX_QUEUE.md) | Mini waves U–Z, claim order | OSS_DEV_PLAN, agent_registry |
 | [dev/MODULARITY_PLAN.md](dev/MODULARITY_PLAN.md) | Phased modularization; 117–118 tree | AI_CODE_STRUCTURE, ISSUE-117/118 |
+| [dev/PR_SPLIT.md](dev/PR_SPLIT.md) | Uncommitted work → independent PR slices | pr-slices/*, MODULARITY_PLAN |
+| [dev/pr-slices/](dev/pr-slices/) | Per-PR scope pages (01–04) | PR_SPLIT.md |
 | [dev/AI_CODE_STRUCTURE.md](dev/AI_CODE_STRUCTURE.md) | Repo layout for agents; layer rules | backend/app/README, MODULARITY_PLAN |
 | [dev/AI_CODER_AUTOMATION.md](dev/AI_CODER_AUTOMATION.md) | 40-gap map + test gate + coder≠reviewer | DEFINITION_OF_DONE, jarvis-dev skill |
 | [dev/FEEDBACK_LOOP.md](dev/FEEDBACK_LOOP.md) | `loop` / `inbox` / `say` | AGENTS cross-agent bus, MINIMAX handoff |
@@ -74,8 +80,9 @@ Single index for **which doc is canonical**, **which files mirror each other**, 
 | [dev/AI_CODE_STRUCTURE.md](dev/AI_CODE_STRUCTURE.md) | Repo layers; agent edit map | AI_CODER_AUTOMATION |
 | [dev/SYNC_PLAN.md](dev/SYNC_PLAN.md) | Doc + board + presence sync; backlog 101–107 |
 | [dev/PLAN_AUDIT.md](dev/PLAN_AUDIT.md) | Requirements ↔ plan cross-check |
-| [dev/PRESENCE_STACKS.md](dev/PRESENCE_STACKS.md) | Web vs Flutter Field vs Flet; update when priority changes |
+| [dev/PRESENCE_STACKS.md](dev/PRESENCE_STACKS.md) | Web vs Flutter Field vs Kotlin Android vs Flet; update when priority changes |
 | [OSS.md](OSS.md) | Locked OSS defaults per surface; update when choosing/swapping UI framework |
+| [GITHUB_INTEGRATIONS.md](GITHUB_INTEGRATIONS.md) | Canonical GitHub repository inventory and integration status | OSS.md, OSS_ARSENAL, OSS_DEV_PLAN |
 | [dev/WEB_UI.md](dev/WEB_UI.md) | `clients/web/**`, DESIGN tokens |
 | [dev/FLUTTER_FIELD.md](dev/FLUTTER_FIELD.md) | `clients/flutter/**` — Field Body (bridge/tools/confirm), **not** chat |
 | [dev/FLUTTER_UI.md](dev/FLUTTER_UI.md) | Breakpoints only if thin UI remains |
