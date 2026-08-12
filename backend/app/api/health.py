@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+import typing
+
 """API — /health endpoint."""
 from fastapi import APIRouter
 
@@ -8,7 +12,7 @@ router = APIRouter()
 
 
 @router.get("/health")
-async def health():
+async def health() -> typing.Any:
     return {
         "status": "ok",
         "assistant_name": get_assistant_name(),

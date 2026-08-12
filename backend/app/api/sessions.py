@@ -1,10 +1,13 @@
+from __future__ import annotations
+
+import typing
+
 """API — /sessions endpoints for room presence and cross-surface continuity.
 
 ISSUE-062: a house/room surface can start a session, and a phone (or any other
 client) can discover it and continue the same conversation. Sessions are the
 brain's source of truth for conversation continuity; clients are edges.
 """
-from __future__ import annotations
 
 import uuid
 
@@ -30,7 +33,7 @@ class SessionSurfacePatch(BaseModel):
 
 
 @router.post("")
-async def start_session(body: SessionStart):
+async def start_session(body: SessionStart) -> typing.Any:
     """Start a new session on a given surface/room and return its id."""
     session_id = str(uuid.uuid4())
     sess = mem.get_or_create_session(
@@ -46,13 +49,13 @@ async def start_session(body: SessionStart):
 
 
 @router.get("")
-async def list_sessions(limit: int = 50):
+async def list_sessions(limit: int = 50) -> typing.Any:
     """List recent sessions so a phone can find and continue one."""
     return {"sessions": mem.list_sessions(limit=max(1, min(limit, 200)))}
 
 
 @router.get("/{session_id}")
-async def get_session(session_id: str, limit: int = 40):
+async def get_session(session_id: str, limit: int = 40) -> typing.Any:
     """Fetch a session's metadata + recent messages (continue context)."""
     sess = mem.get_session(session_id)
     if not sess:
@@ -62,7 +65,7 @@ async def get_session(session_id: str, limit: int = 40):
 
 
 @router.patch("/{session_id}/surface")
-async def patch_surface(session_id: str, body: SessionSurfacePatch):
+async def patch_surface(session_id: str, body: SessionSurfacePatch) -> typing.Any:
     """Re-tag a session for a handoff (e.g. house -> phone)."""
     sess = mem.set_session_surface(
         session_id,

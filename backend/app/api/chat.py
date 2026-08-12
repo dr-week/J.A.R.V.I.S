@@ -1,14 +1,17 @@
 """API -- /chat endpoint (streaming SSE) and /ws WebSocket."""
 from __future__ import annotations
 
+import typing
 import uuid
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+from .. import config
 from ..mind.agent import stream_chat
 from ..sync.manager import manager
+from .pair import validate_token
 
 router = APIRouter()
 
@@ -24,11 +27,11 @@ class ChatRequest(BaseModel):
 
 
 @router.post("/chat")
-async def chat(req: ChatRequest):
+async def chat(req: ChatRequest) -> typing.Any:
     """Send a message, get a streaming SSE response."""
     session_id = req.session_id or str(uuid.uuid4())
 
-    async def event_stream():
+    async def event_stream() -> typing.Any:
         try:
             async for chunk in stream_chat(
                 session_id,
@@ -58,14 +61,46 @@ async def chat(req: ChatRequest):
 
 
 @router.websocket("/ws")
-async def websocket_chat(ws: WebSocket):
+async def websocket_chat(ws: WebSocket) -> typing.Any:
     """WebSocket endpoint -- clients connect, register a device_id, and
     exchange JSON messages. Supports chat streaming plus device-bridge
     tool dispatch (Issue-032)."""
+    
+    token = ws.query_params.get("token")
+    if not token:
+        auth_header = ws.headers.get("authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.removeprefix("Bearer ").strip()
+            
+    if token:
+        info = validate_token(token)
+        if not info:
+            await ws.close(code=1008, reason="Invalid token")
+            return
+            
     await manager.connect(ws)
+    authenticated = bool(token)
+    
     try:
         while True:
             raw = await ws.receive_json()
+            
+            if not authenticated:
+                msg_token = raw.get("token")
+                if msg_token:
+                    info = validate_token(msg_token)
+                    if not info:
+                        await ws.send_json({"type": "error", "message": "Invalid token"})
+                        manager.disconnect(ws)
+                        return
+                    authenticated = True
+                elif config.ENVIRONMENT == "production":
+                    await ws.send_json({"type": "error", "message": "Unauthorized"})
+                    manager.disconnect(ws)
+                    return
+                else:
+                    authenticated = True
+
             msg_type = raw.get("type", "message")
 
             if msg_type == "ping":

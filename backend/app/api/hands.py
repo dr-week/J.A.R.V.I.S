@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+import typing
+
 """API — /hands/* audit and tool safety.
 
 Read-only audit endpoints for Hands debugging.
@@ -17,7 +21,7 @@ router = APIRouter(prefix="/hands")
 
 
 @router.get("/actions")
-async def get_action_log(limit: int = 20):
+async def get_action_log(limit: int = 20) -> typing.Any:
     """Return the last `limit` action_log rows, newest first (default 20).
 
     Read-only: fetch history only. Parameters are redacted with the same
@@ -31,5 +35,5 @@ async def get_action_log(limit: int = 20):
 
 
 @router.get("/tools")
-async def get_hands_tools():
+async def get_hands_tools() -> typing.Any:
     return {"tools": list_tools(), "count": len(list_tools())}

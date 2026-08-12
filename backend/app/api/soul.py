@@ -1,5 +1,8 @@
-"""API — /soul/* endpoints for memories, habits, and persona config."""
 from __future__ import annotations
+
+import typing
+
+"""API — /soul/* endpoints for memories, habits, and persona config."""
 
 import asyncio
 
@@ -24,12 +27,12 @@ class MemoryUpsert(BaseModel):
 
 
 @router.get("/memories")
-async def list_memories():
+async def list_memories() -> typing.Any:
     return {"memories": mem.list_memories()}
 
 
 @router.put("/memories/{key}")
-async def upsert_memory(key: str, body: MemoryUpsert):
+async def upsert_memory(key: str, body: MemoryUpsert) -> typing.Any:
     applied = mem.upsert_memory(
         key,
         body.value,
@@ -43,7 +46,7 @@ async def upsert_memory(key: str, body: MemoryUpsert):
 
 
 @router.delete("/memories/{key}")
-async def delete_memory(key: str):
+async def delete_memory(key: str) -> typing.Any:
     deleted = mem.delete_memory(key)
     if not deleted:
         raise HTTPException(404, f"Memory key '{key}' not found.")
@@ -55,12 +58,12 @@ async def delete_memory(key: str):
 # ── Habits ────────────────────────────────────────────────────────────────────
 
 @router.get("/habits")
-async def list_habits(active_only: bool = True):
+async def list_habits(active_only: bool = True) -> typing.Any:
     return {"habits": mem.list_habits(active_only=active_only)}
 
 
 @router.delete("/habits/{habit_id}")
-async def archive_habit(habit_id: int):
+async def archive_habit(habit_id: int) -> typing.Any:
     archived = mem.archive_habit(habit_id)
     if not archived:
         raise HTTPException(404, f"Habit {habit_id} not found.")
@@ -75,7 +78,7 @@ class ConfigPatch(BaseModel):
 
 
 @router.get("/persona")
-async def get_persona():
+async def get_persona() -> typing.Any:
     profile = get_persona_profile()
     prompt = build_system_prompt()
     return {
@@ -90,7 +93,7 @@ async def get_persona():
 
 
 @router.patch("/persona")
-async def patch_persona(body: ConfigPatch):
+async def patch_persona(body: ConfigPatch) -> typing.Any:
     if body.name is not None:
         if not body.name.strip():
             raise HTTPException(400, "Name cannot be empty.")
