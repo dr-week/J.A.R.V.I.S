@@ -1,159 +1,159 @@
-# Jarvis
+# J.A.R.V.I.S.
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=23&duration=2800&pause=900&color=7DD3FC&center=true&vCenter=true&width=760&lines=One+brain.+Many+bodies.+Real+actions.;A+personal+AI+for+your+browser%2C+pocket%2C+and+home.;Built+in+small%2C+verifiable+vertical+slices." alt="One brain. Many bodies. Real actions." />
+</p>
+
+<p align="center">
+  <a href="https://github.com/dr-week/J.A.R.V.I.S"><img src="https://img.shields.io/github/last-commit/dr-week/J.A.R.V.I.S?style=for-the-badge&color=38bdf8" alt="Last commit" /></a>
+  <a href="https://github.com/dr-week/J.A.R.V.I.S/issues"><img src="https://img.shields.io/github/issues/dr-week/J.A.R.V.I.S?style=for-the-badge&color=f59e0b" alt="Open issues" /></a>
+  <a href="https://github.com/dr-week/J.A.R.V.I.S/commits/master"><img src="https://img.shields.io/github/commit-activity/m/dr-week/J.A.R.V.I.S?style=for-the-badge&color=a78bfa" alt="Commit activity" /></a>
+</p>
+
+> J.A.R.V.I.S. is a docs-first personal AI system with a centralized brain, executable tools, synced memory, and multiple physical surfaces.
+
+It is designed to live across your browser, phone, desktop, and house—not as four disconnected assistants, but as one continuous system that knows the user, asks for confirmation when needed, and records what it did.
+
+## The idea
 
 ```text
-   ███████╗ █████╗ ██████╗ ██╗   ██╗██╗███████╗
-   ██╔════╝██╔══██╗██╔══██╗██║   ██║██║██╔════╝
-   █████╗  ███████║██████╔╝██║   ██║██║███████╗
-   ██╔══╝  ██╔══██║██╔══██╗██║   ██║██║╚════██║
-   ██║     ██║  ██║██║  ██║╚██████╔╝██║███████║
-   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝╚══════╝
+                         ┌──────────────────────────────┐
+                         │        J.A.R.V.I.S.           │
+                         │  personal context + decisions │
+                         └──────────────┬───────────────┘
+                                        │
+              ┌─────────────────────────┼─────────────────────────┐
+              │                         │                         │
+        ┌─────▼─────┐             ┌─────▼─────┐             ┌─────▼─────┐
+        │  WEB CHAT  │             │  HANDS    │             │  PRESENCE │
+        │ daily UI   │             │ tools     │             │ phone/home│
+        └─────┬─────┘             └─────┬─────┘             └─────┬─────┘
+              └─────────────────────────┼─────────────────────────┘
+                                        │
+                         ┌──────────────▼───────────────┐
+                         │      audit • memory • sync    │
+                         └──────────────────────────────┘
 ```
 
-Jarvis is a personal AI that lives in your house, your pocket, and your browser.
-One synced brain. Many bodies. It does not just answer questions; it executes
-work, keeps continuity, and grows through real integrations.
+## What exists today
 
-Think:
+| Area | Current reality |
+| --- | --- |
+| Central brain | FastAPI backend with chat, sessions, health, sync, tools, webhooks, and auth flows |
+| Daily surface | Web client in clients/web with chat/session experience and PWA-style pieces |
+| Presence | Android, Flutter, and Windows client lanes are represented in the monorepo |
+| Execution | Tool/plugin boundary exists; Hands work is the active product focus |
+| Build system | Board-driven work loop with issue claiming, feedback, docs checks, and acceptance gates |
+| Integrations | Repository inventory and small-chunk integration plan live in docs/GITHUB_INTEGRATIONS.md |
 
-- an operator-grade assistant with memory and tools
-- a clean web chat as the primary interface
-- phone, desktop, and home surfaces that extend the same mind
+These are implementation facts, not a claim that every surface is production-complete. The board is the source of truth for what is done next: [docs/board/NOW.md](docs/board/NOW.md).
 
-This repo is docs-first, agent-buildable, and board-driven. Code follows the
-plan, not vibes.
+## Why this project is different
 
-## What Makes It Feel Modern
+- **Continuity over chat history:** the same brain can serve web, mobile, desktop, and house surfaces.
+- **Actions over theater:** tasks, reminders, device bridges, and plugins are proofs that the assistant can do work.
+- **Human control:** sensitive actions can require confirmation and produce an auditable trail.
+- **Small, reviewable slices:** every feature is tied to scope, acceptance criteria, tests, and synchronized docs.
+- **Open integration strategy:** use proven OSS components where they create leverage instead of rebuilding the ecosystem.
 
-Jarvis is being built with current product patterns instead of a retro CLI-first
-AI stack:
-
-- server-owned keys and tool execution
-- a primary web client with PWA-style daily use
-- field/bridge clients for mobile, desktop, and house presence
-- modular OSS integrations instead of custom reinvention
-- docs, board, and implementation flow kept in sync so the product stays legible
-
-The long-term goal is an assistant that feels ambient, fast, and trustworthy
-without turning into a bloated app zoo.
+## Architecture at a glance
 
 ```mermaid
 flowchart LR
-  U[You] --> W[Web Chat]
-  W --> B[Jarvis Brain]
-  A[Android / Field] --> B
-  X[Windows Tray Agent] --> B
-  H[Home Assistant] --> B
-  B --> T[Tools + Plugins]
-  B --> M[Memory + Sync]
+    User([You]) --> Web[Web Chat]
+    Phone[Android / Flutter] --> Brain
+    Desktop[Windows Agent] --> Brain
+    House[House Surfaces] --> Brain
+    Web --> Brain[J.A.R.V.I.S. Brain]
+    Brain --> Soul[Soul: persona + memory]
+    Brain --> Hands[Hands: tools + confirmations]
+    Brain --> Sync[Sync: sessions + events]
+    Hands --> Plugins[Plugins / OSS integrations]
+    Sync --> Clients[All connected surfaces]
 ```
 
-## Demo in 5 minutes (presentation)
+## Project facts
 
-**Live pitch:** [docs/DEMO.md](docs/DEMO.md)
+<p align="center">
+  <img src="https://img.shields.io/github/repo-size/dr-week/J.A.R.V.I.S?label=repository%20size&style=flat-square" alt="Repository size" />
+  <img src="https://img.shields.io/github/languages/count/dr-week/J.A.R.V.I.S?label=languages&style=flat-square" alt="Language count" />
+  <img src="https://img.shields.io/github/commit-activity/m/dr-week/J.A.R.V.I.S?label=commit%20activity&style=flat-square" alt="Commit activity" />
+  <img src="https://img.shields.io/github/stars/dr-week/J.A.R.V.I.S?label=stars&style=flat-square" alt="Stars" />
+</p>
+
+The badges above stay live and update from GitHub. The most useful human-readable facts are maintained in the roadmap and board, rather than frozen in this page.
+
+## Run the demo
+
+### Windows
 
 ```powershell
-# Windows — brain + web + browser
+Copy-Item .env.example .env
+# Add GEMINI_API_KEY to .env when real model responses are needed
 .\scripts\demo_up.ps1
 ```
 
+### macOS / Linux
+
 ```bash
-# macOS / Linux
+cp .env.example .env
+# Add GEMINI_API_KEY to .env when real model responses are needed
 chmod +x scripts/demo_up.sh && ./scripts/demo_up.sh
 ```
 
-Set `GEMINI_API_KEY` in `.env` (copy from `.env.example`) before you need real
-chat. Architecture-only demos work with **LLM off** — the UI still pairs to the
-brain and the product skeleton still shows up.
+Architecture-only demos can run with the LLM disabled; the UI and brain wiring remain inspectable.
 
-**Doc index (keep markdown aligned):** [docs/DOCS_MAP.md](docs/DOCS_MAP.md)
+## Build map
 
-## Quick Start for Humans
+| Stage | Name | Purpose |
+| --- | --- | --- |
+| D0 | Docs OS | Product scope, contracts, board, and agent workflow |
+| D1 | Devloop | Feedback loop for issue selection and completion |
+| 0 | Skeleton | Brain plus web, Android, Windows, and Flutter surfaces |
+| 1 | Soul | Persona, memory, and synced identity |
+| 2 | Hands | Tool runtime, bridges, confirmations, and audit |
+| 3 | Life tools | First useful domain plugins |
+| 4 | Voice | STT, TTS, tray, and wake word |
+| 5 | House | Home hub, room satellites, and smart-home bridges |
+| 6 | Expand | SDK for a growing integration ecosystem |
 
-1. Read [docs/VISION.md](docs/VISION.md), [docs/SCOPE.md](docs/SCOPE.md), [docs/STRATEGY.md](docs/STRATEGY.md), [docs/FUTURE.md](docs/FUTURE.md)
-2. Check current work: [docs/board/NOW.md](docs/board/NOW.md)
-3. Run the internal build loop (supports **2 parallel workers**):
+See [docs/ROADMAP.md](docs/ROADMAP.md) for detailed status and [docs/DECISIONS.md](docs/DECISIONS.md) for architecture decisions.
+
+## For contributors and AI agents
+
+1. Read [AGENTS.md](AGENTS.md), [docs/SCOPE.md](docs/SCOPE.md), and [docs/board/NOW.md](docs/board/NOW.md).
+2. Select one issue with the devloop and claim it with your owner id.
+3. Make the smallest vertical slice that meets its acceptance criteria.
+4. Run the relevant tests and documentation checks.
+5. Mark the issue done only after the board and mirrored docs are synchronized.
 
 ```bash
 python scripts/devloop.py status
-python scripts/devloop.py next --owner cursor         # this IDE
-python scripts/devloop.py prompt --owner antigravity  # other AI
-# or: python scripts/devloop.py prompt --owner claude
-python scripts/devloop.py loop                        # dual-AI feedback bus + LIVE_PLAN
-python scripts/devloop.py sync --owner cursor         # refresh board + optional LIVE_BRIEF
-python scripts/devloop.py brief --owner cursor        # dynamic instructions (not static)
+python scripts/devloop.py next --owner YOUR_ID
+python scripts/devloop.py prompt --owner YOUR_ID
+python scripts/verify_doc_links.py
 ```
 
-Parallel rules: [docs/dev/PARALLEL.md](docs/dev/PARALLEL.md) · Onboard new AI: [docs/dev/AGENT_ONBOARDING.md](docs/dev/AGENT_ONBOARDING.md) · Feedback: [docs/dev/FEEDBACK_LOOP.md](docs/dev/FEEDBACK_LOOP.md)
+## Repository map
 
-## Quick Start for AI Agents
-
-1. Read [AGENTS.md](AGENTS.md) — MiniMax also: [.blackbox/RULES.md](.blackbox/RULES.md) + [docs/dev/MINIMAX.md](docs/dev/MINIMAX.md)
-2. Read [docs/board/NOW.md](docs/board/NOW.md) and [docs/SCOPE.md](docs/SCOPE.md)
-3. Run `python scripts/devloop.py prompt` and execute that brief
-4. When finished: `python scripts/devloop.py done ISSUE-XXX`
-
-## Phase Map
-
-| Phase | Name | Goal |
-|-------|------|------|
-| **D0** | Docs OS | Specs, board, agent contracts |
-| **D1** | Devloop | Feedback-loop CLI for issues / next / done |
-| **0** | Skeleton | Monorepo brain + Android + Web + Windows clients |
-| **1** | Soul | Persona, memory, synced identity |
-| **2** | Hands | Tool runtime, device bridges, audit |
-| **3** | Life tools | First domain plugins (examples, not the ceiling) |
-| **4** | Voice | STT/TTS, tray, wake word |
-| **5** | House | Home hub, rooms, smart-home bridges |
-| **6** | Expand | Tool SDK for endless integrations |
-
-Full detail: [docs/ROADMAP.md](docs/ROADMAP.md) · Strategy: [docs/STRATEGY.md](docs/STRATEGY.md) · Future / levels: [docs/FUTURE.md](docs/FUTURE.md) · OSS: [docs/OSS.md](docs/OSS.md)
-
-### Surface Roles
-
-- **Daily Driver Chat**: the web client (`clients/web`) is the primary UI for
-  chat and sessions. Install it as a PWA or desktop shortcut for a cleaner
-  app-like feel.
-- **Desktop Agent**: the Windows client (`clients/windows`) is not a second
-  chat product. It is a tray agent for voice, device bridging, and background
-  execution.
-- **Field Body**: Flutter is the mobile/handheld control surface for bridge
-  actions, confirmations, and lightweight presence.
-
-## Product Feel
-
-Jarvis is aiming for a clean, contemporary assistant look:
-
-- minimal chrome, strong hierarchy, and a single obvious primary action
-- a web-first interface that feels app-like when installed
-- motion only where it clarifies state, not constant decoration
-- readable system status so the user always knows what is happening
-- visual continuity across web, phone, desktop, and house surfaces
-
-## Plugins (Phase 3+)
-
-### Velocity App Builder
-To use the Velocity dev server through Jarvis, symlink your Velocity app directory via environment variable:
-1. Set `JARVIS_VELOCITY_ROOT` (e.g. `JARVIS_VELOCITY_ROOT=e:\CODES\velocity`) in your OS environment or `.env`.
-2. Run `.\scripts\boot_velocity.ps1` to link `plugins\velocity_builder`, install dependencies, and start the dev server.
-
-## Layout
-
-```
-jarvis/
-  AGENTS.md              # agent contract
-  .blackbox/RULES.md     # Blackbox / MiniMax quick rules
-  docs/                  # product + process truth
-  docs/DOCS_MAP.md       # which docs mirror each other
-  docs/board/            # living NOW / NEXT / DONE / issues
-  skills/                # portable agent skills
-  .blackbox/skills/      # Blackbox-native skills
-  scripts/devloop.py     # internal AI app-dev feedback loop
-  backend/               # (Phase 0+) central brain
-  clients/               # (Phase 0+) android / windows / house
-  tools/                 # (Phase 2+) tool plugins
+```text
+backend/          central FastAPI brain
+clients/web/      primary daily-driver interface
+clients/android/  phone presence lane
+clients/flutter/  mobile control surface
+clients/windows/  desktop / tray presence lane
+docs/             product, architecture, board, and integration truth
+scripts/          demo, devloop, verification, and research utilities
+tools/             executable plugins and integrations
 ```
 
-## Status
+## Documentation
 
-D0/D1 done. Phase 0–1 largely shipped; **Phase 2 Hands** is in progress
-(Windows bridge done, Android **033** next). Board: [docs/board/NOW.md](docs/board/NOW.md).
+- Product direction: [docs/VISION.md](docs/VISION.md), [docs/SCOPE.md](docs/SCOPE.md)
+- Current work: [docs/board/NOW.md](docs/board/NOW.md)
+- Documentation sync hub: [docs/DOCS_MAP.md](docs/DOCS_MAP.md)
+- GitHub integration inventory: [docs/GITHUB_INTEGRATIONS.md](docs/GITHUB_INTEGRATIONS.md)
+- Demo script: [docs/DEMO.md](docs/DEMO.md)
+- Security: [docs/SECURITY.md](docs/SECURITY.md)
+
+<p align="center"><sub>J.A.R.V.I.S. — one brain, many bodies, real actions.</sub></p>
