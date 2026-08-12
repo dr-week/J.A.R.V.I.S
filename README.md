@@ -1,5 +1,14 @@
 # Jarvis
 
+```text
+   ███████╗ █████╗ ██████╗ ██╗   ██╗██╗███████╗
+   ██╔════╝██╔══██╗██╔══██╗██║   ██║██║██╔════╝
+   █████╗  ███████║██████╔╝██║   ██║██║███████╗
+   ██╔══╝  ██╔══██║██╔══██╗██║   ██║██║╚════██║
+   ██║     ██║  ██║██║  ██║╚██████╔╝██║███████║
+   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝╚══════╝
+```
+
 Jarvis is a personal AI that lives in your house, your pocket, and your browser.
 One synced brain. Many bodies. It does not just answer questions; it executes
 work, keeps continuity, and grows through real integrations.
@@ -26,6 +35,17 @@ AI stack:
 
 The long-term goal is an assistant that feels ambient, fast, and trustworthy
 without turning into a bloated app zoo.
+
+```mermaid
+flowchart LR
+  U[You] --> W[Web Chat]
+  W --> B[Jarvis Brain]
+  A[Android / Field] --> B
+  X[Windows Tray Agent] --> B
+  H[Home Assistant] --> B
+  B --> T[Tools + Plugins]
+  B --> M[Memory + Sync]
+```
 
 ## Demo in 5 minutes (presentation)
 
@@ -98,6 +118,16 @@ Full detail: [docs/ROADMAP.md](docs/ROADMAP.md) · Strategy: [docs/STRATEGY.md](
   execution.
 - **Field Body**: Flutter is the mobile/handheld control surface for bridge
   actions, confirmations, and lightweight presence.
+
+## Product Feel
+
+Jarvis is aiming for a clean, contemporary assistant look:
+
+- minimal chrome, strong hierarchy, and a single obvious primary action
+- a web-first interface that feels app-like when installed
+- motion only where it clarifies state, not constant decoration
+- readable system status so the user always knows what is happening
+- visual continuity across web, phone, desktop, and house surfaces
 
 ## Plugins (Phase 3+)
 
