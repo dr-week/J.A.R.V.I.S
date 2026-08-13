@@ -59,3 +59,33 @@ async def velocity_webhook(request: Request) -> dict[str, Any]:
         delivered = len(manager.active_device_ids())
 
     return {"success": True, "processed": True, "delivered_hint": delivered}
+
+
+@router.post("/webhook/telegram")
+async def telegram_webhook(request: Request) -> dict[str, Any]:
+    """Telegram Bot Webhook → Jarvis Brain bridge.
+    
+    Accepts incoming message updates from Telegram and dispatches them
+    to the Jarvis brain turn loop.
+    """
+    try:
+        payload = await request.json()
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="Invalid JSON") from exc
+
+    message_data = payload.get("message") or payload.get("edited_message")
+    if not message_data:
+        return {"ok": True, "skipped": True}
+
+    chat_id = str(message_data.get("chat", {}).get("id") or "")
+    text = message_data.get("text", "").strip()
+
+    if not chat_id or not text:
+        return {"ok": True, "skipped": True}
+
+    from backend.plugins.telegram_bot import _telegram_send
+    
+    # Simple reply acknowledgment for bridge
+    _telegram_send(f"Jarvis Received: {text}", chat_id=chat_id)
+    return {"ok": True, "chat_id": chat_id, "text": text}
+

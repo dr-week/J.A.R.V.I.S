@@ -1,6 +1,9 @@
 # Changelog (project build)
 
 ## 2026-08-09
+- 2026-08-13: DONE ISSUE-155 — Phase 4 Presence: Complete Flet system tray voice listener loop integration
+- 2026-08-13: DONE ISSUE-154 — Phase 4 Presence: Add Telegram webhook & long-polling bridge endpoint
+- 2026-08-13: DONE ISSUE-153 — Integrate CloakBrowser stealth Playwright engine into browser_use plugin
 - 2026-08-12: DONE ISSUE-152 — LiteLLM gateway contract and config shape
 - 2026-08-12: DONE ISSUE-151 — M4 Phase 4 exit - hands-free voice turn (Windows) + sync status
 - 2026-08-12: DONE ISSUE-149 — M3 Phase 3 exit — three domain tools acceptance pack

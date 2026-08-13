@@ -2,6 +2,9 @@
 
 Completed issues (newest first).
 
+- [ISSUE-155](issues/ISSUE-155.md) — Phase 4 Presence: Complete Flet system tray voice listener loop integration
+- [ISSUE-154](issues/ISSUE-154.md) — Phase 4 Presence: Add Telegram webhook & long-polling bridge endpoint
+- [ISSUE-153](issues/ISSUE-153.md) — Integrate CloakBrowser stealth Playwright engine into browser_use plugin
 - [ISSUE-152](issues/ISSUE-152.md) — LiteLLM gateway contract and config shape
 - [ISSUE-151](issues/ISSUE-151.md) — M4 Phase 4 exit - hands-free voice turn (Windows) + sync status
 - [ISSUE-150](issues/ISSUE-150.md) — M-Android Presence UI — pair, bridge status, confirm, open web

@@ -1,6 +1,6 @@
 # LIVE PLAN (generated — do not edit)
 
-_Generated: 2026-08-12T18:59:41Z UTC · fingerprint `1ed9d8a3189a`_
+_Generated: 2026-08-13T11:42:07Z UTC · fingerprint `9dee7d40abfe`_
 
 Regenerate: `python scripts/devloop.py sync` · Who: `devloop who`
 
@@ -12,7 +12,7 @@ _No claims — both slots free._
 
 - NOW slots: **0/2**
 - Open (unblocked): **0**
-- Done total: **104**
+- Done total: **107**
 - Focus phase: **2** — Hands — tools, device bridges, audit
 
 ### In progress (detail)
@@ -39,8 +39,8 @@ _(none)_
 | 0 | 26 | 0 |
 | 1 | 5 | 0 |
 | 2 | 22 | 0 |
-| 3 | 11 | 0 |
-| 4 | 5 | 0 |
+| 3 | 12 | 0 |
+| 4 | 7 | 0 |
 | 5 | 4 | 0 |
 | 6 | 11 | 0 |
 | 7 | 3 | 0 |

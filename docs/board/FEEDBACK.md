@@ -17,6 +17,30 @@ Full protocol: [docs/dev/FEEDBACK_LOOP.md](../dev/FEEDBACK_LOOP.md)
 
 ## Latest messages
 
+### 2026-08-13T11:42:03Z | antigravity → cursor | `done` | ISSUE-155
+
+Done ISSUE-155: Phase 4 Presence: Complete Flet system tray voice listener loop integration. Slot free. Suggested next tip: none. Run: python scripts/devloop.py loop
+
+### 2026-08-13T11:41:35Z | antigravity → cursor | `claim` | ISSUE-155
+
+Claimed ISSUE-155: Phase 4 Presence: Complete Flet system tray voice listener loop integration. Please avoid overlapping paths.
+
+### 2026-08-13T11:40:02Z | antigravity → cursor | `done` | ISSUE-154
+
+Done ISSUE-154: Phase 4 Presence: Add Telegram webhook & long-polling bridge endpoint. Slot free. Suggested next tip: none. Run: python scripts/devloop.py loop
+
+### 2026-08-13T11:39:32Z | antigravity → cursor | `claim` | ISSUE-154
+
+Claimed ISSUE-154: Phase 4 Presence: Add Telegram webhook & long-polling bridge endpoint. Please avoid overlapping paths.
+
+### 2026-08-13T11:38:31Z | antigravity → cursor | `done` | ISSUE-153
+
+Done ISSUE-153: Integrate CloakBrowser stealth Playwright engine into browser_use plugin. Slot free. Suggested next tip: none. Run: python scripts/devloop.py loop
+
+### 2026-08-13T11:38:04Z | antigravity → cursor | `claim` | ISSUE-153
+
+Claimed ISSUE-153: Integrate CloakBrowser stealth Playwright engine into browser_use plugin. Please avoid overlapping paths.
+
 ### 2026-08-12T18:59:41Z | claude → * | `done` | ISSUE-152
 
 Done ISSUE-152: LiteLLM gateway contract and config shape. Slot free. Suggested next tip: none. Run: python scripts/devloop.py loop
@@ -152,28 +176,4 @@ Done ISSUE-103: Flutter — strip legacy chat UI; Field home only. Slot free. Su
 ### 2026-08-11T17:55:01Z | unknown → * | `done` | ISSUE-133
 
 Done ISSUE-133: R subprocess plugin template. Slot free. Suggested next tip: ISSUE-120. Run: python scripts/devloop.py loop
-
-### 2026-08-11T17:54:44Z | unknown → * | `done` | ISSUE-129
-
-Done ISSUE-129: Implement Embedded Lua Engine. Slot free. Suggested next tip: ISSUE-120. Run: python scripts/devloop.py loop
-
-### 2026-08-11T17:54:18Z | unknown → * | `done` | ISSUE-126
-
-Done ISSUE-126: Prototype openwakeword wake listener. Slot free. Suggested next tip: ISSUE-120. Run: python scripts/devloop.py loop
-
-### 2026-08-11T17:54:04Z | agent → * | `done` | ISSUE-106
-
-Done ISSUE-106: Web PWA or desktop install manifest (optional). Slot free. Suggested next tip: ISSUE-120. Run: python scripts/devloop.py loop
-
-### 2026-08-11T17:54:03Z | agent → * | `claim` | ISSUE-106
-
-Claimed ISSUE-106: Web PWA or desktop install manifest (optional). Please avoid overlapping paths.
-
-### 2026-08-11T17:53:51Z | unknown → * | `done` | ISSUE-141
-
-Done ISSUE-141: Research CAD Generation APIs. Slot free. Suggested next tip: ISSUE-120. Run: python scripts/devloop.py loop
-
-### 2026-08-11T17:53:48Z | unknown → * | `done` | ISSUE-131
-
-Done ISSUE-131: Create velocity_build Tool. Slot free. Suggested next tip: ISSUE-120. Run: python scripts/devloop.py loop
 

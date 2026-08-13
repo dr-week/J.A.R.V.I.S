@@ -40,9 +40,16 @@ async def _browser_use_action(task: str, max_steps: int = 5) -> dict[str, Any]:
     except Exception as exc:
         pass
 
-    # Fallback to high-speed Playwright browser action specification
-    from playwright.async_api import async_playwright
+    # Fallback to high-speed Playwright / CloakBrowser stealth browser action specification
     try:
+        # Check if CloakBrowser stealth wrapper is available
+        try:
+            from cloakbrowser import async_cloakbrowser as async_playwright
+            stealth_mode = True
+        except ImportError:
+            from playwright.async_api import async_playwright
+            stealth_mode = False
+
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=True)
             page = await browser.new_page()
@@ -59,6 +66,7 @@ async def _browser_use_action(task: str, max_steps: int = 5) -> dict[str, Any]:
                 "task": clean_task,
                 "page_title": page_title,
                 "url": target_url,
+                "stealth_mode": stealth_mode,
                 "snippet": content_snippet,
             }
     except Exception as exc:

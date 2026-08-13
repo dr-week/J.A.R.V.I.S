@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity, Send, Copy, Check, Volume2, TestTube, Globe, Cpu, Wrench, Calendar, Mail, Newspaper, ClipboardPaste, Camera, FileText, StickyNote, User } from 'lucide-react';
+import { Activity, Send, Copy, Check, Volume2, Cpu, Wrench, Calendar, Mail, Newspaper, Camera, StickyNote, User } from 'lucide-react';
 import type { RefObject } from 'react';
 import type { ChatMessage } from '../types/chat';
 
