@@ -113,6 +113,59 @@ sequenceDiagram
 
 ---
 
+## 🛠️ Complete 87+ Executable Tool Inventory
+
+Jarvis comes equipped with an extensive inventory of zero-code tools across core operational categories:
+
+<details>
+<summary><b>📂 Core Life & Productivity (Click to expand)</b></summary>
+
+- `calendar_add`: Schedule new events with ISO-8601 timestamps.
+- `calendar_list`: Fetch scheduled events for any date range.
+- `calendar_today`: Quick retrieve today's agenda.
+- `calendar_delete`: Remove events securely.
+- `contact_add` / `contact_search` / `contact_list` / `contact_edit` / `contact_delete`: Complete local contact management.
+- `email_inbox` / `email_search` / `email_read` / `email_send`: IMAP/SMTP mail integration.
+- `note_create` / `note_search` / `note_list` / `note_edit` / `note_delete`: SQLite FTS5 full-text search notes.
+</details>
+
+<details>
+<summary><b>💻 Desktop & System Hardware Control (Click to expand)</b></summary>
+
+- `media_volume_set` / `media_volume_get` / `media_mute_toggle`: OS audio controller via `pycaw`.
+- `clipboard_get` / `clipboard_set` / `clipboard_history`: Clipboard inspection and management.
+- `screenshot_take` / `screenshot_ocr`: Instant screen capture with tesseract OCR extraction.
+- `notify_send`: Cross-platform desktop toast notification dispatcher.
+- `file_find` / `file_read_text`: Fast local system search & inspection.
+- `system_vitals`: Live CPU, RAM, disk, and process telemetry via `psutil`.
+</details>
+
+<details>
+<summary><b>🤖 Web, Voice & Advanced Swarm (Click to expand)</b></summary>
+
+- `browser_navigate` / `browser_click` / `browser_type`: Stealth Playwright web navigation via `CloakBrowser`.
+- `stt_transcribe`: High-speed local speech-to-text powered by `faster-whisper`.
+- `video_summarize`: Extract metadata and transcripts using `yt-dlp`.
+- `translate_text`: Offline neural translation powered by `argostranslate`.
+- `n8n_trigger_workflow`: Remote workflow execution via `n8n` webhooks.
+- `telegram_send`: Instant push messaging to user mobile device.
+- `workflow_create` / `workflow_run`: Multi-tool autonomous chaining engine.
+</details>
+
+---
+
+## 🛡️ Security & Confirmation Gates
+
+Every action executed by Jarvis is subject to a strict **3-Tier Permission Safety Gate**:
+
+| Risk Level | Behavior | Example Tools |
+|---|---|---|
+| 🟢 `auto` | Read-only operations; executed automatically without pause. | `calendar_list`, `weather_current`, `note_search`, `system_vitals` |
+| 🟡 `confirm_once` | Asks user approval on first invocation per session. | `calendar_add`, `contact_add`, `clipboard_set`, `media_volume_set` |
+| 🔴 `confirm_always` | Strictly requires user explicit approval before every single execution. | `email_send`, `note_delete`, `contact_delete`, `calendar_delete` |
+
+---
+
 ## 📦 Zero-SaaS Open Source Engine Matrix
 
 | Category | Integrated Library / Tool | Replaced Proprietary Service | Monthly Cost Saved |
@@ -124,6 +177,20 @@ sequenceDiagram
 | **Stealth Web** | `CloakBrowser` + `Playwright` | Paid Scraping Proxies | ~$40 / mo |
 | **Finance** | Plain-Text Ledger Engine | Mint / YNAB SaaS | ~$15 / mo |
 | **Total Saved** | **23+ Integrated OSS Projects** | **All Paid APIs & Cloud Lock-in** | **~$205+ / month** |
+
+---
+
+## 🗺️ Master Roadmap & Phase Progress
+
+```
+[Phase 0: Core Skeleton]     ████████████████████ 100%
+[Phase 1: Soul & Memory]     ████████████████████ 100%
+[Phase 2: Hands & Tools]     ████████████████████ 100%
+[Phase 3: Life Plugins]      ████████████████████ 100%
+[Phase 4: Voice & Presence]  ███████████████████░  95%
+[Phase 5: House Body (IoT)]  █████████████████░░░  85%
+[Phase 6: Swarm Workflows]   ███████████████░░░░░  75%
+```
 
 ---
 
