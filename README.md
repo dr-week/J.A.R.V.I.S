@@ -154,6 +154,47 @@ Jarvis comes equipped with an extensive inventory of zero-code tools across core
 
 ---
 
+## 💻 Developer API & Extension Guide
+
+Extending Jarvis with new capabilities requires zero core modifications. Create a Python package inside `backend/plugins/` and register tools dynamically:
+
+```python
+from backend.app.hands import registry
+
+def custom_tool_executor(param1: str) -> dict:
+    return {"result": f"Executed with {param1}"}
+
+registry.register(
+    {
+        "name": "custom_tool_name",
+        "description": "Clear docstring explaining tool utility to the LLM router.",
+        "risk_level": "confirm_once", # auto | confirm_once | confirm_always
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "param1": {"type": "string", "description": "Parameter description"}
+            },
+            "required": ["param1"]
+        },
+        "scopes": ["custom:scope"]
+    },
+    custom_tool_executor
+)
+```
+
+---
+
+## 🔌 API Reference & Endpoints
+
+| Endpoint | Method | Description | Scope |
+|---|---|---|---|
+| `/health` | GET | Brain system status, database health, and active plugins count | Public |
+| `/api/chat` | POST | Main turn-based streaming chat endpoint with intent router & tools | `chat:write` |
+| `/webhook/telegram` | POST | Webhook bridge for incoming Telegram user text & voice updates | `webhook` |
+| `/webhook/velocity` | POST | High-frequency telemetry and background task events ingestion | `webhook` |
+
+---
+
 ## 🛡️ Security & Confirmation Gates
 
 Every action executed by Jarvis is subject to a strict **3-Tier Permission Safety Gate**:
