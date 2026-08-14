@@ -69,6 +69,40 @@
 
 <div class="hud-border"></div>
 
+<!-- Animated SVG Gear -->
+<svg width="80" height="80" viewBox="0 0 100 100" class="spin-gear" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="50,15 61,35 82,35 68,50 82,65 61,65 50,85 39,65 18,65 32,50 18,35 39,35"
+    fill="url(#gradient)" stroke="#00e5ff" stroke-width="2"/>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="100%" stop-color="#4facfe"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<style>
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spin-gear { animation: spin 6s linear infinite; transform-origin: 50% 50%; }
+</style>
+
+## 🚀 Live Demo
+
+Experience J.A.R.V.I.S. in action on a hosted demo. Click the badge below to launch the web client.
+
+[![Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://jarvis-demo.vercel.app)
+
+## 🤝 Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Join the community on Discord or open an issue.
+
+## 💡 Inspiration
+
+J.A.R.V.I.S. draws inspiration from sci‑fi assistants, autonomous agents, and open‑source AI ecosystems.
+
 ---
 
 ## 📖 The Origin & Narrative: "The Stark Protocol"
