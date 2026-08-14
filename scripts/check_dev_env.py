@@ -6,9 +6,11 @@ Exits 0 when core requirements pass; prints fixes for failures.
 from __future__ import annotations
 
 import importlib.util
+import os
 import socket
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -72,6 +74,36 @@ def main() -> int:
         _ok("flutter on PATH (Field lane)")
     else:
         _warn("flutter not on PATH — optional unless doing ISSUE-101")
+
+    # Zero-code OSS dependencies (docs/OSS.md)
+    ytdlp = shutil_which("yt-dlp") or (importlib.util.find_spec("yt_dlp") is not None)
+    if ytdlp:
+        _ok("yt-dlp available (video summarizer)")
+    else:
+        _warn("yt-dlp not found — optional for video summarization: pip install yt-dlp")
+
+    if importlib.util.find_spec("argostranslate") is not None:
+        _ok("argostranslate installed (offline translation)")
+    else:
+        _warn("argostranslate not installed — optional for offline translation: pip install argostranslate")
+
+    searxng_raw = (
+        os.environ.get("SEARXNG_URL")
+        or os.environ.get("JARVIS_SEARXNG_URL")
+        or "http://localhost:8080"
+    )
+    sx_parsed = urlparse(searxng_raw)
+    sx_host = sx_parsed.hostname or "127.0.0.1"
+    sx_port = sx_parsed.port or (443 if sx_parsed.scheme == "https" else 8080)
+    if port_open(sx_host, sx_port):
+        _ok(f"SearXNG sidecar listening on {sx_host}:{sx_port} (private search)")
+    else:
+        _warn(f"SearXNG sidecar not on :{sx_port} — optional for private search: docker run -d -p 8080:8080 searxng/searxng")
+
+    if importlib.util.find_spec("kokoro") is not None:
+        _ok("kokoro installed (neural TTS)")
+    else:
+        _warn("kokoro not installed — optional for local neural TTS: pip install kokoro soundfile")
 
     print()
     if fails:

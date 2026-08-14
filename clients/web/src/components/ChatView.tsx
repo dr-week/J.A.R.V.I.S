@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import type { RefObject } from 'react';
 import type { ChatMessage } from '../types/chat';
+import { Tooltip, TooltipTrigger, TooltipContent } from './ui/tooltip';
 
 interface ChatViewProps {
   messages: ChatMessage[];
@@ -38,15 +39,27 @@ function CodeBlock({ code, language }: { code: string; language?: string }) {
   };
 
   return (
-    <div className="code-block-container">
-      <div className="code-block-header">
-        <span className="code-lang">{language || 'code'}</span>
-        <button className="copy-btn" onClick={handleCopy} title="Copy code">
-          {copied ? <Check size={13} className="copy-icon-copied" /> : <Copy size={13} />}
-          <span>{copied ? 'Copied!' : 'Copy'}</span>
-        </button>
+    <div className="code-block-container my-2 overflow-hidden rounded-xl border border-white/10 bg-[#0a0a10]/95 shadow-md">
+      <div className="code-block-header flex items-center justify-between border-b border-white/5 bg-white/[0.03] px-3.5 py-1.5 text-xs text-muted-foreground">
+        <span className="code-lang font-mono text-[0.72rem] lowercase">{language || 'code'}</span>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className="copy-btn inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground transition hover:bg-white/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              onClick={handleCopy}
+              aria-label={copied ? 'Copied to clipboard' : 'Copy code to clipboard'}
+            >
+              {copied ? <Check size={13} className="copy-icon-copied text-emerald-400" /> : <Copy size={13} />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="top">
+            <span>{copied ? 'Copied!' : 'Copy snippet'}</span>
+          </TooltipContent>
+        </Tooltip>
       </div>
-      <pre className="code-block-content">
+      <pre className="code-block-content m-0 overflow-x-auto p-3.5 font-mono text-[0.82rem] leading-relaxed text-slate-200">
         <code>{code}</code>
       </pre>
     </div>
@@ -56,8 +69,8 @@ function CodeBlock({ code, language }: { code: string; language?: string }) {
 function MessageContent({ text, role }: { text: string; role: string }) {
   if (role === 'system') {
     return (
-      <div className="message-system-inner">
-        <Wrench size={14} style={{ flexShrink: 0 }} />
+      <div className="message-system-inner flex items-center gap-2">
+        <Wrench size={14} className="shrink-0" />
         <span>{text}</span>
       </div>
     );
@@ -91,7 +104,7 @@ function MessageContent({ text, role }: { text: string; role: string }) {
         part.type === 'code' ? (
           <CodeBlock key={idx} code={part.content} language={part.language} />
         ) : (
-          <span key={idx} style={{ whiteSpace: 'pre-wrap' }}>
+          <span key={idx} className="whitespace-pre-wrap">
             {part.content}
           </span>
         )
@@ -122,60 +135,90 @@ export function ChatView({
 
   return (
     <>
-      <main className="chat-container glass-panel">
+      <main
+        className="chat-container glass-panel flex-1 overflow-y-auto rounded-2xl p-5 md:p-6 flex flex-col gap-3.5 mb-2.5 border border-white/10"
+        role="log"
+        aria-live="polite"
+        aria-label="Conversation history"
+      >
         {messages.length === 0 && (
-          <div className="empty-chat-welcome">
-            <div className="welcome-avatar">
+          <div className="empty-chat-welcome flex flex-col items-center justify-center my-auto text-center animate-fade-in py-12">
+            <div className="welcome-avatar relative mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0a84ff] to-[#7c3aed] text-white shadow-lg">
               <Sparkles size={32} />
             </div>
-            <h3>Jarvis Central Mind</h3>
-            <p>Your personal AI assistant. Ask anything, or tap a quick action below.</p>
+            <h3 className="text-xl font-semibold tracking-tight bg-gradient-to-r from-[#0a84ff] to-[#7c3aed] bg-clip-text text-transparent mb-1.5">
+              Jarvis Central Mind
+            </h3>
+            <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
+              Your personal AI assistant. Ask anything, or tap a quick action below.
+            </p>
           </div>
         )}
 
         {messages.map((m) => (
-          <div key={m.id} className={`message-bubble animate-slide-up message-${m.role}`}>
+          <div
+            key={m.id}
+            className={`message-bubble animate-slide-up message-${m.role}`}
+            data-role={m.role}
+          >
             <MessageContent text={m.text} role={m.role} />
           </div>
         ))}
         <div ref={chatEndRef} />
       </main>
 
-      <div className="quick-actions-bar">
+      <div className="quick-actions-bar flex flex-wrap justify-center gap-2 py-1 shrink-0" role="toolbar" aria-label="Quick actions">
         {quickActions.map((action, idx) => {
           const Icon = action.icon;
           return (
-            <button
-              key={idx}
-              className="quick-chip-btn"
-              onClick={() => onInputChange(action.prompt)}
-              disabled={!isConnected || isBusy}
-              title={action.label}
-            >
-              <Icon size={14} />
-              <span>{action.label}</span>
-            </button>
+            <Tooltip key={idx}>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  className="quick-chip-btn inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition hover:border-primary/30 hover:bg-primary/10 hover:text-foreground active:scale-95 disabled:pointer-events-none disabled:opacity-35"
+                  onClick={() => onInputChange(action.prompt)}
+                  disabled={!isConnected || isBusy}
+                  aria-label={action.label}
+                >
+                  <Icon size={14} />
+                  <span>{action.label}</span>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <span>"{action.prompt}"</span>
+              </TooltipContent>
+            </Tooltip>
           );
         })}
       </div>
 
-      <div className="composer-container glass-panel">
+      <div className="composer-container glass-panel flex items-center gap-2.5 rounded-full border border-white/10 px-4 py-2 shrink-0 transition focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20">
         <input
           type="text"
-          className="composer-input"
+          className="composer-input flex-1 bg-transparent py-1 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none"
           value={input}
           onChange={(e) => onInputChange(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && onSend()}
           placeholder="Message Jarvis..."
           disabled={!isConnected || isBusy}
+          aria-label="Type a message"
         />
-        <button
-          className="composer-button"
-          onClick={onSend}
-          disabled={!input.trim() || !isConnected || isBusy}
-        >
-          {isBusy ? <Activity size={16} className="animate-spin" /> : <Send size={16} />}
-        </button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              className="composer-button flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#0a84ff] to-[#7c3aed] text-white shadow-md transition hover:scale-105 hover:shadow-lg active:scale-95 disabled:pointer-events-none disabled:bg-muted-foreground/30 disabled:opacity-40"
+              onClick={onSend}
+              disabled={!input.trim() || !isConnected || isBusy}
+              aria-label="Send message"
+            >
+              {isBusy ? <Activity size={16} className="animate-spin" /> : <Send size={16} />}
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="top">
+            <span>Send message</span>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </>
   );
