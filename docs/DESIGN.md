@@ -98,20 +98,40 @@ See [ACCEPTANCE.md](ACCEPTANCE.md) and [dev/DEFINITION_OF_DONE.md](dev/DEFINITIO
 
 ---
 
-## 🎨 Open-Source UI & Design Systems (Zero-Code Layouts)
+## 🎨 Canonical Zero-Code UI Design System Stack (`clients/web`)
 
-Jarvis leverages top-tier open-source design components to eliminate custom CSS work:
+Jarvis standardizes on **Tailwind CSS + shadcn/ui + Lucide React** as the canonical zero-code UI design system stack for the web presence (`clients/web`):
 
-1. **shadcn/ui Design System (121k⭐)**:
-   - Token conventions, CSS variables (`--background`, `--card`, `--popover`, `--accent`).
-   - Copy-paste accessible React components for dialogs, popovers, dropdowns, and buttons.
-2. **Lucide Icons (15k⭐)**:
-   - Unified icon language across Vite React web HUD and Flet desktop presence.
-3. **Open-WebUI Layout Tokens (149k⭐)**:
+1. **Tailwind CSS (Utility-First Design Engine)**:
+   - Atomic utility styling wired to unified design tokens via CSS variables (`--background`, `--card`, `--primary`, `--accent`, `--border`, `--ring`).
+   - Dynamic responsiveness and glassmorphism styling (`backdrop-blur-xl`, `bg-card/70`, `border-border/40`) without hand-written media queries or custom CSS classes.
+2. **shadcn/ui Design System (121k⭐ Primitives)**:
+   - Copy-paste accessible components built on headless Radix UI primitives.
+   - Built-in accessible dialogs, popovers, dropdown menus, tabs, tooltips, and buttons that automatically adhere to theme tokens.
+3. **Lucide Icons (15k⭐ / `lucide-react`)**:
+   - Canonical icon language across Vite React web HUD and desktop presence, providing consistent visual symbols for actions, status indicators, and tools.
+4. **Open-WebUI Layout Tokens (149k⭐ Inspiration)**:
    - Responsive multi-device chat layout, sidebar collapsing math, and dynamic mobile drawers (`100dvh`).
+
+---
+
+## ⚡ How Zero-Code CSS Tokens Save 90% of Custom UI Styling Work
+
+Adopting tokenized Tailwind CSS and shadcn/ui components eliminates roughly **90% of bespoke UI styling and CSS maintenance overhead**:
+
+1. **Elimination of Bespoke CSS Boilerplate**:
+   - Instead of writing and maintaining hundreds of lines of fragile CSS classes (`.chat-bubble-user`, `.modal-overlay`, `.dropdown-item`), developers style interfaces inline with standardized semantic utility classes (`bg-primary text-primary-foreground rounded-2xl shadow-sm`).
+2. **Unified Semantic Token System**:
+   - Color palettes, spacing scales, border radiuses, and glass blur factors are defined **once** in CSS variables (e.g., `--background`, `--accent`, `--panel-bg`). All components automatically inherit theme modes (dark/light) and visual depth without manual override rules.
+3. **Out-of-the-Box Glassmorphism & Depth**:
+   - Modern HUD aesthetics (frosted glass panels, subtle border highlights, drop shadows, and radial glow effects) are composed with modular Tailwind utilities (`backdrop-blur-md bg-card/60 border border-white/10 shadow-lg`) rather than bespoke cross-browser CSS hacks.
+4. **Zero Layout & Accessibility Thrash**:
+   - Components from shadcn/ui include full WAI-ARIA compliance, focus trapping, keyboard navigation, and responsive collapse logic out of the box, saving days of writing accessible boilerplate.
+5. **AI-Friendly & Maintainable**:
+   - LLM coding agents can reliably generate, refactor, and review tokenized utility class combinations without risking CSS specificity conflicts or cascading regression bugs across the application.
 
 ---
 
 ## Related
 
-[DOCS_MAP.md](DOCS_MAP.md) · [PERSONA.md](PERSONA.md) · [REQUIREMENTS.md](REQUIREMENTS.md) (FR-P* presence) · [OSS.md](OSS.md)
+[DOCS_MAP.md](DOCS_MAP.md) · [PERSONA.md](PERSONA.md) · [REQUIREMENTS.md](REQUIREMENTS.md) (FR-P* presence) · [OSS.md](OSS.md) · [dev/WEB_UI.md](dev/WEB_UI.md)

@@ -1,6 +1,35 @@
 # Web UI — Vite + React (`clients/web/`)
 
-**Role:** **Primary** presence client (TypeScript). Parent: [DESIGN.md](../DESIGN.md). Stacks: [PRESENCE_STACKS.md](PRESENCE_STACKS.md).
+**Role:** **Primary** presence client (TypeScript).  
+**Canonical UI Stack:** **Tailwind CSS + shadcn/ui + Lucide React** (Zero-Code Design System).  
+Parent: [DESIGN.md](../DESIGN.md). Stacks: [PRESENCE_STACKS.md](PRESENCE_STACKS.md).
+
+---
+
+## Canonical Zero-Code UI Stack
+
+Jarvis Web (`clients/web`) uses **Tailwind CSS + shadcn/ui + Lucide React** as the canonical design system to build an ultra-responsive, accessible HUD interface without writing custom ad-hoc CSS:
+
+- **Tailwind CSS**: Utility-first CSS engine mapped to design tokens via standard CSS variables (`--background`, `--card`, `--primary`, `--accent`, `--border`, `--ring`).
+- **shadcn/ui**: High-quality, accessible Radix UI component primitives (Dialog, DropdownMenu, Tooltip, ScrollArea, Popover, Button).
+- **Lucide React (`lucide-react`)**: Clean, consistent icon set matching desktop and field clients.
+
+---
+
+## ⚡ How Zero-Code CSS Tokens Save 90% of Custom UI Styling Work
+
+Using standardized design tokens with Tailwind CSS and shadcn/ui slashes custom UI styling and CSS maintenance by **90%**:
+
+1. **No Bespoke CSS Selectors**:
+   - Eliminates bloated CSS stylesheets and manual class naming conventions (e.g. `.custom-chat-bubble-v2`). Everything is styled inline with standardized tokens (`bg-card/70 backdrop-blur-xl border border-white/10 text-foreground`).
+2. **Instant Theming & Glassmorphism**:
+   - Design tokens defined once in root CSS variables (`--bg-color`, `--accent-color`, `--panel-bg`) drive both light/dark modes and frosted glass styling across every component automatically without duplicate CSS rules.
+3. **Turnkey Accessibility & State Handling**:
+   - shadcn/ui primitives handle keyboard focus, ARIA attributes, modals, and dropdown transitions out of the box, saving hundreds of hours of custom interaction code.
+4. **Responsive Layouts without Media Query Hacks**:
+   - Tailwind breakpoint modifiers (`md:`, `lg:`) and dynamic viewport units (`100dvh`) handle desktop-to-mobile drawer collapsing cleanly without brittle custom `@media` blocks.
+5. **Conflict-Free Agent Development**:
+   - Coding agents (Cursor, Antigravity, MiniMax) can compose and refactor UI components rapidly using atomic utility classes without inducing CSS specificity conflicts or cross-file stylesheet regressions.
 
 ---
 
@@ -21,8 +50,8 @@ Do **not** add “Jarvis Web”, duplicate bot icons, or a second status dot in 
 ## Visual
 
 - Background: animated mesh in `index.css` (`body::before`) — see DESIGN.md glass-on-motion rule.
-- Panels: `.glass-panel` — blur `24px`, inset highlight, soft shadow.
-- Bubbles: user / assistant / system styles in `App.css`; one shadow tier per role.
+- Panels: `.glass-panel` or Tailwind `backdrop-blur-xl bg-card/70 border border-white/10 shadow-lg`.
+- Bubbles: user / assistant / system styles; one shadow tier per role.
 
 ---
 
@@ -71,4 +100,5 @@ npm run dev
 
 ## Related
 
-[DESIGN.md](../DESIGN.md) · [FLUTTER_UI.md](FLUTTER_UI.md) · [MINIMAX_UI.md](MINIMAX_UI.md) · Stack defaults: [OSS.md](../OSS.md) (Vite/React row)
+[DESIGN.md](../DESIGN.md) · [FLUTTER_UI.md](FLUTTER_UI.md) · [MINIMAX_UI.md](MINIMAX_UI.md) · Stack defaults: [OSS.md](../OSS.md) (Vite/React row) · [STARK_OSS_INSTALL.md](STARK_OSS_INSTALL.md)
+

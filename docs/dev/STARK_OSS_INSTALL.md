@@ -36,13 +36,30 @@ cd clients/web && npm install
 | **mypy** | Catch API lies before runtime |
 | **pytest** + **pytest-asyncio** | Reactor regression tests |
 
-### Web (`clients/web`)
+### Web (`clients/web`) — Canonical Zero-Code UI Stack
 
 | Package | Stark reason |
 |---------|----------------|
 | **vite** + **react** + **typescript** | One HUD — chat/product UI |
-| **oxlint** | Fast JS lint |
+| **tailwindcss** + **postcss** + **autoprefixer** | Utility-first design tokens & zero-code layout engine |
+| **shadcn/ui** (`@radix-ui/*`, `clsx`, `tailwind-merge`) | Canonical copy-paste accessible component primitives |
 | **lucide-react** | Icons without design thrash |
+| **oxlint** | Fast JS lint |
+
+#### ⚡ How Zero-Code CSS Tokens Save 90% of Custom UI Styling Work
+
+Tony Stark does not waste workshop hours hand-crafting bespoke `.css` selectors for buttons, dialogs, and flex containers. Adopting **Tailwind CSS + shadcn/ui + Lucide React** eliminates ~90% of custom UI styling overhead:
+
+1. **Zero Bespoke CSS Writing**:
+   - Standard semantic tokens (`--background`, `--card`, `--primary`, `--accent`, `--border`, `--ring`) bound directly to Tailwind utility classes eliminate monolithic custom stylesheets (`App.css`, `style.css`).
+2. **Turnkey Accessible Primitives**:
+   - shadcn/ui (powered by Radix UI) provides rock-solid ARIA compliance, focus-trapping, modal overlays, tooltips, and dropdowns out of the box without writing bespoke interaction JavaScript or styling hacks.
+3. **Instant Glassmorphism & Depth Tokens**:
+   - Modern HUD aesthetics (frosted glass panels, border highlights, glows, and smooth shadows) are styled via composable utility tokens (`backdrop-blur-xl bg-card/70 border border-white/10 shadow-lg`) without cross-browser CSS fragility.
+4. **Theme Alignment Without Code Duplication**:
+   - Switching or tuning HUD color palettes requires only editing root CSS token variables once; all components dynamically update without maintaining separate dark/light stylesheet overrides.
+5. **No AI Drift or CSS Specificity Wars**:
+   - AI coding agents can reliably emit declarative Tailwind utility classes directly in JSX without colliding with global stylesheet cascade rules or breaking adjacent components.
 
 ### Flutter / Windows / Android
 
