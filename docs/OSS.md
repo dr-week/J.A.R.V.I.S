@@ -102,6 +102,8 @@ results = httpx.get("http://localhost:8080/search?q=query&format=json").json()
 | `browser_use` | CloakBrowser + Playwright | 29k | PyPI wrapper |
 | `homeassistant` | Home Assistant REST | 75k | REST sidecar |
 | `mcp_installer` | MCP SDK | - | MCP server |
+| `anything_llm` | AnythingLLM | 64k | REST sidecar |
+| `litellm_gateway` | LiteLLM | 20k | PyPI wrapper |
 
 ## Dev tooling (integrate, don't fork)
 

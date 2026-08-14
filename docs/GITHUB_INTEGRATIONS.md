@@ -43,6 +43,8 @@ security review.
 | [codingo/fpdf2](https://github.com/py-pdf/fpdf2) | 1k | PDF report generation | PyPI wrapper | Phase 3 |
 | [Delgan/loguru](https://github.com/Delgan/loguru) | 20k | Structured logging | PyPI | All phases |
 | [giampaolo/psutil](https://github.com/giampaolo/psutil) | 10k | System vitals / CPU/RAM | PyPI wrapper | Phase 3 |
+| [Mintplex-Labs/anything-llm](https://github.com/Mintplex-Labs/anything-llm) | 64k | Full RAG knowledge base sidecar | REST sidecar | Phase 3+ |
+| [BerriAI/litellm](https://github.com/BerriAI/litellm) | 20k | Unified model gateway across Gemini/OpenAI/Ollama | PyPI wrapper | Phase 3-4 |
 
 ---
 
@@ -52,7 +54,6 @@ These are prioritized by impact vs. coding effort ratio. Each uses one of the 4 
 
 | Priority | Repository | Stars | Jarvis Role | Pattern | Phase |
 |---|---|---|---|---|---|
-| ⭐ 1 | [BerriAI/litellm](https://github.com/BerriAI/litellm) | 20k | One model gateway for Gemini, OpenAI-compatible endpoints, and Ollama | PyPI wrapper | Phase 3-4 |
 | ⭐ 2 | [Mintplex-Labs/anything-llm](https://github.com/Mintplex-Labs/anything-llm) | **64k** | Full RAG: document ingestion, chunking, vector search, multi-tenant chat | Docker sidecar + REST | Phase 3+ |
 | ⭐ 3 | [searxng/searxng](https://github.com/searxng/searxng) | **35k** | Private self-hosted search — replaces Google/Bing API costs | Docker sidecar + REST | Phase 3 |
 | ⭐ 4 | [hexgrad/kokoro](https://github.com/hexgrad/kokoro) | **8k** | Local neural TTS — replaces ElevenLabs/OpenAI voice | 3-line PyPI wrapper | Phase 4 |

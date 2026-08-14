@@ -14,6 +14,8 @@ def test_oss_automation_plugins_registered():
     """Verify zero-code OSS automation & search tools are registered in registry."""
     tool_names = list(registry.REGISTRY.keys())
     assert "n8n_trigger_workflow" in tool_names
+    assert "anythingllm_query" in tool_names
+    assert "anythingllm_upload_doc" in tool_names
 
 
 @pytest.mark.asyncio

@@ -143,7 +143,7 @@ export function ChatView({
       >
         {messages.length === 0 && (
           <div className="empty-chat-welcome flex flex-col items-center justify-center my-auto text-center animate-fade-in py-12">
-            <div className="welcome-avatar relative mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0a84ff] to-[#7c3aed] text-white shadow-lg">
+            <div className="welcome-avatar welcome-avatar-ring relative mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0a84ff] to-[#7c3aed] text-white shadow-lg animate-pulse">
               <Sparkles size={32} />
             </div>
             <h3 className="text-xl font-semibold tracking-tight bg-gradient-to-r from-[#0a84ff] to-[#7c3aed] bg-clip-text text-transparent mb-1.5">
