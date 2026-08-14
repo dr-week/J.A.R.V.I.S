@@ -45,6 +45,7 @@ security review.
 | [giampaolo/psutil](https://github.com/giampaolo/psutil) | 10k | System vitals / CPU/RAM | PyPI wrapper | Phase 3 |
 | [Mintplex-Labs/anything-llm](https://github.com/Mintplex-Labs/anything-llm) | 64k | Full RAG knowledge base sidecar | REST sidecar | Phase 3+ |
 | [BerriAI/litellm](https://github.com/BerriAI/litellm) | 20k | Unified model gateway across Gemini/OpenAI/Ollama | PyPI wrapper | Phase 3-4 |
+| [rhasspy/piper](https://github.com/rhasspy/piper) | 4k | Lightweight local neural TTS fallback | CLI subprocess | Phase 4 |
 
 ---
 

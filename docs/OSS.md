@@ -104,6 +104,7 @@ results = httpx.get("http://localhost:8080/search?q=query&format=json").json()
 | `mcp_installer` | MCP SDK | - | MCP server |
 | `anything_llm` | AnythingLLM | 64k | REST sidecar |
 | `litellm_gateway` | LiteLLM | 20k | PyPI wrapper |
+| `piper_tts` | Piper | 4k | CLI subprocess |
 
 ## Dev tooling (integrate, don't fork)
 
