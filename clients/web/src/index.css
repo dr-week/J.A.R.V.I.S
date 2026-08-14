@@ -1,15 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --bg-color: #06060a;
-  --bg-secondary: #0c0c14;
-  --panel-bg: rgba(12, 12, 20, 0.75);
-  --border-color: rgba(255, 255, 255, 0.06);
-  --border-glow: rgba(10, 132, 255, 0.15);
-  --text-main: #eaeaf0;
-  --text-muted: #6b6b80;
-  --text-dim: #3a3a50;
-  --accent-color: #0a84ff;
+  /* ── shadcn/ui Design Tokens (CSS Variables) ── */
+  --background: #0f0f13;
+  --foreground: #f0f0f2;
+  --card: rgba(25, 25, 30, 0.7);
+  --card-foreground: #f0f0f2;
+  --popover: rgba(25, 25, 30, 0.85);
+  --popover-foreground: #f0f0f2;
+  --primary: #0a84ff;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary-foreground: #f0f0f2;
+  --muted: rgba(255, 255, 255, 0.04);
+  --muted-foreground: #8e8e93;
+  --accent: rgba(10, 132, 255, 0.15);
+  --accent-foreground: #0a84ff;
+  --destructive: #ff3b30;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #0a84ff;
+  --radius: 0.875rem; /* 14px */
+
+  /* ── Canonical Jarvis Design Tokens (docs/DESIGN.md) ── */
+  --bg-color: var(--background);
+  --bg-secondary: #14141c;
+  --panel-bg: var(--card);
+  --border-color: var(--border);
+  --border-glow: rgba(10, 132, 255, 0.2);
+  --text-main: var(--foreground);
+  --text-muted: var(--muted-foreground);
+  --text-dim: #525268;
+  --accent-color: var(--primary);
   --accent-hover: #3399ff;
   --accent-glow: rgba(10, 132, 255, 0.25);
   --accent-purple: #7c3aed;
@@ -17,15 +40,22 @@
   
   --system-msg-color: #ffd60a;
   --user-bubble-bg: linear-gradient(135deg, #0a84ff 0%, #0066cc 100%);
-  --assistant-bubble-bg: rgba(18, 18, 30, 0.85);
+  --assistant-bubble-bg: rgba(25, 25, 35, 0.75);
   
-  --danger-color: #ff3b30;
+  --danger-color: var(--destructive);
   --success-color: #34c759;
   
   --radius-sm: 8px;
-  --radius-md: 14px;
+  --radius-md: var(--radius);
   --radius-lg: 20px;
   --radius-xl: 28px;
+
+  /* ── Shadows & Blur ── */
+  --glass-blur: 24px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-panel: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 * {
@@ -49,7 +79,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Animated background ── */
+/* ── Animated Background (Glass-on-motion per DESIGN.md) ── */
 body::before {
   content: "";
   position: fixed;
@@ -58,9 +88,9 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(ellipse at 15% 20%, rgba(10, 132, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 80%, rgba(124, 58, 237, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 70%);
+    radial-gradient(ellipse at 15% 20%, rgba(10, 132, 255, 0.09) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 80%, rgba(124, 58, 237, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.015) 0%, transparent 70%);
   animation: bg-drift 25s ease-in-out infinite alternate;
   z-index: -2;
   pointer-events: none;
@@ -75,8 +105,8 @@ body::after {
   width: 100%;
   height: 100%;
   background-image: 
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
   background-size: 60px 60px;
   z-index: -1;
   pointer-events: none;
@@ -86,7 +116,7 @@ body::after {
 
 @keyframes bg-drift {
   0% { opacity: 1; }
-  50% { opacity: 0.7; }
+  50% { opacity: 0.75; }
   100% { opacity: 1; }
 }
 
@@ -97,20 +127,19 @@ body::after {
   width: 100%;
 }
 
-/* ── Glassmorphism ── */
+/* ── Glassmorphism Panels ── */
 .glass-panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(30px) saturate(150%);
-  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
   border: 1px solid var(--border-color);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: var(--shadow-panel);
 }
 
-/* ── Scrollbar ── */
+/* ── Scrollbars ── */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -120,7 +149,7 @@ body::after {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.22);
 }
 
 /* ── Animations ── */
@@ -129,7 +158,7 @@ body::after {
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-slide-up {
-  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes spin {
@@ -142,7 +171,7 @@ body::after {
 
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 0 0 12px var(--accent-glow), 0 0 40px rgba(10, 132, 255, 0.1); }
-  50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(10, 132, 255, 0.15); }
+  50% { box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(10, 132, 255, 0.18); }
 }
 
 @keyframes holographicRing {
@@ -155,7 +184,7 @@ body::after {
   to { opacity: 1; }
 }
 .animate-fade-in {
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.4s ease forwards;
 }
 
 @keyframes float {

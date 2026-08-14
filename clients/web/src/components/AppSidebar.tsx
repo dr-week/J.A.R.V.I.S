@@ -23,10 +23,10 @@ export function AppSidebar({
   return (
     <aside className={`sidebar ${open ? 'open' : ''}`}>
       <div className="sidebar-header">
-        <Bot size={24} className="animate-pulse" color="var(--accent-color)" />
-        Jarvis
+        <Bot size={22} className="animate-pulse" color="var(--accent-color)" />
+        <span>Jarvis</span>
         {open && (
-          <button className="mobile-menu-btn" style={{ marginLeft: 'auto' }} onClick={onClose}>
+          <button className="mobile-menu-btn" style={{ marginLeft: 'auto' }} onClick={onClose} title="Close navigation">
             <X size={20} />
           </button>
         )}
@@ -36,72 +36,37 @@ export function AppSidebar({
           className={`sidebar-item ${activeTab === 'chat' ? 'active' : ''}`}
           onClick={() => onSelectTab('chat')}
         >
-          <MessageSquare size={16} style={{ display: 'inline', marginRight: 8, verticalAlign: 'text-bottom' }} />
-          Current Session
+          <MessageSquare size={16} />
+          <span>Current Session</span>
         </div>
         <div
           className={`sidebar-item ${activeTab === 'settings' ? 'active' : ''}`}
           onClick={() => onSelectTab('settings')}
         >
-          <SettingsIcon size={16} style={{ display: 'inline', marginRight: 8, verticalAlign: 'text-bottom' }} />
-          Settings
+          <SettingsIcon size={16} />
+          <span>Settings</span>
         </div>
 
-        <div
-          style={{
-            marginTop: '24px',
-            marginBottom: '8px',
-            paddingLeft: '16px',
-            fontSize: '0.75rem',
-            textTransform: 'uppercase',
-            color: 'var(--text-muted)',
-            fontWeight: 600,
-          }}
-        >
-          Recent Sessions
-        </div>
+        <div className="session-section-header">Recent Sessions</div>
         <div className="session-list">
           {sessions.map((s) => (
             <div
               key={s.id}
-              className={`sidebar-item ${sessionId === s.id ? 'active' : ''}`}
+              className={`session-item ${sessionId === s.id ? 'active' : ''}`}
               onClick={() => onLoadSession(s.id)}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                padding: '10px 16px',
-              }}
             >
-              <div
-                style={{
-                  fontWeight: 500,
-                  fontSize: '0.9rem',
-                  marginBottom: '4px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  width: '100%',
-                }}
-              >
-                {s.title || 'Untitled Session'}
-              </div>
-              <div
-                style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <Clock size={12} style={{ marginRight: 4 }} />
-                {new Date(s.updated_at).toLocaleDateString()}{' '}
-                {new Date(s.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              <div className="session-item-title">{s.title || 'Untitled Session'}</div>
+              <div className="session-item-meta">
+                <Clock size={12} />
+                <span>
+                  {new Date(s.updated_at).toLocaleDateString()}{' '}
+                  {new Date(s.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
               </div>
             </div>
           ))}
           {sessions.length === 0 && (
-            <div style={{ padding: '8px 16px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            <div style={{ padding: '8px 14px', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
               No recent sessions
             </div>
           )}

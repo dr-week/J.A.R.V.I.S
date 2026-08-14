@@ -1,5 +1,20 @@
 import { useState } from 'react';
-import { Activity, Send, Copy, Check, Volume2, Cpu, Wrench, Calendar, Mail, Newspaper, Camera, StickyNote, User } from 'lucide-react';
+import {
+  Activity,
+  Send,
+  Copy,
+  Check,
+  Volume2,
+  Cpu,
+  Wrench,
+  Calendar,
+  Mail,
+  Newspaper,
+  Camera,
+  StickyNote,
+  User,
+  Sparkles,
+} from 'lucide-react';
 import type { RefObject } from 'react';
 import type { ChatMessage } from '../types/chat';
 
@@ -42,7 +57,7 @@ function MessageContent({ text, role }: { text: string; role: string }) {
   if (role === 'system') {
     return (
       <div className="message-system-inner">
-        <Wrench size={13} style={{ flexShrink: 0 }} />
+        <Wrench size={14} style={{ flexShrink: 0 }} />
         <span>{text}</span>
       </div>
     );
@@ -110,7 +125,9 @@ export function ChatView({
       <main className="chat-container glass-panel">
         {messages.length === 0 && (
           <div className="empty-chat-welcome">
-            <div className="welcome-avatar">J</div>
+            <div className="welcome-avatar">
+              <Sparkles size={32} />
+            </div>
             <h3>Jarvis Central Mind</h3>
             <p>Your personal AI assistant. Ask anything, or tap a quick action below.</p>
           </div>

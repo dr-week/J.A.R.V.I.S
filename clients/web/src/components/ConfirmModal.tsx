@@ -13,7 +13,7 @@ export function ConfirmModal({ request, onResolve }: ConfirmModalProps) {
       <div className="confirm-modal-content glass-panel animate-slide-up">
         <div className="confirm-header">
           <div className="confirm-icon-wrapper">
-            <ShieldAlert size={24} className="confirm-icon" />
+            <ShieldAlert size={22} className="confirm-icon" />
           </div>
           <h2 className="confirm-title">Approve Action</h2>
         </div>
@@ -32,13 +32,13 @@ export function ConfirmModal({ request, onResolve }: ConfirmModalProps) {
             className="confirm-btn deny" 
             onClick={() => onResolve(false)}
           >
-            <X size={18} /> Deny
+            <X size={16} /> Deny
           </button>
           <button 
             className="confirm-btn approve" 
             onClick={() => onResolve(true)}
           >
-            <Check size={18} /> Approve
+            <Check size={16} /> Approve
           </button>
         </div>
       </div>
