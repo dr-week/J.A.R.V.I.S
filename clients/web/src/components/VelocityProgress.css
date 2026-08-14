@@ -1,7 +1,7 @@
 .velocity-panel {
   padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -9,7 +9,7 @@
 }
 
 .velocity-error {
-  border-left-color: #ff3b30;
+  border-left-color: var(--danger-color);
 }
 
 .velocity-header {
@@ -26,35 +26,39 @@
 }
 
 .velocity-status-badge {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--muted);
+  border: 1px solid var(--border-color);
   padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .velocity-error .velocity-status-badge {
-  background: rgba(255, 59, 48, 0.2);
-  color: #ff3b30;
+  background: rgba(255, 59, 48, 0.15);
+  color: var(--danger-color);
+  border-color: rgba(255, 59, 48, 0.3);
 }
 
 .velocity-message {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.5;
+  color: var(--text-main);
 }
 
 .velocity-progress-bar {
   height: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 4px;
   overflow: hidden;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .velocity-progress-fill {
   height: 100%;
-  background: var(--accent-color);
+  background: var(--accent-gradient);
   transition: width 0.3s ease;
 }
 
@@ -67,6 +71,6 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.45;
   }
 }

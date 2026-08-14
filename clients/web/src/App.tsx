@@ -26,42 +26,45 @@ function App() {
       />
 
       <div className="app-container">
-        <header className="header glass-panel" style={{ justifyContent: 'space-between' }}>
-          <div className="header-title" style={{ gap: '0', display: 'flex', alignItems: 'center' }}>
-            <button className="mobile-menu-btn" onClick={() => app.setSidebarOpen(true)}>
+        <header className="header glass-panel">
+          <div className="header-title">
+            <button
+              className="mobile-menu-btn"
+              onClick={() => app.setSidebarOpen(true)}
+              aria-label="Open menu"
+            >
               <Menu size={20} />
             </button>
-            <span className="header-context" style={{ fontWeight: 600, fontSize: '1.1rem' }}>
+            <span className="header-context">
               {app.activeTab === 'settings' ? 'Settings' : 'Current session'}
             </span>
           </div>
-          <div className="header-status" style={{ flexDirection: 'row', alignItems: 'center', gap: '12px' }}>
+
+          <div className="header-status-wrapper">
             <div className={`status-indicator ${app.isConnected ? 'connected' : ''}`} />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
-              <span>
-                {app.statusLine}
+            <div className="header-status-info">
+              <div className="header-status-text">
+                <span>{app.statusLine}</span>
                 {app.llmReady === false && (
-                  <span style={{ color: '#ff3b30', marginLeft: 8 }}>(LLM Offline)</span>
+                  <span style={{ color: 'var(--danger-color)', marginLeft: 6 }}>(LLM Offline)</span>
                 )}
-              </span>
-              <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>{app.bridgeStatus}</span>
+              </div>
+              {app.bridgeStatus && (
+                <span className="header-status-sub">{app.bridgeStatus}</span>
+              )}
             </div>
+
+            {app.activeTab === 'chat' && (
+              <button
+                className="header-action-btn"
+                onClick={app.handleClearChat}
+                title="Start new session"
+                aria-label="Clear chat"
+              >
+                <Trash2 size={16} />
+              </button>
+            )}
           </div>
-          {app.activeTab === 'chat' && (
-            <button
-              onClick={app.handleClearChat}
-              title="Clear Chat"
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-muted)',
-                cursor: 'pointer',
-                marginLeft: 16,
-              }}
-            >
-              <Trash2 size={18} />
-            </button>
-          )}
         </header>
 
         {app.velocityUpdate && <VelocityProgress update={app.velocityUpdate} />}
