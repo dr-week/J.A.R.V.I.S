@@ -36,8 +36,9 @@ python scripts/devloop.py brief --owner minimax
 | Registry | Only `backend/app/hands/registry.py` — no duplicate tool systems |
 | Client tools | `executor: "client"` + WS per [SYNC_PROTOCOL.md](../../docs/SYNC_PROTOCOL.md) |
 | Verify | `py_compile`; bridge smoke test when issue touches device bridge |
-| Done | All acceptance true → `update` → `done` → `say` handoff to `cursor` |
-| Secrets | `.env` only; never commit |
+| Done | All acceptance true → `update` → `done` → `say`- Append ADRs to `docs/DECISIONS.md` for architecture choices
+- **Zero-Code OSS Rule:** Prefer 3-line PyPI wrappers, CLI subprocesses, Docker sidecars, or MCP servers over custom Python/JS implementations (see `docs/OSS.md`).
+- Never commit secrets |
 | Parallel | Max 2 workers; do not edit other owner's claimed paths |
 | Refactors | Forbidden unless issue requests |
 
