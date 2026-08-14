@@ -95,6 +95,12 @@ Experience J.A.R.V.I.S. in action on a hosted demo. Click the badge below to lau
 
 [![Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://jarvis-demo.vercel.app)
 
+### 🎞️ Animated Demo
+
+![Jarvis Animated Demo](./docs/assets/jarvis_demo.gif){: style="width:100%; max-width:800px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"}
+
+*Witness the fluid glass‑morphism UI, pulsing data visualizations, and neon‑border animations in action.*
+
 ## 🤝 Contributing
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Join the community on Discord or open an issue.
