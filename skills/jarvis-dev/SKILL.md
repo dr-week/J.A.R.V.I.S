@@ -46,6 +46,9 @@ Generated files: `docs/board/LIVE_PLAN.md`, `docs/board/LIVE_BRIEF.md` (use `bri
 - Do not start Phase N product code while prior phase P0s are open (unless issue says otherwise)
 - Append ADRs to `docs/DECISIONS.md` for architecture choices
 - **Zero-Code OSS Rule:** Prefer 3-line PyPI wrappers, CLI subprocesses, Docker sidecars, or MCP servers over custom Python/JS implementations (see `docs/OSS.md`).
+- **Backend OSS lane:** Read `docs/dev/BACKEND_OSS_PLAN.md` before adding infrastructure. Keep adapters isolated under `backend/plugins/`, preserve API contracts, and add a contract test plus ADR for each new backend service.
+- **Chained verification:** Run `python scripts/verify_backend.py` before handoff; it chains the OSS gate, compile check, and focused backend tests.
+- **Release verification:** Run `python scripts/verify_backend.py --full` before release or broad backend changes.
 - Never commit secrets
 - Do not edit another owner's claimed lane without Notes coordination
 

@@ -38,6 +38,9 @@ python scripts/devloop.py brief --owner minimax
 | Verify | `py_compile`; bridge smoke test when issue touches device bridge |
 | Done | All acceptance true → `update` → `done` → `say`- Append ADRs to `docs/DECISIONS.md` for architecture choices
 - **Zero-Code OSS Rule:** Prefer 3-line PyPI wrappers, CLI subprocesses, Docker sidecars, or MCP servers over custom Python/JS implementations (see `docs/OSS.md`).
+- **Backend OSS lane:** Read `docs/dev/BACKEND_OSS_PLAN.md`; keep adapters isolated, optional infrastructure behind extras, and add a contract test plus the OSS gate.
+- **Chained verification:** Run `python scripts/verify_backend.py` before handoff.
+- **Release verification:** Run `python scripts/verify_backend.py --full` before release.
 - Never commit secrets |
 | Parallel | Max 2 workers; do not edit other owner's claimed paths |
 | Refactors | Forbidden unless issue requests |

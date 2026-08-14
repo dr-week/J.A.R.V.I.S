@@ -67,6 +67,9 @@ results = httpx.get("http://localhost:8080/search?q=query&format=json").json()
 3. One primary choice per concern; second option is fallback, not dual-support forever
 4. Record swaps in [DECISIONS.md](DECISIONS.md)
 5. **New Rule:** Every new integration MUST use one of the 4 patterns above. No custom logic.
+6. Backend adapters must be isolated, optional where infrastructure is not required, and covered by a contract test plus the `check_backend_oss.py` gate.
+7. Observability is best-effort: tracing and crash reporting may enrich a run but must never take Jarvis offline.
+8. Metrics use standard Prometheus names and labels; plugins should use the shared measurement helper instead of inventing counters.
 
 ## What Jarvis still owns
 

@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import config
 from .api import chat, hands, health, pair, sessions, soul, sync, tools, webhooks
 from .logger import logger
-from .soul.memory import init_db
+from ..plugins.database import init_db
 from .soul.persona import get_assistant_name
 
 # Default secrets shipped in config.py. If still in use, operators may be
@@ -40,7 +40,7 @@ def _warn_default_secrets() -> None:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()
+    await init_db()
     
     from .hands.registry import discover_plugins
     discover_plugins()

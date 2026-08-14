@@ -2,6 +2,21 @@
 
 ![J.A.R.V.I.S. Banner](./docs/assets/banner.jpg)
 
+<div class="banner-anim">
+  <img src="./docs/assets/banner.gif" alt="Animated Banner" style="width:100%; max-height:300px; object-fit:cover;">
+</div>
+
+<style>
+@keyframes pulse {
+  0% { transform: scale(1); opacity:1; }
+  50% { transform: scale(1.05); opacity:0.9; }
+  100% { transform: scale(1); opacity:1; }
+}
+.banner-anim img {
+  animation: pulse 5s infinite;
+}
+</style>
+
 # 🤖 J.A.R.V.I.S.
 ### Just A Rather Very Intelligent System
 **Autonomous Personal AI Operator · Multi-Agent Swarm · Zero-SaaS Local Engine**

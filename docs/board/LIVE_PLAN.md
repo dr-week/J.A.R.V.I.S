@@ -1,6 +1,6 @@
 # LIVE PLAN (generated — do not edit)
 
-_Generated: 2026-08-13T11:42:07Z UTC · fingerprint `9dee7d40abfe`_
+_Generated: 2026-08-14T18:33:44Z UTC · fingerprint `9f8d135e234a`_
 
 Regenerate: `python scripts/devloop.py sync` · Who: `devloop who`
 
