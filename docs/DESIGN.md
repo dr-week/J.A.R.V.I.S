@@ -98,6 +98,20 @@ See [ACCEPTANCE.md](ACCEPTANCE.md) and [dev/DEFINITION_OF_DONE.md](dev/DEFINITIO
 
 ---
 
+## 🎨 Open-Source UI & Design Systems (Zero-Code Layouts)
+
+Jarvis leverages top-tier open-source design components to eliminate custom CSS work:
+
+1. **shadcn/ui Design System (121k⭐)**:
+   - Token conventions, CSS variables (`--background`, `--card`, `--popover`, `--accent`).
+   - Copy-paste accessible React components for dialogs, popovers, dropdowns, and buttons.
+2. **Lucide Icons (15k⭐)**:
+   - Unified icon language across Vite React web HUD and Flet desktop presence.
+3. **Open-WebUI Layout Tokens (149k⭐)**:
+   - Responsive multi-device chat layout, sidebar collapsing math, and dynamic mobile drawers (`100dvh`).
+
+---
+
 ## Related
 
-[DOCS_MAP.md](DOCS_MAP.md) · [PERSONA.md](PERSONA.md) · [REQUIREMENTS.md](REQUIREMENTS.md) (FR-P* presence)
+[DOCS_MAP.md](DOCS_MAP.md) · [PERSONA.md](PERSONA.md) · [REQUIREMENTS.md](REQUIREMENTS.md) (FR-P* presence) · [OSS.md](OSS.md)
