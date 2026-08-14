@@ -6,11 +6,11 @@ uninitialized fallback, mocked CLI subprocess execution, and HTTP sidecar fallba
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import subprocess
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
-import pytest
 
+import pytest
 from backend.app.hands import registry
 
 # Ensure all plugins are discovered

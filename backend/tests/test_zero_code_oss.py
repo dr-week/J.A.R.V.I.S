@@ -16,6 +16,7 @@ def test_oss_automation_plugins_registered():
     assert "n8n_trigger_workflow" in tool_names
     assert "anythingllm_query" in tool_names
     assert "anythingllm_upload_doc" in tool_names
+    assert "piper_tts_speak" in tool_names
 
 
 @pytest.mark.asyncio

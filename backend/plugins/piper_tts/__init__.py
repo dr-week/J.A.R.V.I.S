@@ -6,12 +6,12 @@ fallback (Pattern 3) for Rhasspy Piper TTS per docs/OSS.md and docs/GITHUB_INTEG
 from __future__ import annotations
 
 import os
-from pathlib import Path
 import shutil
 import subprocess
+from pathlib import Path
 from typing import Any
-import httpx
 
+import httpx
 from backend.app.hands import registry
 
 _DEFAULT_OUTPUT = "piper_output.wav"
@@ -83,7 +83,7 @@ async def _piper_tts(
             if length_scale != 1.0:
                 cmd.extend(["--length_scale", str(length_scale)])
 
-            res = subprocess.run(
+            subprocess.run(
                 cmd,
                 input=clean_text,
                 text=True,
