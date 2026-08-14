@@ -80,3 +80,7 @@ line-ending = "auto"
 files = "backend/app/api"
 strict = true
 follow_imports = "silent"
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+norecursedirs = ["scratch", ".venv", ".git"]

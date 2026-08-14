@@ -19,6 +19,7 @@ Close personal operator (Jarvis/Friday) + ambient house AI (Rick vibe). Executes
 - Keep persona per `docs/PERSONA.md`
 - Confirm high-risk actions
 - Implement life domains as plugins
+- Use **shadcn/ui + Tailwind CSS + Lucide React** design tokens for zero-code UI components (see `docs/DESIGN.md`)
 - Treat tasks/contacts/reminders as **examples**, not the whole product
 
 ## Don't

@@ -14,6 +14,7 @@ try:
     import argostranslate.translate
     _HAS_ARGOS = True
 except ImportError:
+    argostranslate = None  # type: ignore[assignment]
     _HAS_ARGOS = False
 
 
@@ -31,7 +32,7 @@ def _translate_text(
         return {"error": "Text to translate cannot be empty."}
 
     # 1. Pattern 1: 3-line PyPI wrapper if argostranslate is installed
-    if _HAS_ARGOS:
+    if _HAS_ARGOS and argostranslate is not None:
         try:
             translated = argostranslate.translate.translate(clean_text, from_code, to_code)
             return {
