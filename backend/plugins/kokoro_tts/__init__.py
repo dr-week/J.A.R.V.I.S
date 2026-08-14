@@ -179,27 +179,26 @@ if "kokoro_tts" not in registry.REGISTRY:
     )
 
 if "kokoro_tts_speak" not in registry.REGISTRY:
-    for tool_name in ["kokoro_tts_speak", "kokoro_tts"]:
-        registry.register(
-            {
-                "name": tool_name,
-                "description": "Synthesize high-quality neural voice speech using Kokoro local TTS (0 API cost).",
-                "version": "1.0.0",
-                "phase": 4,
-                "risk_level": "auto",
-                "executor": "brain",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "text": {"type": "string", "description": "Text to convert to speech"},
-                        "voice": {"type": "string", "description": "Kokoro voice ID (default 'af_heart')"},
-                        "speed": {"type": "number", "description": "Speech rate multiplier"},
-                    },
-                    "required": ["text"],
+    registry.register(
+        {
+            "name": "kokoro_tts_speak",
+            "description": "Synthesize high-quality neural voice speech using Kokoro local TTS (0 API cost).",
+            "version": "1.0.0",
+            "phase": 4,
+            "risk_level": "auto",
+            "executor": "brain",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "text": {"type": "string", "description": "Text to convert to speech"},
+                    "voice": {"type": "string", "description": "Kokoro voice ID (default 'af_heart')"},
+                    "speed": {"type": "number", "description": "Speech rate multiplier"},
                 },
-                "returns": {"type": "object", "properties": {"status": {"type": "string"}}},
-                "scopes": ["voice:write"],
-                "tags": ["kokoro", "tts", "voice", "zero-code"],
+                "required": ["text"],
             },
-            _kokoro_tts_speak_sync,
-        )
+            "returns": {"type": "object", "properties": {"status": {"type": "string"}}},
+            "scopes": ["voice:write"],
+            "tags": ["kokoro", "tts", "voice", "zero-code"],
+        },
+        _kokoro_tts_speak_sync,
+    )
