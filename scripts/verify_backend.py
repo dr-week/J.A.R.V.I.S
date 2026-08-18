@@ -18,6 +18,7 @@ def run(label: str, args: list[str]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--full", action="store_true", help="run the complete backend test suite")
+    parser.add_argument("--fast", action="store_true", help="run the fast focused backend test suite (default)")
     args = parser.parse_args()
     run("OSS consistency", [sys.executable, "scripts/check_backend_oss.py"])
     run("compile", [sys.executable, "-m", "compileall", "-q", "backend", "scripts"])
