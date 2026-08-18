@@ -45,7 +45,7 @@
 
 <div class="badge-anim">
 
-[![Tests](https://img.shields.io/badge/pytest-67%20passed-success?style=for-the-badge&logo=pytest&logoColor=white)](#-testing--quality)
+[![Tests](https://img.shields.io/badge/pytest-126%20passed-success?style=for-the-badge&logo=pytest&logoColor=white)](#-testing--quality)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](#-license)
 [![Python](https://img.shields.io/badge/python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-tech-stack)
 [![React](https://img.shields.io/badge/frontend-Vite%20%2B%20React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](#-web-interface)
@@ -95,11 +95,21 @@ Experience J.A.R.V.I.S. in action on a hosted demo. Click the badge below to lau
 
 [![Demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://jarvis-demo.vercel.app)
 
-### 🎞️ Animated Demo
+### 🎞️ Animated Demo (Text‑Only)
 
-![Jarvis Animated Demo](./docs/assets/jarvis_demo.gif){: style="width:100%; max-width:800px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"}
+*This demo showcases text‑only animations powered by CSS `@keyframes`. The banner pulse, HUD scan, and badge float effects are defined in the style block at the top of the README.*
 
-*Witness the fluid glass‑morphism UI, pulsing data visualizations, and neon‑border animations in action.*
+*(All animations run client‑side when the Markdown is rendered in a compatible viewer.)*
+
+*The HUD border glows with a gradient animation, and badges gently float to draw attention.*
+
+#### ✨ Animation Details
+
+- **`pulseGlow`** – creates a subtle scaling and glow effect on the banner image.
+- **`hudScan`** – animates the horizontal HUD divider with a moving gradient.
+- **`badgeFloat`** – makes the badge icons bob up and down for a lively feel.
+
+*These CSS animations provide a premium, dynamic experience without any JavaScript or external assets.*
 
 ## 🤝 Contributing
 
@@ -389,7 +399,7 @@ Run the comprehensive pytest suite covering all 23 plugins and endpoints:
 python -m pytest backend/tests/ -v
 ```
 
-> **59 passed tests cleanly** across Brain, Soul, Hands, Webhooks, and Plugins.
+> **126 passed tests cleanly** across Brain, Soul, Hands, Webhooks, and Plugins.
 
 ---
 
