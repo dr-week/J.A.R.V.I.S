@@ -1,15 +1,23 @@
-import { Menu, Trash2 } from 'lucide-react';
+import { Menu, Trash2, Code2 } from 'lucide-react';
 import { Settings } from './components/Settings';
 import { AppSidebar } from './components/AppSidebar';
 import { ChatView } from './components/ChatView';
 import { VelocityProgress } from './components/VelocityProgress';
 import { ConfirmModal } from './components/ConfirmModal';
+import { WorkspaceDrawer } from './components/WorkspaceDrawer';
 import { useJarvisApp } from './hooks/useJarvisApp';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from './components/ui/tooltip';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
   const app = useJarvisApp();
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
+  const [workspaceTree] = useState<string>('├── backend/\n│   ├── app/\n│   │   ├── api/\n│   │   ├── hands/\n│   │   ├── mind/\n│   │   └── soul/\n│   └── tests/\n├── clients/\n│   ├── web/\n│   └── windows/\n└── scripts/');
+  const [activeAst] = useState<{ classes: string[]; functions: string[] }>({
+    classes: ['WorkspaceDrawer', 'VelocityProgress'],
+    functions: ['classify_intent_fast (lines 60-79)', 'file_ast_outline (lines 80-140)', 'file_edit_strict (lines 160-230)']
+  });
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -71,21 +79,41 @@ function App() {
               </div>
 
               {app.activeTab === 'chat' && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      type="button"
-                      className="header-action-btn rounded-lg p-1.5 text-muted-foreground hover:text-foreground hover:bg-white/10 transition"
-                      onClick={app.handleClearChat}
-                      aria-label="Clear chat session"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    <span>New chat session</span>
-                  </TooltipContent>
-                </Tooltip>
+                <>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        className={`header-action-btn rounded-lg p-1.5 transition ${
+                          workspaceOpen ? 'text-cyan-400 bg-cyan-500/20 border border-cyan-500/40' : 'text-muted-foreground hover:text-foreground hover:bg-white/10'
+                        }`}
+                        onClick={() => setWorkspaceOpen(!workspaceOpen)}
+                        aria-label="Toggle Workspace Bench"
+                      >
+                        <Code2 size={16} />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <span>Workspace Bench (Tree / AST / Diff)</span>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        className="header-action-btn rounded-lg p-1.5 text-muted-foreground hover:text-foreground hover:bg-white/10 transition"
+                        onClick={app.handleClearChat}
+                        aria-label="Clear chat session"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom">
+                      <span>New chat session</span>
+                    </TooltipContent>
+                  </Tooltip>
+                </>
               )}
             </div>
           </header>
@@ -106,6 +134,28 @@ function App() {
             />
           )}
         </div>
+
+        <WorkspaceDrawer
+          isOpen={workspaceOpen}
+          onClose={() => setWorkspaceOpen(false)}
+          treeData={workspaceTree}
+          astOutline={activeAst}
+          pendingDiff={
+            app.confirmRequest && app.confirmRequest.tool === 'file_edit_strict'
+              ? {
+                  filePath: app.confirmRequest.params?.file_path || 'unknown',
+                  search: app.confirmRequest.params?.search || '',
+                  replace: app.confirmRequest.params?.replace || '',
+                }
+              : null
+          }
+          onApproveDiff={() => app.handleConfirmResult(true)}
+          onRejectDiff={() => app.handleConfirmResult(false)}
+          onSelectNode={(name) => {
+            app.setInput(`Inspect and explain function ${name}`);
+            setWorkspaceOpen(false);
+          }}
+        />
 
         {app.confirmRequest && (
           <ConfirmModal
