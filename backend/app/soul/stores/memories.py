@@ -56,29 +56,54 @@ def delete_memory(key: str) -> bool:
 
 
 def search_semantic_memories(query: str, limit: int = 3) -> list[dict[str, Any]]:
-    """Perform TF-IDF keyword semantic search over stored user memories."""
-    clean_query = (query or "").strip().lower()
+    """Retrieve top-K relevant memories using native SQLite FTS5 BM25 ranking."""
+    import re
+    clean_query = re.sub(r'[^\w\s]', '', (query or "").strip().lower())
     if not clean_query:
         return []
 
-    query_terms = [t for t in clean_query.split() if len(t) > 1]
-    if not query_terms:
+    terms = [f'"{t}"*' for t in clean_query.split() if len(t) > 1]
+    if not terms:
         return []
 
+    fts_query = " OR ".join(terms)
+
+    with _db() as conn:
+        try:
+            sql = """
+                SELECT m.key, m.value, m.source, m.updated_at, bm25(memories_fts, 2.5, 1.0) AS rank
+                FROM memories_fts f
+                JOIN memories m ON m.id = f.rowid
+                WHERE memories_fts MATCH ?
+                ORDER BY rank ASC, m.updated_at DESC
+                LIMIT ?
+            """
+            rows = conn.execute(sql, (fts_query, limit)).fetchall()
+            results = []
+            for r in rows:
+                item = dict(r)
+                item["relevance_score"] = round(abs(float(item.pop("rank", 1.0))), 2)
+                results.append(item)
+            if results:
+                return results
+        except Exception:
+            pass
+
+    # Fallback to in-memory scanning if FTS5 query encounters any issue
+    query_terms = [t for t in clean_query.split() if len(t) > 1]
     all_mems = list_memories()
     scored_mems = []
 
     for mem in all_mems:
         key_text = str(mem.get("key", "")).lower()
         val_text = str(mem.get("value", "")).lower()
-        full_text = f"{key_text} {val_text}"
 
         score = 0.0
         for term in query_terms:
             if term in key_text:
-                score += 3.0  # Key match weight
+                score += 3.0
             if term in val_text:
-                score += 1.0  # Value match weight
+                score += 1.0
 
         if score > 0:
             mem_item = dict(mem)

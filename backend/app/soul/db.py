@@ -91,6 +91,27 @@ CREATE TABLE IF NOT EXISTS devices (
     expires_at  REAL NOT NULL,
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE VIRTUAL TABLE IF NOT EXISTS memories_fts USING fts5(
+    key,
+    value,
+    content='memories',
+    content_rowid='id',
+    tokenize='porter unicode61'
+);
+
+CREATE TRIGGER IF NOT EXISTS memories_ai AFTER INSERT ON memories BEGIN
+    INSERT INTO memories_fts(rowid, key, value) VALUES (new.id, new.key, new.value);
+END;
+
+CREATE TRIGGER IF NOT EXISTS memories_ad AFTER DELETE ON memories BEGIN
+    INSERT INTO memories_fts(memories_fts, rowid, key, value) VALUES('delete', old.id, old.key, old.value);
+END;
+
+CREATE TRIGGER IF NOT EXISTS memories_au AFTER UPDATE ON memories BEGIN
+    INSERT INTO memories_fts(memories_fts, rowid, key, value) VALUES('delete', old.id, old.key, old.value);
+    INSERT INTO memories_fts(rowid, key, value) VALUES (new.id, new.key, new.value);
+END;
 """
 
 
