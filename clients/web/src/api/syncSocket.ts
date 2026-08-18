@@ -9,7 +9,13 @@ export class SyncSocket {
   public onMessage: (msg: any) => void = () => {};
 
   constructor(baseUrl: string, token: string, deviceId: string) {
-    this.baseUrl = baseUrl.replace('http', 'ws');
+    if (baseUrl.startsWith('https://')) {
+      this.baseUrl = baseUrl.replace('https://', 'wss://');
+    } else if (baseUrl.startsWith('http://')) {
+      this.baseUrl = baseUrl.replace('http://', 'ws://');
+    } else {
+      this.baseUrl = baseUrl.replace(/^http/, 'ws');
+    }
     this.token = token;
     this.deviceId = deviceId;
   }
