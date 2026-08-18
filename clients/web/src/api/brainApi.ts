@@ -133,12 +133,27 @@ class BrainApi {
 
       for (const line of lines) {
         if (!line.trim() || !line.startsWith('data: ')) continue;
-        const chunk = line.substring(6);
-        if (chunk === '[DONE]') break;
-        if (chunk.startsWith('[ERROR]')) {
-          throw new Error(chunk);
+        const raw = line.substring(6).trim();
+        if (raw === '[DONE]') break;
+        if (raw.startsWith('[ERROR]')) {
+          throw new Error(raw);
         }
-        fullText += chunk;
+        try {
+          const parsed = JSON.parse(raw);
+          if (parsed.error) {
+            throw new Error(parsed.error);
+          }
+          if (parsed.chunk !== undefined) {
+            fullText += parsed.chunk;
+            onPartial(fullText);
+            continue;
+          }
+        } catch (e: any) {
+          if (e.message && !e.message.includes('JSON')) {
+            throw e;
+          }
+        }
+        fullText += raw;
         onPartial(fullText);
       }
     }

@@ -58,11 +58,13 @@ def delete_memory(key: str) -> bool:
 def search_semantic_memories(query: str, limit: int = 3) -> list[dict[str, Any]]:
     """Retrieve top-K relevant memories using native SQLite FTS5 BM25 ranking."""
     import re
-    clean_query = re.sub(r'[^\w\s]', '', (query or "").strip().lower())
+    # Strip FTS5 operators and reserved punctuation: * ( ) [ ] { } " ^ ~ :
+    clean_query = re.sub(r'[\*\(\)\[\]\{\}\"\^\~\:\']', '', (query or "").lower()).strip()
     if not clean_query:
         return []
 
-    terms = [f'"{t}"*' for t in clean_query.split() if len(t) > 1]
+    reserved = {"and", "or", "not", "near"}
+    terms = [f'"{t}"*' for t in clean_query.split() if len(t) > 1 and t not in reserved]
     if not terms:
         return []
 

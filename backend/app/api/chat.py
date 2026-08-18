@@ -1,6 +1,7 @@
 """API -- /chat endpoint (streaming SSE) and /ws WebSocket."""
 from __future__ import annotations
 
+import json
 import typing
 import uuid
 
@@ -42,12 +43,12 @@ async def chat(req: ChatRequest) -> typing.Any:
                 surface=req.surface,
                 room=req.room,
             ):
-                # Replace newlines so SSE lines stay valid
-                safe = chunk.replace("\r\n", " ").replace("\n", " ")
-                yield f"data: {safe}\n\n"
+                payload = json.dumps({"chunk": chunk})
+                yield f"data: {payload}\n\n"
             yield "data: [DONE]\n\n"
         except Exception as exc:
-            yield f"data: [ERROR] {exc}\n\n"
+            err_payload = json.dumps({"error": str(exc)})
+            yield f"data: {err_payload}\n\n"
 
     return StreamingResponse(
         event_stream(),

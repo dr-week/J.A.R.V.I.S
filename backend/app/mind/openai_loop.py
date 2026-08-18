@@ -12,6 +12,7 @@ from typing import Any
 import httpx
 
 from .. import config
+from .router import classify_intent_fast
 from ..hands.registry import REGISTRY, run_tool
 
 
@@ -30,27 +31,37 @@ def _headers() -> dict[str, str]:
     return {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
 
 
-def _openai_tools() -> list[dict[str, Any]]:
+def _openai_tools(current_prompt: str = "") -> list[dict[str, Any]]:
+    active_tools = classify_intent_fast(current_prompt)
+    if not active_tools:
+        return []
+
     tools = []
-    for tool in REGISTRY.values():
-        tools.append(
-            {
-                "type": "function",
-                "function": {
-                    "name": tool["name"],
-                    "description": tool.get("description", ""),
-                    "parameters": tool.get("parameters") or {"type": "object", "properties": {}},
-                },
-            }
-        )
+    for name in active_tools:
+        tool = REGISTRY.get(name)
+        if tool:
+            tools.append(
+                {
+                    "type": "function",
+                    "function": {
+                        "name": tool["name"],
+                        "description": tool.get("description", ""),
+                        "parameters": tool.get("parameters") or {"type": "object", "properties": {}},
+                    },
+                }
+            )
     return tools
+
+
+MAX_CONTEXT_TURNS = 6
 
 
 def _history_messages(
     system_prompt: str, history: list[dict[str, Any]], user_text: str
 ) -> list[dict[str, Any]]:
     msgs: list[dict[str, Any]] = [{"role": "system", "content": system_prompt}]
-    for msg in history[:-1]:
+    pruned_history = history[-MAX_CONTEXT_TURNS:] if len(history) > MAX_CONTEXT_TURNS else history
+    for msg in pruned_history[:-1]:
         role = msg.get("role") or "user"
         if role not in ("user", "assistant", "system"):
             role = "user"
@@ -71,7 +82,7 @@ async def openai_stream(
 ) -> AsyncGenerator[str, None]:
     """Stream chat.completions; run tool calls via Hands gate (max 5 turns)."""
     messages = _history_messages(system_prompt, history, user_text)
-    tools = _openai_tools()
+    tools = _openai_tools(user_text)
     url = f"{_base_url()}/chat/completions"
 
     async with httpx.AsyncClient(timeout=120.0) as client:
