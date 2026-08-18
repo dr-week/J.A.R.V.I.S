@@ -163,6 +163,8 @@ def register_builtin_tools() -> None:
     )
 
     from .tools.velocity_build import register_velocity_build
+    from .tools.workspace_tools import register_workspace_tools
 
     register_velocity_build()
+    register_workspace_tools()
 

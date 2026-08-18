@@ -27,9 +27,17 @@ EXACT_PREFIX_ROUTES: dict[str, list[str]] = {
     "weather": ["weather_current"],
     "news": ["news_headlines"],
     "clipboard": ["clipboard_get", "clipboard_set"],
-    "code": ["dev_eval_python", "dev_run_tests"],
-    "python": ["dev_eval_python"],
+    "code": ["dev_eval_python", "dev_run_tests", "workspace_map_tree", "file_ast_outline", "file_read_chunk", "file_edit_strict"],
+    "python": ["dev_eval_python", "file_ast_outline"],
     "test": ["dev_run_tests"],
+    "tree": ["workspace_map_tree"],
+    "workspace": ["workspace_map_tree"],
+    "outline": ["file_ast_outline"],
+    "ast": ["file_ast_outline"],
+    "read": ["file_read_chunk"],
+    "edit": ["file_edit_strict"],
+    "modify": ["file_edit_strict"],
+    "patch": ["file_edit_strict"],
 }
 
 DOMAIN_SYNONYMS: dict[str, set[str]] = {
@@ -37,7 +45,7 @@ DOMAIN_SYNONYMS: dict[str, set[str]] = {
     "notes": {"write", "jot", "memo", "diary", "draft", "document"},
     "calendar": {"schedule", "meeting", "event", "calendar", "agenda", "appointment"},
     "search": {"lookup", "search", "google", "online", "who is", "what is"},
-    "code": {"evaluate", "execute", "run", "script", "benchmark", "pytest"},
+    "code": {"evaluate", "execute", "run", "script", "benchmark", "pytest", "refactor", "fix", "inspect", "debug", "file", "tree", "lines"},
 }
 
 DOMAIN_TOOL_CLUSTERS: dict[str, list[str]] = {
@@ -45,7 +53,7 @@ DOMAIN_TOOL_CLUSTERS: dict[str, list[str]] = {
     "notes": ["note_create", "note_search"],
     "calendar": ["calendar_list", "calendar_add"],
     "search": ["search_web"],
-    "code": ["dev_eval_python", "dev_run_tests"],
+    "code": ["workspace_map_tree", "file_ast_outline", "file_read_chunk", "file_edit_strict"],
 }
 
 
