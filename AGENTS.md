@@ -79,8 +79,8 @@ devloop refresh → next --owner ME → claim --owner ME → implement → verif
 
 Details: [docs/dev/PROCESS.md](docs/dev/PROCESS.md)
 
-> [!WARNING] 
-> **Devloop Monolith Alert**: `scripts/devloop.py` is currently a massive 40KB legacy script. Do not attempt to refactor or rewrite it in a single pass. A formal technical debt Epic has been scheduled in `ROADMAP.md` to decompose it into a Typer/Pydantic modular architecture. Until then, make only isolated bug fixes.
+> [!NOTE] 
+> **Devloop Architecture**: `scripts/devloop.py` has been decomposed into a clean modular command architecture (`scripts/commands/` and `scripts/core/`). Use targeted command modules for extending board automation.
 
 ## Coding Style (AI-Friendly)
 
