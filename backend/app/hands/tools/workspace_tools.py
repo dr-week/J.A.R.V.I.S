@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 from typing import Any
 
-from ..registry import register
 from ...mind.ast_validator import validate_python_syntax, validate_json_syntax, validate_bracket_balance
 
 ROOT_DIR = Path(__file__).resolve().parents[4]
@@ -240,6 +239,8 @@ def file_edit_strict(
 
 def register_workspace_tools() -> None:
     """Register all workspace parsing and AST editing tools."""
+    from ..registry import register
+
     register(
         {
             "name": "workspace_map_tree",

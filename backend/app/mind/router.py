@@ -45,7 +45,7 @@ DOMAIN_SYNONYMS: dict[str, set[str]] = {
     "notes": {"write", "jot", "memo", "diary", "draft", "document"},
     "calendar": {"schedule", "meeting", "event", "calendar", "agenda", "appointment"},
     "search": {"lookup", "search", "google", "online", "who is", "what is"},
-    "code": {"evaluate", "execute", "run", "script", "benchmark", "pytest", "refactor", "fix", "inspect", "debug", "file", "tree", "lines"},
+    "code": {"evaluate", "execute", "run", "script", "benchmark", "pytest", "refactor", "fix", "inspect", "debug", "file", "tree", "lines", "docker", "container"},
 }
 
 DOMAIN_TOOL_CLUSTERS: dict[str, list[str]] = {
