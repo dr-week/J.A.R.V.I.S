@@ -138,6 +138,32 @@ async def openai_stream(
                     {
                         "role": "tool",
                         "tool_call_id": slot["id"] or f"call_{name}",
-                        "content": json.dumps(result),
+                        "content": _sanitize_tool_output(name, result),
                     }
                 )
+
+
+# --- Token Budget Guard -------------------------------------------
+# Hard limit: 1,400 chars or 40 lines max per tool result.
+# Prevents workspace_map_tree / dev_run_tests from flooding the KV cache.
+_TOOL_OUTPUT_MAX_CHARS = 1_400
+_TOOL_OUTPUT_MAX_LINES = 40
+
+
+def _sanitize_tool_output(tool_name: str, result: dict) -> str:
+    """Truncate oversized tool output to protect the 4096 context window.
+
+    Returns a JSON string safe to append as a tool message.
+    Large test logs or tree outputs are tail-truncated with an explicit notice.
+    """
+    raw = json.dumps(result)
+
+    lines = raw.splitlines()
+    if len(lines) > _TOOL_OUTPUT_MAX_LINES:
+        kept = lines[-_TOOL_OUTPUT_MAX_LINES:]
+        notice = f"[Output truncated: {len(lines)} lines → showing last {_TOOL_OUTPUT_MAX_LINES}]"
+        raw = notice + "\n" + "\n".join(kept)
+    elif len(raw) > _TOOL_OUTPUT_MAX_CHARS:
+        raw = raw[:_TOOL_OUTPUT_MAX_CHARS] + f" … [truncated {len(raw) - _TOOL_OUTPUT_MAX_CHARS} chars]"
+
+    return raw

@@ -185,9 +185,18 @@ def file_edit_strict(
         replace_norm = replace.replace("\r\n", "\n")
 
         if search_norm not in orig_norm:
+            total = len(orig_norm.splitlines())
+            hint_start = max(1, (start_line or 1) - 5)
+            hint_end = min(total, (end_line or hint_start) + 20)
             return {
                 "ok": False,
-                "error": "Target search block not found in file. Ensure exact whitespace and line match.",
+                "status": "error",
+                "error_code": "SEARCH_NOT_FOUND",
+                "error": "Target search block not found. Exact whitespace and indentation must match.",
+                "suggestion": (
+                    f"Run file_read_chunk on '{file_path}' lines {hint_start}-{hint_end} "
+                    "to inspect the exact text before retrying."
+                ),
             }
 
         # 2. Check single occurrence
@@ -195,8 +204,12 @@ def file_edit_strict(
         if count > 1 and start_line is None:
             return {
                 "ok": False,
-                "error": f"Search block appears {count} times in file. Provide start_line/end_line to disambiguate.",
+                "status": "error",
+                "error_code": "AMBIGUOUS_MATCH",
+                "error": f"Search block appears {count} times in file.",
+                "suggestion": "Provide start_line and end_line to disambiguate the target occurrence.",
             }
+
 
         # 3. Perform atomic replacement
         new_content = orig_norm.replace(search_norm, replace_norm, 1)
@@ -207,21 +220,30 @@ def file_edit_strict(
             if not is_valid:
                 return {
                     "ok": False,
-                    "error": f"AST Syntax Validation Rejected Edit: {msg}. Disk write aborted.",
+                    "status": "error",
+                    "error_code": "AST_SYNTAX_REJECTED",
+                    "error": f"AST syntax validation failed: {msg}. Disk write aborted.",
+                    "suggestion": "Fix the Python syntax error in your replace block before retrying.",
                 }
         elif p.suffix == ".json":
             is_valid, msg = validate_json_syntax(new_content)
             if not is_valid:
                 return {
                     "ok": False,
-                    "error": f"JSON Syntax Validation Rejected Edit: {msg}. Disk write aborted.",
+                    "status": "error",
+                    "error_code": "JSON_SYNTAX_REJECTED",
+                    "error": f"JSON syntax validation failed: {msg}. Disk write aborted.",
+                    "suggestion": "Ensure your replace block produces valid JSON (check trailing commas or missing quotes).",
                 }
         elif p.suffix in (".js", ".ts", ".tsx", ".jsx", ".html"):
             is_valid, msg = validate_bracket_balance(new_content)
             if not is_valid:
                 return {
                     "ok": False,
-                    "error": f"Bracket Validation Rejected Edit: {msg}. Disk write aborted.",
+                    "status": "error",
+                    "error_code": "BRACKET_BALANCE_REJECTED",
+                    "error": f"Bracket balance check failed: {msg}. Disk write aborted.",
+                    "suggestion": "Count all opening/closing brackets, braces, and parens in your replace block.",
                 }
 
         # 5. Write to disk

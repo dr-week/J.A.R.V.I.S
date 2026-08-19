@@ -93,3 +93,7 @@ follow_imports = "silent"
 [tool.pytest.ini_options]
 testpaths = ["backend/tests"]
 norecursedirs = ["scratch", ".venv", ".git"]
+asyncio_mode = "strict"
+markers = [
+    "fast: smoke tests that run in <1s — router, schema validity, context pruning",
+]
