@@ -53,7 +53,7 @@ DOMAIN_TOOL_CLUSTERS: dict[str, list[str]] = {
     "notes": ["note_create", "note_search"],
     "calendar": ["calendar_list", "calendar_add"],
     "search": ["search_web"],
-    "code": ["workspace_map_tree", "file_ast_outline", "file_read_chunk", "file_edit_strict"],
+    "code": ["dev_eval_python", "dev_run_tests", "velocity_build", "workspace_map_tree", "file_ast_outline", "file_read_chunk", "file_edit_strict"],
 }
 
 

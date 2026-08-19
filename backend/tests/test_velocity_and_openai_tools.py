@@ -10,8 +10,10 @@ def test_velocity_build_registered():
 
 
 def test_openai_tools_shape():
-    from backend.app.mind.openai_loop import _openai_tools
+    # build_tools lives in message_builder after monolith decomposition
+    from backend.app.mind.message_builder import build_tools
 
-    tools = _openai_tools()
+    # Use a coding-domain prompt so the router returns tool schemas
+    tools = build_tools("run python code")
     assert isinstance(tools, list)
     assert any(t["function"]["name"] == "velocity_build" for t in tools)
