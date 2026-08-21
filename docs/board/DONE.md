@@ -2,6 +2,12 @@
 
 Completed issues (newest first).
 
+- [ISSUE-161](issues/ISSUE-161.md) — Phase 3+ Automation: TaskAutomationNexus — Autonomous Task List, Scheduling, & Polyglot Workflow Triggering
+- [ISSUE-160](issues/ISSUE-160.md) — Phase 3+ Integration: Spotify Ambient Audio Connector (Search, Playback State, Play, Pause, Next Track)
+- [ISSUE-159](issues/ISSUE-159.md) — Phase 3+ Integration: Linear Project & Issue Connector (GraphQL API, Issues, Teams, Mutations)
+- [ISSUE-158](issues/ISSUE-158.md) — Phase 3+ Integration: Slack Communications Connector (Post Message, List Channels, Channel History, Webhooks)
+- [ISSUE-157](issues/ISSUE-157.md) — Phase 3+ Integration: Notion Workspace Connector (Query, Create Page, Append Blocks, Search)
+- [ISSUE-156](issues/ISSUE-156.md) — Phase 3+ Integration: GitHub Webhook Receiver with HMAC Signature Verification and Sync Broadcast
 - [ISSUE-155](issues/ISSUE-155.md) — Phase 4 Presence: Complete Flet system tray voice listener loop integration
 - [ISSUE-154](issues/ISSUE-154.md) — Phase 4 Presence: Add Telegram webhook & long-polling bridge endpoint
 - [ISSUE-153](issues/ISSUE-153.md) — Integrate CloakBrowser stealth Playwright engine into browser_use plugin

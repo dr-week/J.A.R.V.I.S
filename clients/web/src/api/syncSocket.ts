@@ -71,7 +71,7 @@ export class SyncSocket {
         this.onStatusChange('Error');
         // onclose will follow
       };
-    } catch (e) {
+    } catch {
       this.onStatusChange('Error');
       this.scheduleReconnect();
     }

@@ -1,6 +1,12 @@
 # Changelog (project build)
 
 ## 2026-08-09
+- 2026-08-21: DONE ISSUE-161 — Phase 3+ Automation: TaskAutomationNexus — Autonomous Task List, Scheduling, & Polyglot Workflow Triggering
+- 2026-08-21: DONE ISSUE-160 — Phase 3+ Integration: Spotify Ambient Audio Connector (Search, Playback State, Play, Pause, Next Track)
+- 2026-08-20: DONE ISSUE-159 — Phase 3+ Integration: Linear Project & Issue Connector (GraphQL API, Issues, Teams, Mutations)
+- 2026-08-20: DONE ISSUE-158 — Phase 3+ Integration: Slack Communications Connector (Post Message, List Channels, Channel History, Webhooks)
+- 2026-08-20: DONE ISSUE-157 — Phase 3+ Integration: Notion Workspace Connector (Query, Create Page, Append Blocks, Search)
+- 2026-08-20: DONE ISSUE-156 — Phase 3+ Integration: GitHub Webhook Receiver with HMAC Signature Verification and Sync Broadcast
 - 2026-08-13: DONE ISSUE-155 — Phase 4 Presence: Complete Flet system tray voice listener loop integration
 - 2026-08-13: DONE ISSUE-154 — Phase 4 Presence: Add Telegram webhook & long-polling bridge endpoint
 - 2026-08-13: DONE ISSUE-153 — Integrate CloakBrowser stealth Playwright engine into browser_use plugin

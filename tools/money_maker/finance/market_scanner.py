@@ -1,9 +1,21 @@
 from backend.app.hands.registry import register
-import yfinance as yf
-import pandas as pd
+
+try:
+    import yfinance as yf
+    import pandas as pd
+    HAS_YFINANCE = True
+except ImportError:
+    HAS_YFINANCE = False
 
 def mm_scan_market(tickers: list[str]) -> dict:
     """Scans the market for a list of tickers and returns technical analysis alerts."""
+    if not HAS_YFINANCE:
+        return {
+            "status": "partial",
+            "message": "yfinance not installed in current environment. Install via: pip install yfinance",
+            "tickers_received": tickers
+        }
+        
     alerts = []
     results = {}
     

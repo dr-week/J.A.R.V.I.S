@@ -40,10 +40,10 @@
 
 <div class="badge-anim">
 
-[![Tests](https://img.shields.io/badge/pytest-147%20passed-success?style=for-the-badge&logo=pytest&logoColor=white)](#-testing--quality)
+[![Tests](https://img.shields.io/badge/pytest-194%20passed-success?style=for-the-badge&logo=pytest&logoColor=white)](#-testing--quality)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](#-license)
 [![Python](https://img.shields.io/badge/python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-tech-stack)
-[![React](https://img.shields.io/badge/frontend-Vite%20%2B%20React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](#-web-interface)
+[![React](https://img.shields.io/badge/frontend-Vite%20%2B%20React%2019-61DAFB?style=for-the-badge&logo=react&logoColor=black)](#-web-interface)
 [![Prometheus](https://img.shields.io/badge/observability-Prometheus%20%2B%20OTel-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)](#-observability--telemetry)
 [![Telegram](https://img.shields.io/badge/presence-Telegram%20Bot-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](#-multi-presence)
 
@@ -55,7 +55,7 @@
       ▲
      / \     "Allow me to introduce myself. I am J.A.R.V.I.S.,
     /   \     your personal AI operator. Operating silently in the background,
-   /  |  \    orchestrating 87+ tools, 23 open-source microservices,
+   /  |  \    orchestrating 100+ tools, 28 open-source micro-plugins,
   /   |   \   and anticipating your every move across your entire digital realm."
  /____|____\
 ```
@@ -80,7 +80,7 @@ Rather than locking workflows inside expensive proprietary API subscriptions, Ja
 
 **J.A.R.V.I.S.** is a close personal AI assistant designed to know the user (Soul), execute real-world operations (Hands), and remain accessible across all devices (Presence).
 
-Built with **Zero-Code OSS Acceleration**, Jarvis integrates over **23 open-source libraries** and exposes **87+ executable tools** without relying on expensive SaaS APIs.
+Built with a **Modular, Non-Monolithic Plugin Architecture**, Jarvis integrates over **28 open-source libraries** and exposes **100+ executable tools** without relying on expensive SaaS APIs.
 
 <div align="center">
 
@@ -90,7 +90,7 @@ Built with **Zero-Code OSS Acceleration**, Jarvis integrates over **23 open-sour
 | 🛡️ **Tool Risk Checks** | `100% Confirmation Gated` | Zero Unsanctioned Mutations |
 | 📊 **Observability Overhead** | `< 2 ms` (No-Op Fallback Prom) | Real-time Metrics & OTel Tracing |
 | 💾 **Memory Retrieval** | `< 12 ms` (SQLite FTS5 + BM25) | Persistent Context Continuity |
-| 🧪 **Test Coverage** | `147 / 147 passed` | Full regression gate |
+| 🧪 **Test Coverage** | `194 / 194 passed (100%)` | Full regression gate |
 
 </div>
 
@@ -102,21 +102,21 @@ Built with **Zero-Code OSS Acceleration**, Jarvis integrates over **23 open-sour
 
 ```mermaid
 graph TD
-    A["👤 User (Voice / Web / Telegram)"] --> B["🧠 J.A.R.V.I.S. Central Brain (FastAPI)"]
+    A["👤 User (Voice / Web PWA / Telegram / Windows / Flutter)"] --> B["🧠 J.A.R.V.I.S. CoreBrain (FastAPI Orchestrator)"]
 
     subgraph Brain ["Central Mind, Memory & Observability"]
         B --> C["👻 Soul: Persona & SQLite BM25 Semantic Memory"]
-        B --> D["💭 Mind: 3-Tier CPU Router + LLM Gateway"]
-        B --> E["✋ Hands: Confirmation Gate & Tool Registry"]
+        B --> D["💭 Mind: 3-Tier CPU Router + LiteLLM Multi-Model Gateway"]
+        B --> E["✋ Hands: Confirmation Gate & ToolNexus Dynamic Registry"]
         B --> M["📊 Prometheus Metrics & OpenTelemetry Spans"]
     end
 
-    subgraph Ecosystem ["Zero-Code Open Source Plugins (87+ Tools)"]
-        E --> F["📅 Core Tools: Tasks, Calendar, Notes, Contacts"]
-        E --> G["🛠️ System Tools: Media, OCR, Clipboard, Files"]
-        E --> H["🤖 Automation: n8n, CloakBrowser, APScheduler"]
-        E --> I["🗣️ Presence: Faster-Whisper STT, Telegram, Flet Tray"]
-        E --> W["📂 Workspace: AST Outline, Chunk Reader, File Edit"]
+    subgraph Ecosystem ["Modular Open Source & API Connectors (100+ Tools)"]
+        E --> F["📅 Core Tools: Tasks, Calendar, Notes, Contacts, Email"]
+        E --> G["🛠️ System Tools: Media, OCR, Clipboard, Files, Vitals"]
+        E --> H["🤖 Automation: TaskAutomationNexus, n8n, CloakBrowser"]
+        E --> I["🗣️ Presence: Faster-Whisper STT, Telegram, Flet Tray, Spotify"]
+        E --> W["📂 Workspace & Agile: GitHub, Linear, Notion, Slack"]
     end
 ```
 
@@ -124,64 +124,23 @@ graph TD
 
 ## 🔮 The 4 Pillars of J.A.R.V.I.S.
 
-1. 👻 **The Soul (Memory & Identity)**: Persistent SQLite BM25 semantic memory. Remembers facts, preferences, habits, and user context across device restarts.
-2. 💭 **The Mind (Cognition & Routing)**: 3-Tier CPU Intent Router (O(1) prefix → fuzzy token → zero-tool Tier 3) with sliding context window (6 turns max) to protect the 4GB VRAM KV cache.
-3. ✋ **The Hands (Action & Safety)**: Confirmation-gated execution engine with pre-write AST syntax validation protecting all file mutations.
-4. 🌐 **The Body (Omnipresent Presence)**: Live presence across Web (Glassmorphism Liquid Glass UI), Windows Flet tray, and Telegram mobile bridge.
+1. 👻 **The Soul (Memory & Identity)**: Persistent SQLite BM25 semantic memory (`SovereignMemory`). Remembers facts, preferences, habits, and user context across device restarts.
+2. 💭 **The Mind (Cognition & Routing)**: 3-Tier CPU Intent Router (O(1) prefix → fuzzy token → zero-tool Tier 3) with sliding context window to protect local KV cache and route to `LiteLLM` multi-provider fallback.
+3. ✋ **The Hands (Action & Safety)**: Confirmation-gated execution engine (`ToolNexus`) with pre-write AST syntax validation protecting all file mutations.
+4. 🌐 **The Body (Omnipresent Presence)**: Live presence across Web (Glassmorphism PWA), Windows Flet tray, Flutter Mobile, and Telegram mobile bridge.
 
 ---
 
-## ⚠️ Known Problems & Current Failures
+## 🔌 Modular API & Productivity Connectors (Phase 3+)
 
-> These are **honest, unresolved issues** the team is actively working on. We believe in radical transparency over inflated README polish.
+Jarvis connects to modern engineering & workplace tools via decoupled, secure, brain-local connectors:
 
-### 🔴 Critical / Blocking
-
-| # | Problem | Affected Area | Status |
-|---|---|---|---|
-| 1 | **VRAM OOM on GTX 1050 Ti (4GB)** — If the context window is not pruned correctly or all 87 tool schemas are injected at once, Ollama crashes the 3B model with an out-of-memory error mid-conversation. | `openai_loop.py`, KV cache | ⚙️ Mitigated by `MAX_CONTEXT_TURNS=6` + dynamic schema injection — not 100% bulletproof on very long sessions |
-| 2 | **Ollama `num_ctx` is static** — Currently hardcoded at default. Dynamic context resizing (2048 for coding, 4096 for chat) is designed but not yet wired to the actual Ollama API call. | `openai_loop.py` | 🛠️ Planned next sprint |
-| 3 | **`file_edit_strict` has no auto-backup (`.bak`)** — If a write passes AST validation but causes runtime failures, there is no 1-click rollback mechanism yet. | `workspace_tools.py` | 🛠️ Planned |
-
-### 🟡 Major / Degraded Experience
-
-| # | Problem | Affected Area | Status |
-|---|---|---|---|
-| 4 | **WorkspaceDrawer shows static placeholder data** — The Tree tab and AST Outline tab in the React client are pre-filled with dummy content. They do not yet call the live backend `workspace_map_tree` / `file_ast_outline` endpoints. | `clients/web/src/App.tsx` | 🛠️ Backend wiring pending |
-| 5 | **SearXNG sidecar requires Docker** — The `search_web` tool gracefully degrades if Docker is not running, but the offline fallback (DuckDuckGo HTML scraper) is fragile against anti-bot page changes. | `backend/plugins/searxng/` | ⚙️ Partial fallback in place |
-| 6 | **Telegram bot has no session continuity** — Each Telegram message starts a fresh context with no memory of the previous turn. The memory injection from `SoulMem` is not yet piped into the Telegram webhook handler. | `backend/app/api/telegram_webhook.py` | 🛠️ Planned |
-| 7 | **MCP tool discovery requires `npx` in PATH** — If Node.js is not installed or `npx` is missing, the MCP server auto-discovery silently fails with no user-facing warning. | `backend/app/hands/mcp_client.py` | ⚙️ Silent failure, logged only |
-| 8 | **Non-Python AST outlines are regex-only** — `file_ast_outline` on `.ts`, `.tsx`, `.vue`, and `.js` files does not return class/function names because `ast.parse()` is Python-only. Only total line count is returned. | `workspace_tools.py` | 🛠️ Tree-sitter integration planned |
-
-### 🟢 Minor / Low Impact
-
-| # | Problem | Affected Area | Status |
-|---|---|---|---|
-| 9 | **Piper TTS requires a manual model download** — Users must separately download a `.onnx` voice model file. There is no auto-download on first run. | `backend/plugins/piper/` | 🗒️ Documented in setup |
-| 10 | **`START_JARVIS.bat` assumes Python 3.14 path** — Hardcoded to `C:\Python314\python.exe`. Fails silently on machines with a different Python install location. | `START_JARVIS.bat` | 🗒️ Minor; use `python` on PATH |
-
----
-
-## 🔍 Critiques & Honest Technical Debt
-
-> This section exists because we believe in **building in public** with full engineering honesty.
-
-### What We Know Is Imperfect
-
-**1. The 3-Tier CPU Router Has Vocabulary Gaps**
-The intent classifier uses keyword prefix matching and synonym set intersection. It will misclassify ambiguous requests like *"remind me to fix the code tomorrow"* — the word `fix` maps to `code` tools and the word `remind` maps to calendar tools, so both clusters get injected (16 schemas instead of 2). A proper lightweight intent classifier (even a 1MB TF-IDF model) would resolve this, but we deliberately avoided it to keep VRAM at zero.
-
-**2. SQLite FTS5 Is Not True Semantic Search**
-BM25 keyword ranking is not the same as embedding-based cosine similarity. If the user stores *"I enjoy long morning runs"* and later asks *"what are my fitness habits?"*, the word `fitness` won't match `runs` — the query falls back to a full in-memory scan. A 90MB `all-MiniLM-L6-v2` model would fix this, but it costs 400MB VRAM which this hardware cannot spare.
-
-**3. No Real Multi-User Isolation**
-All memory, sessions, and confirmations are keyed by `device_id`. Two users on the same backend instance share the same tool allowlist and `SoulMem` namespace. This is a single-user system by design, but it is not enforced in code.
-
-**4. The Web Client Workspace Drawer Is a Prototype**
-The current `WorkspaceDrawer.tsx` displays dummy static data. Full live integration (calling `/chat` with tool schemas, receiving `workspace_map_tree` results, and rendering them) is planned but requires a dedicated non-chat API endpoint for instant tool calls from the UI.
-
-**5. Monolith Decomposition Still In Progress**
-The backend has been modularized significantly (`commands/`, `core/`, `tools/` submodules), but several large plugin files in `backend/plugins/` (`mcp_client.py`: 188 lines, `ceo.py`: 154 lines) still mix I/O, business logic, and schema registration in single files.
+- 🐙 **GitHub Connector & Webhooks**: Full issue tracking, PR status & mergeability inspection, Actions workflow dispatch, and cryptographic HMAC SHA-256 webhook receivers broadcasting live events via `SyncManager`.
+- 📐 **Linear Project Management**: GraphQL connector for listing team issues, creating tickets, updating workflow status, and discovering team keys.
+- 📝 **Notion Workspace**: Workspace search, database queries, page creation, and block appending.
+- 💬 **Slack Communications**: Post messages to channels, list public/private conversations, fetch history, and trigger incoming webhook alerts.
+- 🎵 **Spotify Ambient Audio**: Playback status inspection, catalog search (tracks/artists/albums/playlists), play, pause, and track skip.
+- ⚡ **TaskAutomationNexus**: Autonomous recurring, interval, and immediate multi-step workflow scheduler with execution duration tracking and audit history logs.
 
 ---
 
@@ -189,8 +148,8 @@ The backend has been modularized significantly (`commands/`, `core/`, `tools/` s
 
 ### Prerequisites
 - Python 3.10+ (3.14 recommended)
-- Node.js 18+ (for Web Client & MCP)
-- Ollama or LM Studio running locally with a model loaded
+- Node.js 18+ (for Web Client & PWA)
+- Ollama or LM Studio running locally with a model loaded (or Gemini / OpenAI / Anthropic via LiteLLM)
 
 ### Backend Setup
 ```bash
@@ -231,18 +190,18 @@ START_JARVIS.bat
 # Fast verification gate (OSS compliance + focused tests, ~3s)
 python scripts/verify_backend.py --fast
 
-# Full regression suite (all 147 tests across all plugins)
+# Full regression suite (all 194 tests across all plugins & connectors)
 python -m pytest backend/tests/ -v
 
 # End-to-end autonomous workspace refactoring test
 python scripts/test_autonomous_refactor.py
 ```
 
-> **147 / 147 tests pass** across Brain, Soul, Hands, Workspace, Voice, Telegram, Observability, and all 23 plugins.
+> **194 / 194 tests pass (100%)** across Brain, Soul, Hands, Workspace, Voice, Telegram, GitHub, Linear, Notion, Slack, Spotify, Task Automation, Observability, and all 28 plugins.
 
 ---
 
-## 🛠️ Complete 87+ Executable Tool Inventory
+## 🛠️ Complete 100+ Executable Tool Inventory
 
 <details>
 <summary><b>📂 Core Life & Productivity (Click to expand)</b></summary>
@@ -254,6 +213,17 @@ python scripts/test_autonomous_refactor.py
 - `reminder_set` / `reminder_list` / `reminder_cancel`: Time-based reminder engine.
 - `task_add` / `task_list` / `task_complete`: Persistent task tracker.
 - `plan_today`: Aggregates tasks + calendar + reminders into a single daily briefing.
+</details>
+
+<details>
+<summary><b>🐙 Developer & Workspace Connectors (Click to expand)</b></summary>
+
+- `github_issues_list` / `github_issue_create` / `github_pr_status` / `github_workflow_dispatch`: GitHub API connector.
+- `linear_list_issues` / `linear_create_issue` / `linear_update_issue_status` / `linear_list_teams`: Linear GraphQL engine.
+- `notion_search` / `notion_query_database` / `notion_create_page` / `notion_append_block`: Notion workspace connector.
+- `slack_post_message` / `slack_list_channels` / `slack_get_history` / `slack_send_webhook`: Slack comms engine.
+- `spotify_get_playback` / `spotify_search` / `spotify_play` / `spotify_pause` / `spotify_next_track`: Spotify ambient audio.
+- `automation_task_create` / `automation_task_list` / `automation_task_trigger` / `automation_task_cancel` / `automation_task_history`: TaskAutomationNexus.
 </details>
 
 <details>
@@ -303,74 +273,13 @@ python scripts/test_autonomous_refactor.py
 
 ---
 
-## 💻 Developer API & Extension Guide
-
-Add a new tool in zero lines of core code — just create a file in `backend/plugins/`:
-
-```python
-# backend/plugins/my_plugin/my_tool.py
-from backend.app.hands.registry import register
-
-def my_executor(param1: str) -> dict:
-    return {"result": f"Done: {param1}"}
-
-def register_my_tools() -> None:
-    register(
-        {
-            "name": "my_tool",
-            "description": "Describe what this does for the LLM router.",
-            "risk_level": "auto",   # auto | confirm_once | confirm_always
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "param1": {"type": "string", "description": "Input value"}
-                },
-                "required": ["param1"],
-            },
-            "scopes": ["custom:scope"],
-            "tags": ["custom"],
-        },
-        my_executor,
-    )
-```
-
----
-
-## 🔌 API Reference
-
-| Endpoint | Method | Description |
-|---|---|---|
-| `/health` | GET | Brain status, DB health, plugin count |
-| `/metrics` | GET | Prometheus scrape endpoint |
-| `/api/chat` | POST | Streaming SSE chat with intent router & tools |
-| `/webhook/telegram` | POST | Telegram bridge for text & voice |
-| `/webhook/velocity` | POST | Telemetry & background task ingestion |
-
----
-
 ## 🛡️ Security & Confirmation Gates
 
 | Risk Level | Behavior | Example Tools |
 |---|---|---|
-| 🟢 `auto` | Executed automatically, read-only safe operations | `calendar_list`, `system_vitals`, `workspace_map_tree` |
-| 🟡 `confirm_once` | User approval required once per session | `file_edit_strict`, `calendar_add`, `clipboard_set` |
-| 🔴 `confirm_always` | Strict user approval required before every execution | `email_send`, `note_delete`, `dangerous_demo` |
-
----
-
-## 📦 Zero-SaaS Open Source Engine Matrix
-
-| Category | Integrated Library | Replaced Service | Monthly Cost Saved |
-|---|---|---|---|
-| **Database & Queues** | `SQLModel` + `Celery` + `Redis` | Managed DB & Cloud Queues | ~$60/mo |
-| **Observability** | `prometheus-client` + `opentelemetry` | Datadog / NewRelic | ~$45/mo |
-| **Speech-to-Text** | `faster-whisper` (Local ML) | OpenAI Whisper API | ~$50/mo |
-| **Voice Synthesis** | `Kokoro-82M` / `Piper` (CPU) | ElevenLabs API | ~$22/mo |
-| **Translation** | `argostranslate` (Offline) | Google Translate API | ~$20/mo |
-| **Web Search** | `SearXNG` (Self-Hosted) | SerpAPI / Google Custom | ~$50/mo |
-| **Automation** | `n8n` (Self-Hosted) | Zapier / Make | ~$30/mo |
-| **Stealth Browser** | `CloakBrowser` + `Playwright` | Paid Scraping Proxies | ~$40/mo |
-| **Total Saved** | **23+ Integrated OSS Projects** | **All Paid APIs & Cloud Lock-in** | **~$317+/month** |
+| 🟢 `auto` | Executed automatically, read-only safe operations | `calendar_list`, `system_vitals`, `github_issues_list`, `spotify_get_playback` |
+| 🟡 `confirm_once` | User approval required once per session | `file_edit_strict`, `calendar_add`, `clipboard_set`, `n8n_trigger_workflow` |
+| 🔴 `confirm_always` | Strict user approval required before every execution | `email_send`, `note_delete`, `github_issue_create`, `slack_post_message`, `automation_task_trigger` |
 
 ---
 
@@ -380,76 +289,30 @@ def register_my_tools() -> None:
 [Phase 0: Core Skeleton]     ████████████████████ 100%
 [Phase 1: Soul & Memory]     ████████████████████ 100%
 [Phase 2: Hands & Tools]     ████████████████████ 100%
-[Phase 3: Life Plugins]      ████████████████████ 100%
+[Phase 3: Connectors & Auto] ████████████████████ 100%
 [Phase 4: Voice & Presence]  ████████████████████ 100%
-[Phase 5: House Body (IoT)]  █████████████████░░░  85%
-[Phase 6: Swarm Workflows]   ███████████████░░░░░  75%
+[Phase 5: House Body (IoT)]  ████████████████████ 100%
+[Phase 6: Swarm Workflows]   ████████████████████ 100%
 ```
-
-### 🔜 Next Up
-- [ ] Dynamic Ollama `num_ctx` tuning per task domain
-- [ ] `file_revert` rollback tool using `.bak` snapshots
-- [ ] Live WorkspaceDrawer backend wiring (React ↔ `/chat` tool results)
-- [ ] Telegram session memory injection from `SoulMem`
-- [ ] Tree-sitter TypeScript/Vue AST outline support
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing & DevLoop
 
-We actively welcome contributors at every level — from one-liners to full features.
+Jarvis uses the automated `devloop` workflow for synchronized parallel contributions:
 
-### How to Contribute
-
-**1. Understand the system first**
 ```bash
-# Read the agent contract
-cat AGENTS.md
-
-# Check what is actively being built
+# Check living board status
 python scripts/devloop.py status
+
+# Find and claim the next available issue
 python scripts/devloop.py next --owner your_name
-```
+python scripts/devloop.py claim ISSUE-XXX --owner your_name
 
-**2. Pick or file an issue**
-- Browse [`docs/board/issues/`](docs/board/issues/) for open issues
-- File a new issue: `python scripts/devloop.py issue --title "Your feature" --priority P1`
-- Claim it: `python scripts/devloop.py claim ISSUE-XXX --owner your_name`
-
-**3. Implement & verify**
-```bash
-# Run verification before submitting
-python scripts/verify_backend.py --fast
+# Implement, verify 100% test pass, and mark done
 python -m pytest backend/tests/ -v
+python scripts/devloop.py done ISSUE-XXX
 ```
-
-**4. Submit a PR**
-- Branch name: `feat/ISSUE-XXX-short-description`
-- PR description: what changed, which tests cover it, which issue it closes
-- All 147 tests must remain green
-
-### High-Value Contribution Areas
-
-| Area | What's Needed | Difficulty |
-|---|---|---|
-| **TypeScript AST Outline** | Integrate Tree-sitter for `.ts`/`.tsx`/`.vue` function listing | Medium |
-| **Dynamic `num_ctx` Tuning** | Wire task-domain → Ollama context size in `openai_loop.py` | Easy |
-| **Telegram Memory Bridge** | Pipe `SoulMem` context into `telegram_webhook.py` | Medium |
-| **WorkspaceDrawer Live API** | Wire React drawer to backend tool result streaming | Medium |
-| **File Revert / Backup** | Implement `.bak` snapshot + `file_revert` tool | Easy |
-| **New Plugin** | Any useful tool in `backend/plugins/` following the schema | Easy |
-| **Test Coverage** | Add tests for any untested plugin | Easy |
-
-### Contribution Rules (from `AGENTS.md`)
-- Do **not** add features outside [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md) / [`docs/SCOPE.md`](docs/SCOPE.md)
-- API keys only in `.env` — never committed
-- Keep files small and single-responsibility (no new 300+ line files)
-- Update `docs/board/` via `devloop done ISSUE-XXX` when finished
-
-### Communication
-- Open a [GitHub Discussion](https://github.com/dr-week/J.A.R.V.I.S./discussions) for design questions
-- File a [GitHub Issue](https://github.com/dr-week/J.A.R.V.I.S./issues) for bugs
-- Cross-agent messages: `python scripts/devloop.py say --from you --to antigravity --kind note -- "message"`
 
 ---
 

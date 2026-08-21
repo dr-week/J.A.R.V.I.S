@@ -1,13 +1,40 @@
-"""Internal webhooks — Velocity build progress → WebSocket clients."""
+"""Internal and external webhooks for CoreBrain.
+
+Supported Webhook Endpoints:
+- `/internal/webhook/velocity`: Velocity build engine IPC → WebSocket clients.
+- `/webhook/telegram`: Telegram Bot incoming updates → brain bridge.
+- `/webhook/github`: GitHub Webhook receiver with HMAC-SHA256 signature verification & SyncManager broadcast.
+"""
 from __future__ import annotations
 
+import hashlib
+import hmac
+import json
 import logging
+import os
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Header, Request
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["webhooks"])
+
+
+def _verify_github_signature(secret: str, signature_header: str | None, payload_bytes: bytes) -> bool:
+    """Verify HMAC SHA256 signature from GitHub webhook header.
+    
+    Security Rationale:
+    - Protects the brain host against unauthenticated forged webhook payloads.
+    - If secret is configured, rejection occurs before parsing JSON or broadcasting.
+    """
+    if not secret:
+        # If no secret is configured on brain host, skip signature verification
+        return True
+    if not signature_header or not signature_header.startswith("sha256="):
+        return False
+    expected_hash = signature_header.split("sha256=", 1)[1]
+    mac = hmac.new(secret.encode("utf-8"), msg=payload_bytes, digestmod=hashlib.sha256)
+    return hmac.compare_digest(mac.hexdigest(), expected_hash)
 
 
 @router.post("/internal/webhook/velocity")
@@ -89,3 +116,48 @@ async def telegram_webhook(request: Request) -> dict[str, Any]:
     _telegram_send(f"Jarvis Received: {text}", chat_id=chat_id)
     return {"ok": True, "chat_id": chat_id, "text": text}
 
+
+@router.post("/webhook/github")
+async def github_webhook(
+    request: Request,
+    x_github_event: str = Header(default="ping", alias="X-GitHub-Event"),
+    x_hub_signature_256: str | None = Header(default=None, alias="X-Hub-Signature-256"),
+) -> dict[str, Any]:
+    """GitHub Webhook Receiver.
+    
+    Validates HMAC signature and broadcasts parsed GitHub events across
+    all connected OmniPresence devices via SyncManager.
+    """
+    body_bytes = await request.body()
+    secret = os.environ.get("JARVIS_GITHUB_WEBHOOK_SECRET", "").strip()
+    
+    if not _verify_github_signature(secret, x_hub_signature_256, body_bytes):
+        logger.warning("[GitHub Webhook] Invalid signature rejected")
+        raise HTTPException(status_code=401, detail="Invalid HMAC signature")
+
+    try:
+        payload = json.loads(body_bytes.decode("utf-8")) if body_bytes else {}
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from exc
+
+    repo_name = payload.get("repository", {}).get("full_name", "unknown")
+    logger.info("[GitHub Webhook] Received event '%s' for repository '%s'", x_github_event, repo_name)
+
+    from ..sync.manager import manager
+
+    sync_event = {
+        "type": "github_event",
+        "event": x_github_event,
+        "repository": repo_name,
+        "action": payload.get("action", ""),
+        "sender": payload.get("sender", {}).get("login", ""),
+        "data": payload,
+    }
+    await manager.broadcast(sync_event)
+
+    return {
+        "status": "ok",
+        "event": x_github_event,
+        "repository": repo_name,
+        "broadcast_devices": len(manager.active_device_ids()),
+    }

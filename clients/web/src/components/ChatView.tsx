@@ -14,6 +14,12 @@ import {
   StickyNote,
   User,
   Sparkles,
+  GitPullRequest,
+  BookOpen,
+  MessageSquare,
+  Layers,
+  Music,
+  Workflow,
 } from 'lucide-react';
 import type { RefObject } from 'react';
 import type { ChatMessage } from '../types/chat';
@@ -123,6 +129,12 @@ export function ChatView({
   chatEndRef,
 }: ChatViewProps) {
   const quickActions = [
+    { label: 'GitHub', prompt: 'List open issues on GitHub repository', icon: GitPullRequest },
+    { label: 'Linear', prompt: 'List my open Linear project issues', icon: Layers },
+    { label: 'Automation', prompt: 'List active automation tasks', icon: Workflow },
+    { label: 'Notion', prompt: 'Search Notion workspace for project notes', icon: BookOpen },
+    { label: 'Slack', prompt: 'List available Slack channels', icon: MessageSquare },
+    { label: 'Spotify', prompt: 'Play music on Spotify', icon: Music },
     { label: 'Calendar', prompt: 'Show my calendar for today', icon: Calendar },
     { label: 'Email', prompt: 'Check my inbox', icon: Mail },
     { label: 'News', prompt: 'Show me the latest headlines', icon: Newspaper },

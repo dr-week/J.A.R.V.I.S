@@ -16,6 +16,8 @@ Single index for **which doc is canonical**, **which files mirror each other**, 
 | [PARTNERSHIP.md](PARTNERSHIP.md) | Human + agent co-labor, earn together | FUTURE, BUSINESS_OPERATOR, AGENTS.md mission |
 | [BUSINESS_OPERATOR.md](BUSINESS_OPERATOR.md) | Profit loop, 5 roles, objective function | PARTNERSHIP Layer 3, SCOPE later |
 | [ROADMAP.md](ROADMAP.md) | Phase exit criteria | FUTURE horizons, STRATEGY cheat sheet |
+| [MASTER_PLAN.md](MASTER_PLAN.md) | Canonical master plan & OSS ecosystem | ROADMAP, GITHUB_INTEGRATIONS, PROJECT_STATE |
+| [PROJECT_STATE.md](PROJECT_STATE.md) | Living project health, technical debt & tasks | MASTER_PLAN, board/NOW |
 | [STRATEGY.md](STRATEGY.md) | How we win, agent routing, board truth | STRATEGY ↔ SYNC_PLAN ↔ LIVE_PLAN; ROADMAP phases |
 
 ### Agent & build OS
@@ -84,6 +86,7 @@ Single index for **which doc is canonical**, **which files mirror each other**, 
 | [OSS.md](OSS.md) | Locked OSS defaults per surface; update when choosing/swapping UI framework |
 | [GITHUB_INTEGRATIONS.md](GITHUB_INTEGRATIONS.md) | Canonical GitHub repository inventory and integration status | OSS.md, OSS_ARSENAL, OSS_DEV_PLAN |
 | [dev/WEB_UI.md](dev/WEB_UI.md) | `clients/web/**`, DESIGN tokens |
+| [dev/ANIMATIONS.md](dev/ANIMATIONS.md) | Animation presets, fluid physics, micro-interactions | DESIGN.md, WEB_UI, FLUTTER_UI |
 | [dev/FLUTTER_FIELD.md](dev/FLUTTER_FIELD.md) | `clients/flutter/**` — Field Body (bridge/tools/confirm), **not** chat |
 | [dev/FLUTTER_UI.md](dev/FLUTTER_UI.md) | Breakpoints only if thin UI remains |
 | [dev/MINIMAX_UI.md](dev/MINIMAX_UI.md) | `clients/windows/ui_gui.py`, DESIGN tokens |
@@ -98,6 +101,18 @@ Single index for **which doc is canonical**, **which files mirror each other**, 
 | [PERSONA.md](PERSONA.md) | Soul/persona issues, MINIMAX §8 |
 | [DECISIONS.md](DECISIONS.md) | Any ADR; link new ADRs from ARCHITECTURE when major |
 | [CODE_MAP.md](CODE_MAP.md) | `scripts/index_repo.py`, file discovery, quick navigation |
+
+### UI Design System & Money Maker Hub (`docs/ui/`)
+
+| Doc | Purpose | Sync with |
+|---|---|---|
+| [ui/UI_RULES.md](ui/UI_RULES.md) | Simplification rules, anti-bloat, 3-sec cognitive load | DESIGN.md, WEB_UI |
+| [ui/UI_SPECIFICATION.md](ui/UI_SPECIFICATION.md) | HUD layouts, Opportunity Radar, responsive cards | DESIGN.md, FLUTTER_FIELD |
+| [ui/UI_DEPENDENCY_PLAN.md](ui/UI_DEPENDENCY_PLAN.md) | Minimalist package matrix, zero-overhead bundle plan | OSS.md, package.json |
+| [ui/UI_DESIGN_SYSTEM.md](ui/UI_DESIGN_SYSTEM.md) | Unified token matrix, glassmorphism math, elevation | DESIGN.md, tailwind.config |
+| [ui/UI_TEMPLATES_CATALOG.md](ui/UI_TEMPLATES_CATALOG.md) | Big-brand monetization blueprints (SaaS, D2C, B2B) | BUSINESS_OPERATOR.md |
+| [ui/UI_INDIA_MARKET_PATTERNS.md](ui/UI_INDIA_MARKET_PATTERNS.md) | 1-tap UPI intent, vernacular & trust badges | STRATEGY.md, BUSINESS_OPERATOR |
+| [ui/UI_CHAIN_REACTION_PLAN.md](ui/UI_CHAIN_REACTION_PLAN.md) | Autonomous 0-token parallel generation pipeline | AI_CODER_AUTOMATION.md |
 
 ### Board (runtime truth — not duplicated in vision docs)
 

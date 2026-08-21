@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarvis Client Acquisition & Lead Radar HUD</title>
+    <!-- Tailwind CSS CDN for instant styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #070709; color: #f5f5f7; }
+        .glass-card {
+            background: rgba(22, 22, 30, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(10, 132, 255, 0.35);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 24px rgba(10, 132, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Top Navigation HUD Bar -->
+    <header class="border-b border-white/10 bg-black/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+                <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+                    JARVIS CLIENT RADAR
+                </h1>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">v5.0 Active</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="runInboundScan()" id="scan-btn" class="px-4 py-2 text-sm font-semibold rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition-all glow-cyan flex items-center space-x-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <span>Scan Inbound Feeds</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+        
+        <!-- KPI Metrics Grid -->
+        <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="glass-card rounded-2xl p-5">
+                <div class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Total Leads Logged</div>
+                <div class="text-3xl font-bold mt-2 text-white" id="stat-total">4</div>
+                <div class="text-xs text-emerald-400 mt-1">● 100% Deduplicated</div>
+            </div>
+            <div class="glass-card rounded-2xl p-5">
+                <div class="text-xs text-zinc-400 font-medium uppercase tracking-wider">High-Value Gigs</div>
+                <div class="text-3xl font-bold mt-2 text-amber-400" id="stat-high-val">1</div>
+                <div class="text-xs text-zinc-500 mt-1">$1,000+ / Retainers</div>
+            </div>
+            <div class="glass-card rounded-2xl p-5">
+                <div class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Client Replies</div>
+                <div class="text-3xl font-bold mt-2 text-blue-400" id="stat-replied">2</div>
+                <div class="text-xs text-zinc-500 mt-1">Permission Granted</div>
+            </div>
+            <div class="glass-card rounded-2xl p-5">
+                <div class="text-xs text-zinc-400 font-medium uppercase tracking-wider">Win Rate (Closed)</div>
+                <div class="text-3xl font-bold mt-2 text-emerald-400" id="stat-win-rate">25%</div>
+                <div class="text-xs text-zinc-500 mt-1">₹14,999/mo Retainers</div>
+            </div>
+        </section>
+
+        <!-- Two Columns Layout: Inbound Leads vs Outbound Creator Radar -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left 7 Cols: Inbound Leads Feed -->
+            <section class="lg:col-span-7 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+                        <span>🔥 Verified Inbound Leads</span>
+                        <span class="text-xs bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-full" id="lead-count">4</span>
+                    </h2>
+                    <span class="text-xs text-zinc-400">Permission-First Strategy</span>
+                </div>
+
+                <div class="space-y-4" id="leads-container">
+                    <!-- Sample Lead Card 1 -->
+                    <div class="glass-card rounded-2xl p-5 space-y-4 transition-all">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">Video Editing</span>
+                                <h3 class="text-base font-semibold text-white mt-2">[HIRING] Looking for a Video Host/On-camera presenter (Product Demo Walkthrough)</h3>
+                            </div>
+                            <span class="text-xs text-zinc-500">2h ago</span>
+                        </div>
+                        
+                        <div class="bg-black/50 border border-white/5 rounded-xl p-3 text-sm text-zinc-300">
+                            <div class="text-xs text-blue-400 font-semibold mb-1">✍️ GENERATED PERMISSION-FIRST PITCH:</div>
+                            "Hey! Saw your product demo walkthrough project. I specialize in high-retention video editing and pacing hooks. I noticed that breaking demos into 15-second kinetic modules boosts viewer retention by ~20%. Would you like me to send over a quick 15-second test cut or demo reel?"
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-white/5">
+                            <div class="flex space-x-2">
+                                <button onclick="copyPitch(this)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all flex items-center space-x-1">
+                                    <span>📋 Copy Pitch</span>
+                                </button>
+                                <button onclick="triggerFollowup()" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 transition-all">
+                                    <span>📦 Retainer Upsell</span>
+                                </button>
+                            </div>
+                            <a href="https://www.reddit.com/r/forhire" target="_blank" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-all">
+                                🚀 1-Tap Open
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Sample Lead Card 2 (High-Value) -->
+                    <div class="glass-card rounded-2xl p-5 space-y-4 border-amber-500/30">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <span class="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">👑 High-Value ($2,500/mo)</span>
+                                <h3 class="text-base font-semibold text-white mt-2">[Hiring] Cold Caller / SDR + Outbound Ops / Prospecting</h3>
+                            </div>
+                            <span class="text-xs text-zinc-500">3h ago</span>
+                        </div>
+                        
+                        <div class="bg-black/50 border border-white/5 rounded-xl p-3 text-sm text-zinc-300">
+                            <div class="text-xs text-amber-400 font-semibold mb-1">📹 LOOM AUDIT TALKING POINTS:</div>
+                            "1. Show their landing page headline and point out the missing value hook.<br>2. Demonstrate a 1-click scraper prototype automating lead enrichment."
+                        </div>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-white/5">
+                            <button onclick="copyPitch(this)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all">
+                                📋 Copy Pitch
+                            </button>
+                            <span class="text-xs text-emerald-400">Status: REPLIED</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right 5 Cols: Cold Creator Outbound Radar -->
+            <section class="lg:col-span-5 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+                        <span>🎯 Creator Outbound Radar</span>
+                    </h2>
+                    <span class="text-xs text-cyan-400 font-medium">0 Competition</span>
+                </div>
+
+                <!-- Search Discovery Input -->
+                <div class="glass-card rounded-2xl p-4 space-y-3">
+                    <label class="text-xs font-semibold text-zinc-400">Discover Niche Creator Channels:</label>
+                    <div class="flex space-x-2">
+                        <input type="text" id="niche-input" placeholder="e.g. finance podcast india, saas demo" class="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                        <button onclick="runCreatorAudit()" class="px-4 py-2 text-sm font-semibold rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white transition-all">
+                            Audit
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Creator Audit Box -->
+                <div class="glass-card rounded-2xl p-5 space-y-4" id="creator-audit-box">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                        <div>
+                            <h4 class="font-bold text-white" id="creator-name">Ali Abdaal (5.8M Subs)</h4>
+                            <p class="text-xs text-zinc-400 mt-0.5">Latest: "Our new AI employee can give you $100..."</p>
+                        </div>
+                        <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20">Active</span>
+                    </div>
+
+                    <div class="text-sm text-zinc-300 leading-relaxed bg-black/40 p-3 rounded-xl border border-white/5">
+                        <span class="text-xs font-semibold text-cyan-400 block mb-1">🎯 COLD AUDIT VALUE PITCH:</span>
+                        "Hey Ali Abdaal! Really enjoyed 'Our new AI employee can give you $100 of free work'. I noticed a simple pacing and thumbnail contrast tweak that usually boosts short-form retention by 15-20%. I drafted a quick 1-concept high-CTR thumbnail redesign—would you like me to send it over?"
+                    </div>
+
+                    <button onclick="copyPitch(this)" class="w-full py-2 text-xs font-semibold rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 transition-all flex items-center justify-center space-x-2">
+                        <span>📋 Copy Creator Cold DM</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Interactive Script Helpers -->
+    <script>
+        function copyPitch(button) {
+            const card = button.closest('.glass-card') || button.closest('div');
+            const pitchText = card.querySelector('div.bg-black\\/50, div.bg-black\\/40').innerText;
+            navigator.clipboard.writeText(pitchText);
+            const originalText = button.innerText;
+            button.innerText = '✅ Copied!';
+            setTimeout(() => button.innerText = originalText, 1500);
+        }
+
+        function triggerFollowup() {
+            alert("📦 Retainer Upsell Pitch Loaded:\n\n'Awesome! Here is my reel. I work on a fixed retainer: ₹14,999/mo for 8 High-Retention Shorts + 4 Thumbnails (48h turnaround). Want to do a trial cut today?'");
+        }
+
+        function runInboundScan() {
+            const btn = document.getElementById('scan-btn');
+            btn.innerHTML = '<span>Scanning 4 Feeds...</span>';
+            setTimeout(() => {
+                btn.innerHTML = '<span>✅ Scanned (4 Leads Up to Date)</span>';
+                setTimeout(() => {
+                    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg><span>Scan Inbound Feeds</span>';
+                }, 2000);
+            }, 1200);
+        }
+
+        function runCreatorAudit() {
+            const query = document.getElementById('niche-input').value || 'finance podcast india';
+            document.getElementById('creator-name').innerText = `Auditing Channels for '${query}'...`;
+            setTimeout(() => {
+                document.getElementById('creator-name').innerText = `Finance Creator (${query.toUpperCase()})`;
+                alert(`✅ Generated fresh cold value audit for niche: '${query}'!`);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
